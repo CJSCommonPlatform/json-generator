@@ -2,7 +2,11 @@ package uk.gov.justice.json.schema;
 
 import static java.util.stream.Collectors.toList;
 
-import uk.gov.justice.json.PropertyGenerator;
+import uk.gov.justice.json.generators.PropertyGenerator;
+import uk.gov.justice.json.generators.properties.BooleanPropertyGenerator;
+import uk.gov.justice.json.generators.properties.EmailPropertyGenerator;
+import uk.gov.justice.json.generators.properties.IntegerPropertyGenerator;
+import uk.gov.justice.json.generators.properties.IsoDateTimePropertyGenerator;
 
 import java.util.List;
 import java.util.Map;
@@ -11,6 +15,7 @@ import com.google.gson.Gson;
 
 public class JsonSchemaParser {
 
+    @SuppressWarnings("unchecked")
     public JsonDocumentGenerator parse(final String schema) {
 
         final Map schemaMap = new Gson().fromJson(schema, Map.class);
@@ -26,6 +31,7 @@ public class JsonSchemaParser {
         return new JsonDocumentGenerator(propertyGenerators);
     }
 
+    @SuppressWarnings("unchecked")
     private PropertyGenerator createGenerator(final String propertyName, final Object value) {
 
         final Map<String, String> propertyDefinitions = (Map<String, String>) value;

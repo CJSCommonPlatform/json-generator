@@ -1,10 +1,10 @@
-package uk.gov.justice.json.schema;
+package uk.gov.justice.json.generators.properties;
 
 import static uk.gov.justice.json.Constants.COLON;
 import static uk.gov.justice.json.Constants.DOUBLE_QUOTE;
 import static uk.gov.justice.json.Constants.SPACE;
 
-import uk.gov.justice.json.PropertyGenerator;
+import uk.gov.justice.json.generators.PropertyGenerator;
 
 public class EmailPropertyGenerator implements PropertyGenerator {
 

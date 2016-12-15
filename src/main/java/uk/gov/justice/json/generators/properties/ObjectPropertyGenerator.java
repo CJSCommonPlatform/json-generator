@@ -1,10 +1,10 @@
-package uk.gov.justice.json.schema;
+package uk.gov.justice.json.generators.properties;
 
 import static uk.gov.justice.json.Constants.COMMA;
 import static uk.gov.justice.json.Constants.LEFT_BRACE;
 import static uk.gov.justice.json.Constants.RIGHT_BRACE;
 
-import uk.gov.justice.json.PropertyGenerator;
+import uk.gov.justice.json.generators.PropertyGenerator;
 
 import java.util.ArrayList;
 import java.util.List;

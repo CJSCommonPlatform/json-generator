@@ -1,4 +1,4 @@
-package uk.gov.justice.json.schema;
+package uk.gov.justice.json.generators.values;
 
 public class RandomEmailGenerator {
 

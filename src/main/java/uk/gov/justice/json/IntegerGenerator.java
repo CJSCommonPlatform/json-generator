@@ -2,6 +2,8 @@ package uk.gov.justice.json;
 
 import static java.lang.String.format;
 
+import uk.gov.justice.json.generators.PropertyGenerator;
+
 import java.util.Random;
 
 public class IntegerGenerator implements PropertyGenerator {

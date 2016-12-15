@@ -1,6 +1,4 @@
-package uk.gov.justice.json;
-
-import java.util.Random;
+package uk.gov.justice.json.generators;
 
 public interface PropertyGenerator {
 

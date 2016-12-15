@@ -1,10 +1,8 @@
-package uk.gov.justice.json.schema;
+package uk.gov.justice.json.generators.properties;
 
-import static uk.gov.justice.json.Constants.COLON;
-import static uk.gov.justice.json.Constants.DOUBLE_QUOTE;
-import static uk.gov.justice.json.Constants.SPACE;
-
-import uk.gov.justice.json.PropertyGenerator;
+import uk.gov.justice.json.generators.PropertyGenerator;
+import uk.gov.justice.json.generators.values.RandomBooleanGenerator;
+import uk.gov.justice.json.formatting.UnquotedJsonPropertyFormatter;
 
 import com.google.common.annotations.VisibleForTesting;
 

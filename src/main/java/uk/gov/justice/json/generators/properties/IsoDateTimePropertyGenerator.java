@@ -1,6 +1,8 @@
-package uk.gov.justice.json.schema;
+package uk.gov.justice.json.generators.properties;
 
-import uk.gov.justice.json.PropertyGenerator;
+import uk.gov.justice.json.generators.PropertyGenerator;
+import uk.gov.justice.json.formatting.QuotedJsonPropertyFormatter;
+import uk.gov.justice.json.generators.values.RandomDateTimeGenerator;
 
 import com.google.common.annotations.VisibleForTesting;
 
