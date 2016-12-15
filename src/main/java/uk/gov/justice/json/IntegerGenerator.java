@@ -2,7 +2,11 @@ package uk.gov.justice.json;
 
 import static java.lang.String.format;
 
-public class IntegerGenerator extends Generator<Integer> {
+import java.util.Random;
+
+public class IntegerGenerator implements PropertyGenerator {
+
+    private final Random random = new Random();
 
     /**
      * The minimum value of the range
@@ -39,7 +43,12 @@ public class IntegerGenerator extends Generator<Integer> {
     }
 
     @Override
-    public Integer next() {
-        return RANDOM.ints(min, max).limit(1).findFirst().getAsInt();
+    public String getName() {
+        return null;
+    }
+
+    @Override
+    public String next() {
+        return "" + random.ints(min, max).limit(1).findFirst().getAsInt();
     }
 }

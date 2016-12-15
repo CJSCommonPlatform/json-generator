@@ -9,9 +9,10 @@ public class JsonFromSchemaMapCreator {
     private final Random random = new Random();
 
     private final JsonValueCreator jsonValueCreator = new JsonValueCreator();
+    private final JsonStringCreator jsonStringCreator = new JsonStringCreator();
 
     @SuppressWarnings("unchecked")
-    public String processSchemaJsonObjectForType(final Map schemaMap) {
+    public String createJson(final Map schemaMap) {
 
         if (schemaMap.containsKey("$ref")) {
             return processSchemaJsonObjectForRef(schemaMap);
@@ -43,7 +44,7 @@ public class JsonFromSchemaMapCreator {
                     sb.append(jsonValueCreator.createRandomBoolean());
                     break;
                 case "string":
-                    sb.append(jsonValueCreator.createRandomString(schemaMap));
+                    sb.append(jsonStringCreator.createRandomString(schemaMap));
                     break;
                 case "integer":
                 case "number":
@@ -77,6 +78,6 @@ public class JsonFromSchemaMapCreator {
     private String getJsonForDefinition(final String definitionKey, final Map schemaMap) {
         final Map definitions = (Map) schemaMap.get("definitions");
         final Map definition = (Map) definitions.get(definitionKey);
-        return new JsonFromSchemaMapCreator().processSchemaJsonObjectForType(definition);
+        return new JsonFromSchemaMapCreator().createJson(definition);
     }
 }

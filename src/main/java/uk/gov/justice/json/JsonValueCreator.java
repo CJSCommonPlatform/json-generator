@@ -1,16 +1,11 @@
 package uk.gov.justice.json;
 
 import static java.lang.String.format;
-import static java.time.format.DateTimeFormatter.ISO_DATE_TIME;
 import static java.util.stream.Collectors.joining;
-import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-import com.mifmif.common.regex.Generex;
 
 public class JsonValueCreator {
 
@@ -38,7 +33,7 @@ public class JsonValueCreator {
         String arrayValue;
 
         if (items instanceof Map) {
-            arrayValue = new JsonFromSchemaMapCreator().processSchemaJsonObjectForType((Map) items);
+            arrayValue = new JsonFromSchemaMapCreator().createJson((Map) items);
         } else if (items instanceof List) {
             List<Map> listOfItems = (List<Map>) items;
             arrayValue = listOfItems.stream().map(this::createJsonObject).collect(joining(", "));
@@ -60,33 +55,14 @@ public class JsonValueCreator {
         if (jsonSchema.containsKey("maximum")) {
             maximum = ((Double) jsonSchema.get("maximum")).intValue();
         }
-        return new IntegerGenerator(minimum, maximum).next();
+//        return new IntegerGenerator(minimum, maximum).next();
+        return -1;
     }
 
-    public String createRandomString(final Map jsonSchema) {
-        String value;
-        if (jsonSchema.containsKey("pattern")) {
-            String pattern = (String) jsonSchema.get("pattern");
-            //TODO fix the pattern properly
-            pattern = pattern.replace('^', ' ').replace('$', ' ').trim();
-            value = new Generex(pattern).random();
-        } else if (jsonSchema.containsKey("format")) {
-            String format = (String) jsonSchema.get("format");
-            if (format.equals("email")) {
-                value = randomAlphanumeric(5) + "@test.com";
-            } else if (format.equals("date-time")) {
-                value = ZonedDateTime.now().format(ISO_DATE_TIME);
-            } else {
-                value = randomAlphanumeric(10);
-            }
-        } else {
-            value = randomAlphanumeric(10);
-        }
-        return format("\"%s\"", value);
-    }
+
 
     public String createJsonObject(final Map jsonSchema) {
-        StringBuilder sb = new StringBuilder();
+        final StringBuilder sb = new StringBuilder();
         sb.append('{');
         if (jsonSchema.containsKey("required")) {
             final List<String> required = (List<String>) jsonSchema.get("required");
@@ -132,7 +108,7 @@ public class JsonValueCreator {
         if (value.containsKey("enum")) {
             return processSchemaJsonObjectForEnum(value);
         } else if (value.containsKey("type")) {
-            return new JsonFromSchemaMapCreator().processSchemaJsonObjectForType(value);
+            return new JsonFromSchemaMapCreator().createJson(value);
         } else if (value.containsKey("$ref")) {
             return processSchemaJsonObjectForRef(value);
         } else {
@@ -142,7 +118,7 @@ public class JsonValueCreator {
 
     private String processSchemaJsonObjectForEnum(Map jsonObj) {
         final Object anEnum = jsonObj.get("enum");
-        List<String> items = (List<String>) anEnum;
+        final List<String> items = (List<String>) anEnum;
 
         final Object next1 = items.get(random.nextInt(items.size()));
         if (next1 instanceof Boolean) {
@@ -164,6 +140,6 @@ public class JsonValueCreator {
     private String getJsonForDefinition(final String definitionKey, final Map schemaMap) {
         final Map definitions = (Map) schemaMap.get("definitions");
         final Map definition = (Map) definitions.get(definitionKey);
-        return new JsonFromSchemaMapCreator().processSchemaJsonObjectForType(definition);
+        return new JsonFromSchemaMapCreator().createJson(definition);
     }
 }
