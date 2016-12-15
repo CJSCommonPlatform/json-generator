@@ -1,13 +1,10 @@
-package uk.gov.justice.json.schema;
+package uk.gov.justice.json.generators.values;
 
 import static java.time.ZoneOffset.UTC;
 import static java.time.ZonedDateTime.now;
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
-import uk.gov.justice.json.PropertyGenerator;
-
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 public class RandomDateTimeGenerator {

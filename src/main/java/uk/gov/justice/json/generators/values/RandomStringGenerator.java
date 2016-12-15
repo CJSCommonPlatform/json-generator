@@ -1,4 +1,4 @@
-package uk.gov.justice.json.schema;
+package uk.gov.justice.json.generators.values;
 
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 

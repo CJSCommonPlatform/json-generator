@@ -8,6 +8,8 @@ import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 
+import uk.gov.justice.json.generators.PropertyGenerator;
+
 public class JsonFromSchemaGenerator implements PropertyGenerator {
 
     private final Map schemaMap;

@@ -1,9 +1,7 @@
-package uk.gov.justice.json.schema;
+package uk.gov.justice.json.generators.values;
 
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.String.format;
-
-import uk.gov.justice.json.PropertyGenerator;
 
 import java.util.Random;
 

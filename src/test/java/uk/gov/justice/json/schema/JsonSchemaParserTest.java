@@ -6,30 +6,22 @@ import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.Matchers.hasSize;
-import static org.junit.Assert.*;
 
 import org.apache.commons.io.IOUtils;
-import org.hamcrest.Matchers;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.when;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
 
-import uk.gov.justice.json.PropertyGenerator;
+import uk.gov.justice.json.generators.PropertyGenerator;
+import uk.gov.justice.json.generators.properties.BooleanPropertyGenerator;
+import uk.gov.justice.json.generators.properties.EmailPropertyGenerator;
+import uk.gov.justice.json.generators.properties.IntegerPropertyGenerator;
+import uk.gov.justice.json.generators.properties.IsoDateTimePropertyGenerator;
 
 import java.io.File;
 import java.io.FileInputStream;
