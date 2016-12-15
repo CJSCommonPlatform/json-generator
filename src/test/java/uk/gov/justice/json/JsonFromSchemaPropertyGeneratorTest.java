@@ -22,7 +22,7 @@ import static com.google.common.base.Charsets.UTF_8;
 import static java.nio.charset.Charset.defaultCharset;
 import static org.junit.Assert.fail;
 
-public class JsonFromSchemaGeneratorTest {
+public class JsonFromSchemaPropertyGeneratorTest {
 
     private static Schema getJsonSchemaFor(final String pathToJsonSchema) throws IOException {
         final String jsonSchema = getJsonContentFrom(pathToJsonSchema);
