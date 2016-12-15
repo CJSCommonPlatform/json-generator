@@ -1,23 +1,22 @@
 package uk.gov.justice.json.generators.properties;
 
-import uk.gov.justice.json.generators.PropertyGenerator;
 import uk.gov.justice.json.generators.values.RandomBooleanGenerator;
 import uk.gov.justice.json.formatting.UnquotedJsonPropertyFormatter;
 
 import com.google.common.annotations.VisibleForTesting;
 
-public class BooleanPropertyGenerator implements PropertyGenerator {
+public class BooleanJsonPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
     private final RandomBooleanGenerator randomBooleanGenerator;
     private final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter;
 
-    public BooleanPropertyGenerator(final String name) {
+    public BooleanJsonPropertyGenerator(final String name) {
         this(name, new RandomBooleanGenerator(), new UnquotedJsonPropertyFormatter());
     }
 
     @VisibleForTesting
-    BooleanPropertyGenerator(
+    BooleanJsonPropertyGenerator(
             final String name,
             final RandomBooleanGenerator randomBooleanGenerator,
             final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter) {
@@ -32,7 +31,7 @@ public class BooleanPropertyGenerator implements PropertyGenerator {
     }
 
     @Override
-    public String next() {
+    public String nextJson() {
         return unquotedJsonPropertyFormatter.toJson(name, randomBooleanGenerator.randomBoolean());
     }
 }

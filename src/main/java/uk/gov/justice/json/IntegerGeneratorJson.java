@@ -2,11 +2,11 @@ package uk.gov.justice.json;
 
 import static java.lang.String.format;
 
-import uk.gov.justice.json.generators.PropertyGenerator;
+import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
 
 import java.util.Random;
 
-public class IntegerGenerator implements PropertyGenerator {
+public class IntegerGeneratorJson implements JsonPropertyGenerator {
 
     private final Random random = new Random();
 
@@ -24,7 +24,7 @@ public class IntegerGenerator implements PropertyGenerator {
      * Package Access only
      * 
      */
-    IntegerGenerator() {
+    IntegerGeneratorJson() {
         this.min = Integer.MIN_VALUE;
         this.max = Integer.MAX_VALUE;
     }
@@ -35,7 +35,7 @@ public class IntegerGenerator implements PropertyGenerator {
      * @param min value included
      * @param max value excluded
      */
-    IntegerGenerator(final int min, final int max) {
+    IntegerGeneratorJson(final int min, final int max) {
         if (min >= max) {
             throw new IllegalArgumentException(
                             format("Min value cannot be greater than or equal to Max value, got Min: %s and Max: %s", min, max));
@@ -50,7 +50,7 @@ public class IntegerGenerator implements PropertyGenerator {
     }
 
     @Override
-    public String next() {
+    public String nextJson() {
         return "" + random.ints(min, max).limit(1).findFirst().getAsInt();
     }
 }

@@ -1,22 +1,21 @@
 package uk.gov.justice.json.generators.properties;
 
-import uk.gov.justice.json.generators.PropertyGenerator;
 import uk.gov.justice.json.generators.values.RandomIntegerGenerator;
 import uk.gov.justice.json.formatting.UnquotedJsonPropertyFormatter;
 
-public class IntegerPropertyGenerator implements PropertyGenerator {
+public class IntegerJsonPropertyGenerator implements JsonPropertyGenerator {
 
 
     private final String name;
     private final RandomIntegerGenerator randomIntegerGenerator;
     private final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter = new UnquotedJsonPropertyFormatter();
 
-    public IntegerPropertyGenerator(final String name) {
+    public IntegerJsonPropertyGenerator(final String name) {
         this(name, new RandomIntegerGenerator());
     }
 
 
-    public IntegerPropertyGenerator(final String name, final RandomIntegerGenerator randomIntegerGenerator) {
+    public IntegerJsonPropertyGenerator(final String name, final RandomIntegerGenerator randomIntegerGenerator) {
         this.name = name;
         this.randomIntegerGenerator = randomIntegerGenerator;
     }
@@ -27,7 +26,7 @@ public class IntegerPropertyGenerator implements PropertyGenerator {
     }
 
     @Override
-    public String next() {
+    public String nextJson() {
         return unquotedJsonPropertyFormatter.toJson(
                 name,
                 randomIntegerGenerator.randomInt());

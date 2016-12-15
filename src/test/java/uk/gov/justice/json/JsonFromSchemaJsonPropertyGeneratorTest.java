@@ -12,7 +12,6 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,7 +21,7 @@ import static com.google.common.base.Charsets.UTF_8;
 import static java.nio.charset.Charset.defaultCharset;
 import static org.junit.Assert.fail;
 
-public class JsonFromSchemaPropertyGeneratorTest {
+public class JsonFromSchemaJsonPropertyGeneratorTest {
 
     private static Schema getJsonSchemaFor(final String pathToJsonSchema) throws IOException {
         final String jsonSchema = getJsonContentFrom(pathToJsonSchema);
@@ -46,9 +45,9 @@ public class JsonFromSchemaPropertyGeneratorTest {
         final File file = new File("src/test/resources/support.support-request.json");
 
         final String jsonSchema = IOUtils.toString(new FileInputStream(file), defaultCharset());
-        final JsonFromSchemaGenerator schemaGenerator = new JsonFromSchemaGenerator(jsonSchema);
+        final JsonFromSchemaGeneratorJson schemaGenerator = new JsonFromSchemaGeneratorJson(jsonSchema);
 
-        final String json = schemaGenerator.next();
+        final String json = schemaGenerator.nextJson();
 
         System.out.println(json);
     }
@@ -79,10 +78,10 @@ public class JsonFromSchemaPropertyGeneratorTest {
 //        String pathToJsonSchema = "example.make-cake.json";
 //        String pathToJsonSchema = "example.order-cake.json";
         String pathToJsonSchema = "charging.command.update-review.json";
-        JsonFromSchemaGenerator jsonFromSchemaGenerator = new JsonFromSchemaGenerator(pathToJsonSchema);
+        JsonFromSchemaGeneratorJson jsonFromSchemaGenerator = new JsonFromSchemaGeneratorJson(pathToJsonSchema);
 
         // when
-        String json = jsonFromSchemaGenerator.next();
+        String json = jsonFromSchemaGenerator.nextJson();
 
         try {
             System.out.println(json);
@@ -95,9 +94,9 @@ public class JsonFromSchemaPropertyGeneratorTest {
 
     private boolean validateRandomJsonGenerator(String pathToJsonSchema) {
         try {
-            JsonFromSchemaGenerator jsonFromSchemaGenerator = new JsonFromSchemaGenerator(pathToJsonSchema);
+            JsonFromSchemaGeneratorJson jsonFromSchemaGenerator = new JsonFromSchemaGeneratorJson(pathToJsonSchema);
             // when
-            String json = jsonFromSchemaGenerator.next();
+            String json = jsonFromSchemaGenerator.nextJson();
 
             final Schema jsonSchema = getJsonSchemaFor(pathToJsonSchema);
             jsonSchema.validate(new JSONObject(json));

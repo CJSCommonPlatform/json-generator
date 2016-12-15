@@ -10,7 +10,7 @@ import static org.junit.Assert.assertThat;
 
 import uk.gov.justice.json.generators.values.RandomEmailGenerator;
 
-public class RandomEmailPropertyGeneratorTest {
+public class RandomEmailJsonPropertyGeneratorTest {
 
     private final RandomEmailGenerator randomEmailGenerator = new RandomEmailGenerator();
 

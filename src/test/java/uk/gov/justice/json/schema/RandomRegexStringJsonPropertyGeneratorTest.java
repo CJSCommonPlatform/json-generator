@@ -16,7 +16,7 @@ import uk.gov.justice.json.generators.values.RandomRegexStringGenerator;
 import java.util.UUID;
 
 
-public class RandomRegexStringPropertyGeneratorTest {
+public class RandomRegexStringJsonPropertyGeneratorTest {
 
     private final RandomRegexStringGenerator randomRegexStringGenerator = new RandomRegexStringGenerator();
 

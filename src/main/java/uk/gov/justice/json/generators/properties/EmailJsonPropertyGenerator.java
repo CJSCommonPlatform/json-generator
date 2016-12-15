@@ -4,13 +4,11 @@ import static uk.gov.justice.json.Constants.COLON;
 import static uk.gov.justice.json.Constants.DOUBLE_QUOTE;
 import static uk.gov.justice.json.Constants.SPACE;
 
-import uk.gov.justice.json.generators.PropertyGenerator;
-
-public class EmailPropertyGenerator implements PropertyGenerator {
+public class EmailJsonPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
 
-    public EmailPropertyGenerator(final String name) {
+    public EmailJsonPropertyGenerator(final String name) {
         this.name = name;
     }
 
@@ -20,7 +18,7 @@ public class EmailPropertyGenerator implements PropertyGenerator {
     }
 
     @Override
-    public String next() {
+    public String nextJson() {
         return DOUBLE_QUOTE + name + DOUBLE_QUOTE + COLON + SPACE + DOUBLE_QUOTE + "fred.bloggs@gerritt.com" + DOUBLE_QUOTE;
     }
 }
