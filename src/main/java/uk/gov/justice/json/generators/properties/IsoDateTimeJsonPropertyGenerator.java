@@ -1,23 +1,22 @@
 package uk.gov.justice.json.generators.properties;
 
-import uk.gov.justice.json.generators.PropertyGenerator;
 import uk.gov.justice.json.formatting.QuotedJsonPropertyFormatter;
 import uk.gov.justice.json.generators.values.RandomDateTimeGenerator;
 
 import com.google.common.annotations.VisibleForTesting;
 
-public class IsoDateTimePropertyGenerator implements PropertyGenerator {
+public class IsoDateTimeJsonPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
     private final RandomDateTimeGenerator randomDateTimeGenerator;
     private final QuotedJsonPropertyFormatter quotedJsonPropertyFormatter = new QuotedJsonPropertyFormatter();
 
-    public IsoDateTimePropertyGenerator(final String name) {
+    public IsoDateTimeJsonPropertyGenerator(final String name) {
         this(name, new RandomDateTimeGenerator());
     }
 
     @VisibleForTesting
-    IsoDateTimePropertyGenerator(
+    IsoDateTimeJsonPropertyGenerator(
             final String name,
             final RandomDateTimeGenerator randomDateTimeGenerator) {
         this.name = name;
@@ -30,7 +29,7 @@ public class IsoDateTimePropertyGenerator implements PropertyGenerator {
     }
 
     @Override
-    public String next() {
+    public String nextJson() {
         return quotedJsonPropertyFormatter.toJson(name, randomDateTimeGenerator.randomDateTime());
     }
 }

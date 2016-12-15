@@ -8,13 +8,13 @@ import static java.lang.String.format;
 import static java.util.stream.Collectors.joining;
 import static org.apache.commons.lang3.RandomStringUtils.randomAlphanumeric;
 
-import uk.gov.justice.json.generators.PropertyGenerator;
+import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
 
-public class JsonFromSchemaGenerator implements PropertyGenerator {
+public class JsonFromSchemaGeneratorJson implements JsonPropertyGenerator {
 
     private final Map schemaMap;
 
-    public JsonFromSchemaGenerator(String jsonSchema) {
+    public JsonFromSchemaGeneratorJson(String jsonSchema) {
         schemaMap = new Gson().fromJson(jsonSchema, Map.class);
     }
 
@@ -23,7 +23,7 @@ public class JsonFromSchemaGenerator implements PropertyGenerator {
         return null;
     }
 
-    public String next() {
+    public String nextJson() {
         return new JsonFromSchemaMapCreator().createJson(schemaMap);
     }
 }
