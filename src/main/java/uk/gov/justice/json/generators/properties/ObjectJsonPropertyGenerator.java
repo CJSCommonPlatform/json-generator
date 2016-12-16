@@ -30,6 +30,10 @@ public class ObjectJsonPropertyGenerator implements JsonPropertyGenerator {
         return name;
     }
 
+    public List<JsonPropertyGenerator> getJsonPropertyGenerators() {
+        return jsonPropertyGenerators;
+    }
+
     @Override
     public String nextJson() {
 
