@@ -25,7 +25,7 @@ public class RandomIntegerGenerator {
         this.max = max;
     }
 
-    public String randomInt() {
-        return "" + random.ints(min, max).limit(1).findFirst().getAsInt();
+    public int randomInt() {
+        return random.ints(min, max).limit(1).findFirst().getAsInt();
     }
 }

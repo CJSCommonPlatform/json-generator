@@ -9,18 +9,20 @@ public class IsoDateTimeJsonPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
     private final RandomDateTimeGenerator randomDateTimeGenerator;
-    private final QuotedJsonPropertyFormatter quotedJsonPropertyFormatter = new QuotedJsonPropertyFormatter();
+    private final QuotedJsonPropertyFormatter quotedJsonPropertyFormatter;
 
     public IsoDateTimeJsonPropertyGenerator(final String name) {
-        this(name, new RandomDateTimeGenerator());
+        this(name, new RandomDateTimeGenerator(), new QuotedJsonPropertyFormatter());
     }
 
     @VisibleForTesting
     IsoDateTimeJsonPropertyGenerator(
             final String name,
-            final RandomDateTimeGenerator randomDateTimeGenerator) {
+            final RandomDateTimeGenerator randomDateTimeGenerator,
+            final QuotedJsonPropertyFormatter quotedJsonPropertyFormatter) {
         this.name = name;
         this.randomDateTimeGenerator = randomDateTimeGenerator;
+        this.quotedJsonPropertyFormatter = quotedJsonPropertyFormatter;
     }
 
     @Override
