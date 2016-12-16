@@ -23,14 +23,14 @@ public class ObjectPropertyGeneratorFactory {
     }
 
     @SuppressWarnings("unchecked")
-    public JsonPropertyGenerator createGenerator(final String propertyName, final Object value) {
+    public ObjectJsonPropertyGenerator createGenerator(final String propertyName, final Object value) {
 
         final Map<String, Object> properties = (Map<String, Object>) value;
-
         final List<JsonPropertyGenerator> jsonPropertyGenerators = new ArrayList<>();
+        final SimplePropertyGeneratorFactory newPropertyGeneratorFactory = factoryProvider.createNewPropertyGeneratorFactory();
 
         properties.forEach((name, values) -> {
-            jsonPropertyGenerators.add(factoryProvider.createNewPropertyFactory().createGenerator(name, values));
+            jsonPropertyGenerators.add(newPropertyGeneratorFactory.createGenerator(name, values));
         });
 
         return new ObjectJsonPropertyGenerator(propertyName, jsonPropertyGenerators);

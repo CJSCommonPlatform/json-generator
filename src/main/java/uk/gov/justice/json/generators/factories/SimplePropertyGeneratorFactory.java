@@ -15,15 +15,10 @@ import com.google.common.annotations.VisibleForTesting;
 
 public class SimplePropertyGeneratorFactory {
 
-    private final FactoryProvider factoryProvider;
+    private FactoryProvider factoryProvider;
 
     public SimplePropertyGeneratorFactory() {
-        this(new FactoryProvider());
-    }
-
-    @VisibleForTesting
-    SimplePropertyGeneratorFactory(final FactoryProvider factoryProvider) {
-        this.factoryProvider = factoryProvider;
+        factoryProvider = new FactoryProvider();
     }
 
     @SuppressWarnings("unchecked")
@@ -33,37 +28,39 @@ public class SimplePropertyGeneratorFactory {
 
         final String type = (String) propertyDefinitions.get("type");
         if ("string".equals(type)) {
-
-            final String format = (String) propertyDefinitions.get("format");
-            if (format != null) {
-                if ("email".equals(format)) {
-                    return new EmailJsonPropertyGenerator(propertyName);
-                }
-                if ("date-time".equals(format)) {
-                    return new IsoDateTimeJsonPropertyGenerator(propertyName);
-                }
-            }
-            final String pattern = (String) propertyDefinitions.get("pattern");
-
-            if (pattern != null) {
-                return new RegexJsonPropertyGenerator(propertyName, pattern);
-            }
-
-            return new StringJsonPropertyGenerator(propertyName);
+            return getStringTypePropertyGenerator(propertyName, propertyDefinitions);
         }
-
         if ("integer".equals(type)) {
             return new IntegerJsonPropertyGenerator(propertyName);
         }
         if ("boolean".equals(type)) {
             return new BooleanJsonPropertyGenerator(propertyName);
         }
-
         if("object".equals(type)) {
             final Object properties = propertyDefinitions.get("properties");
-            return factoryProvider.createNewObjectFactory().createGenerator(propertyName, properties);
+            return factoryProvider.createNewObjectGeneratorFactory().createGenerator(propertyName, properties);
         }
 
         throw new JsonGenerationException("Unknown property type '" + type + "'");
+    }
+
+    private JsonPropertyGenerator getStringTypePropertyGenerator(final String propertyName, final Map<String, Object> propertyDefinitions) {
+
+        final String format = (String) propertyDefinitions.get("format");
+        if (format != null) {
+            if ("email".equals(format)) {
+                return new EmailJsonPropertyGenerator(propertyName);
+            }
+            if ("date-time".equals(format)) {
+                return new IsoDateTimeJsonPropertyGenerator(propertyName);
+            }
+        }
+        final String pattern = (String) propertyDefinitions.get("pattern");
+
+        if (pattern != null) {
+            return new RegexJsonPropertyGenerator(propertyName, pattern);
+        }
+
+        return new StringJsonPropertyGenerator(propertyName);
     }
 }

@@ -31,6 +31,10 @@ public class RegexJsonPropertyGenerator implements JsonPropertyGenerator {
         return name;
     }
 
+    public String getPattern() {
+        return pattern;
+    }
+
     @Override
     public String nextJson() {
         return quotedJsonPropertyFormatter.toJson(name, randomRegexStringGenerator.randomString(pattern));
