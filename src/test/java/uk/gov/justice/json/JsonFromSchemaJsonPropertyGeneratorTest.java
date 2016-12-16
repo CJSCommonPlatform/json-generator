@@ -1,13 +1,8 @@
 package uk.gov.justice.json;
 
-import com.google.common.io.Resources;
-import org.apache.commons.io.IOUtils;
-import org.everit.json.schema.Schema;
-import org.everit.json.schema.loader.SchemaLoader;
-import org.json.JSONObject;
-import org.json.JSONTokener;
-import org.junit.Ignore;
-import org.junit.Test;
+import static com.google.common.base.Charsets.UTF_8;
+import static java.nio.charset.Charset.defaultCharset;
+import static org.junit.Assert.fail;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,9 +12,14 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.stream.Stream;
 
-import static com.google.common.base.Charsets.UTF_8;
-import static java.nio.charset.Charset.defaultCharset;
-import static org.junit.Assert.fail;
+import com.google.common.io.Resources;
+import org.apache.commons.io.IOUtils;
+import org.everit.json.schema.Schema;
+import org.everit.json.schema.loader.SchemaLoader;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+import org.junit.Ignore;
+import org.junit.Test;
 
 public class JsonFromSchemaJsonPropertyGeneratorTest {
 

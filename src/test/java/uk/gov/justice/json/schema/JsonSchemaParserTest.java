@@ -1,36 +1,27 @@
 package uk.gov.justice.json.schema;
 
-import static com.jayway.jsonassert.JsonAssert.with;
 import static java.nio.charset.Charset.defaultCharset;
-import static org.hamcrest.CoreMatchers.hasItem;
 import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
-
-import org.apache.commons.io.IOUtils;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import org.junit.Test;
-
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import uk.gov.justice.json.generators.factories.SimplePropertyGeneratorFactory;
-import uk.gov.justice.json.generators.properties.EmailJsonPropertyGenerator;
-import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.BooleanJsonPropertyGenerator;
+import uk.gov.justice.json.generators.properties.EmailJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.IntegerJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.IsoDateTimeJsonPropertyGenerator;
+import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.ObjectJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.RegexJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.StringJsonPropertyGenerator;
-import uk.gov.justice.services.test.utils.core.random.EmailAddressGenerator;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.List;
+
+import org.apache.commons.io.IOUtils;
+import org.junit.Test;
 
 public class JsonSchemaParserTest {
 

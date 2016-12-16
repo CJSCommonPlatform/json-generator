@@ -3,12 +3,9 @@ package uk.gov.justice.json.schema;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import org.junit.Test;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
 import uk.gov.justice.json.formatting.QuotedJsonPropertyFormatter;
+
+import org.junit.Test;
 
 public class SimpleJsonPropertyFormatterTest {
 
