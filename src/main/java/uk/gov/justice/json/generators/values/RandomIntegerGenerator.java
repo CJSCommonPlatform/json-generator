@@ -19,7 +19,7 @@ public class RandomIntegerGenerator {
     public RandomIntegerGenerator(final int min, final int max) {
         if (min >= max) {
             throw new IllegalArgumentException(
-                            format("Min value cannot be greater than or equal to Max value, got Min: %s and Max: %s", min, max));
+                    format("Min value cannot be greater than or equal to Max value, got Min: %s and Max: %s", min, max));
         }
         this.min = min;
         this.max = max;

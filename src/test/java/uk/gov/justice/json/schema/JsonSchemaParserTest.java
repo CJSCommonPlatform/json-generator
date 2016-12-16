@@ -18,14 +18,15 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import uk.gov.justice.json.generators.factories.SimplePropertyGeneratorFactory;
+import uk.gov.justice.json.generators.properties.EmailJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.BooleanJsonPropertyGenerator;
-import uk.gov.justice.json.generators.properties.EmailJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.IntegerJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.IsoDateTimeJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.ObjectJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.RegexJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.StringJsonPropertyGenerator;
+import uk.gov.justice.services.test.utils.core.random.EmailAddressGenerator;
 
 import java.io.File;
 import java.io.FileInputStream;
