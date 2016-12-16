@@ -3,12 +3,14 @@ package uk.gov.justice.json.generators.factories;
 import uk.gov.justice.json.JsonGenerationException;
 import uk.gov.justice.json.generators.properties.BooleanJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.EmailJsonPropertyGenerator;
+import uk.gov.justice.json.generators.properties.EnumJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.IntegerJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.IsoDateTimeJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.RegexJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.StringJsonPropertyGenerator;
 
+import java.util.List;
 import java.util.Map;
 
 public class SimplePropertyGeneratorFactory {
@@ -25,6 +27,11 @@ public class SimplePropertyGeneratorFactory {
         final Map<String, Object> propertyDefinitions = (Map<String, Object>) value;
 
         final String type = (String) propertyDefinitions.get("type");
+        if(propertyDefinitions.containsKey("enum")) {
+            final List<Object> enums = (List<Object>) propertyDefinitions.get("enum");
+            return new EnumJsonPropertyGenerator(propertyName, enums);
+
+        }
 
         switch (type) {
             case "string":
@@ -35,6 +42,8 @@ public class SimplePropertyGeneratorFactory {
                 return new BooleanJsonPropertyGenerator(propertyName);
             case "object":
                 return getObjectTypePropertyGenerator(propertyName, propertyDefinitions);
+            case "enum":
+//                return new EnumJsonPropertyGenerator(propertyName, propertyDefinitions);
             default:
                 throw new JsonGenerationException("Unknown property type '" + type + "'");
         }

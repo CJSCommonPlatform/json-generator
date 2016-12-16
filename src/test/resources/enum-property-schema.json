@@ -4,6 +4,7 @@
   "type": "object",
   "properties": {
     "stringEnumProperty": {
+      "type": "string",
       "enum": [
         "red",
         "amber",
@@ -11,12 +12,14 @@
       ]
     },
     "integerEnumProperty": {
+      "type": "integer",
       "enum": [
         23,
         42
       ]
     },
     "booleanEnumProperty": {
+      "type": "boolean",
       "enum": [
         true
       ]
@@ -25,7 +28,8 @@
       "enum": [
         "red",
         false,
-        23
+        23,
+        3.14159265358979323846264338327950288419716939937510582
       ]
     }
   },
