@@ -6,7 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import uk.gov.justice.json.formatting.QuotedJsonPropertyFormatter;
-import uk.gov.justice.json.generators.values.RandomEmailGenerator;
+import uk.gov.justice.services.test.utils.core.random.EmailAddressGenerator;
 
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ public class EmailJsonPropertyGeneratorTest {
 
     private static final String PROPERTY_NAME = "emailProperty";
 
-    private final RandomEmailGenerator randomEmailGenerator = mock(RandomEmailGenerator.class);
+    private final EmailAddressGenerator randomEmailGenerator = mock(EmailAddressGenerator.class);
     private final QuotedJsonPropertyFormatter quotedJsonPropertyFormatter = mock(QuotedJsonPropertyFormatter.class);
 
     private final EmailJsonPropertyGenerator emailJsonPropertyGenerator = new EmailJsonPropertyGenerator(
@@ -27,9 +27,9 @@ public class EmailJsonPropertyGeneratorTest {
     public void shouldGenerateCorrectJsonForABooleanPropertyWithARandomValue() throws Exception {
 
         final String randomEmail = "fred.bloggs@gerritt.com";
-        final String json  = "some json";
+        final String json = "some json";
 
-        when(randomEmailGenerator.randomEmail()).thenReturn(randomEmail);
+        when(randomEmailGenerator.next()).thenReturn(randomEmail);
         when(quotedJsonPropertyFormatter.toJson(PROPERTY_NAME, randomEmail)).thenReturn(json);
 
         assertThat(emailJsonPropertyGenerator.nextJson(), is(json));
@@ -39,7 +39,7 @@ public class EmailJsonPropertyGeneratorTest {
     public void shouldGenerateValidJson() throws Exception {
 
         final String randomEmail = "fred.bloggs@gerritt.com";
-        when(randomEmailGenerator.randomEmail()).thenReturn(randomEmail);
+        when(randomEmailGenerator.next()).thenReturn(randomEmail);
 
         final EmailJsonPropertyGenerator propertyGenerator = new EmailJsonPropertyGenerator(
                 PROPERTY_NAME,

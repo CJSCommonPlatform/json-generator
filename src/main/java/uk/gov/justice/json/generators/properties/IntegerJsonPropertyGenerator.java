@@ -1,7 +1,7 @@
 package uk.gov.justice.json.generators.properties;
 
-import uk.gov.justice.json.generators.values.RandomIntegerGenerator;
 import uk.gov.justice.json.formatting.UnquotedJsonPropertyFormatter;
+import uk.gov.justice.json.generators.values.RandomIntegerGenerator;
 
 import com.google.common.annotations.VisibleForTesting;
 

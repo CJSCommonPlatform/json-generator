@@ -6,7 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import uk.gov.justice.json.formatting.QuotedJsonPropertyFormatter;
-import uk.gov.justice.json.generators.values.RandomStringGenerator;
+import uk.gov.justice.services.test.utils.core.random.StringGenerator;
 
 import org.junit.Test;
 
@@ -14,7 +14,7 @@ public class StringJsonPropertyGeneratorTest {
 
     private static final String PROPERTY_NAME = "stringProperty";
 
-    private final RandomStringGenerator randomStringGenerator = mock(RandomStringGenerator.class);
+    private final StringGenerator randomStringGenerator = mock(StringGenerator.class);
     private final QuotedJsonPropertyFormatter quotedJsonPropertyFormatter = mock(QuotedJsonPropertyFormatter.class);
 
     private final StringJsonPropertyGenerator stringJsonPropertyGenerator = new StringJsonPropertyGenerator(
@@ -29,7 +29,7 @@ public class StringJsonPropertyGeneratorTest {
         final String randomString = "a_random_string";
         final String json  = "some json";
 
-        when(randomStringGenerator.randomString()).thenReturn(randomString);
+        when(randomStringGenerator.next()).thenReturn(randomString);
         when(quotedJsonPropertyFormatter.toJson(PROPERTY_NAME, randomString)).thenReturn(json);
 
         assertThat(stringJsonPropertyGenerator.nextJson(), is(json));
@@ -39,7 +39,7 @@ public class StringJsonPropertyGeneratorTest {
     public void shouldGenerateValidJson() throws Exception {
 
         final String randomString = "a_random_string";
-        when(randomStringGenerator.randomString()).thenReturn(randomString);
+        when(randomStringGenerator.next()).thenReturn(randomString);
 
         final StringJsonPropertyGenerator propertyGenerator = new StringJsonPropertyGenerator(
                 PROPERTY_NAME,
