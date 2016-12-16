@@ -39,6 +39,7 @@ public class JsonFromSchemaJsonPropertyGeneratorTest {
         return jsonContent;
     }
 
+    @Ignore
     @Test
     public void shouldName() throws Exception {
 
