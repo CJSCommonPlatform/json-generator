@@ -1,15 +1,28 @@
 package uk.gov.justice.json.generators.properties;
 
-import static uk.gov.justice.json.Constants.COLON;
-import static uk.gov.justice.json.Constants.DOUBLE_QUOTE;
-import static uk.gov.justice.json.Constants.SPACE;
+import uk.gov.justice.json.formatting.QuotedJsonPropertyFormatter;
+import uk.gov.justice.json.generators.values.RandomEmailGenerator;
+
+import com.google.common.annotations.VisibleForTesting;
 
 public class EmailJsonPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
+    private final RandomEmailGenerator randomEmailGenerator;
+    private final QuotedJsonPropertyFormatter quotedJsonPropertyFormatter;
 
     public EmailJsonPropertyGenerator(final String name) {
+        this(name, new RandomEmailGenerator(), new QuotedJsonPropertyFormatter());
+    }
+
+    @VisibleForTesting
+    EmailJsonPropertyGenerator(
+            final String name,
+            final RandomEmailGenerator randomEmailGenerator,
+            final QuotedJsonPropertyFormatter quotedJsonPropertyFormatter) {
         this.name = name;
+        this.randomEmailGenerator = randomEmailGenerator;
+        this.quotedJsonPropertyFormatter = quotedJsonPropertyFormatter;
     }
 
     @Override
@@ -19,6 +32,6 @@ public class EmailJsonPropertyGenerator implements JsonPropertyGenerator {
 
     @Override
     public String nextJson() {
-        return DOUBLE_QUOTE + name + DOUBLE_QUOTE + COLON + SPACE + DOUBLE_QUOTE + "fred.bloggs@gerritt.com" + DOUBLE_QUOTE;
+        return quotedJsonPropertyFormatter.toJson(name, randomEmailGenerator.randomEmail());
     }
 }

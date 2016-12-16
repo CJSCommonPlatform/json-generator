@@ -3,21 +3,26 @@ package uk.gov.justice.json.generators.properties;
 import uk.gov.justice.json.generators.values.RandomIntegerGenerator;
 import uk.gov.justice.json.formatting.UnquotedJsonPropertyFormatter;
 
-public class IntegerJsonPropertyGenerator implements JsonPropertyGenerator {
+import com.google.common.annotations.VisibleForTesting;
 
+public class IntegerJsonPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
     private final RandomIntegerGenerator randomIntegerGenerator;
-    private final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter = new UnquotedJsonPropertyFormatter();
+    private final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter;
 
     public IntegerJsonPropertyGenerator(final String name) {
-        this(name, new RandomIntegerGenerator());
+        this(name, new RandomIntegerGenerator(), new UnquotedJsonPropertyFormatter());
     }
 
-
-    public IntegerJsonPropertyGenerator(final String name, final RandomIntegerGenerator randomIntegerGenerator) {
+    @VisibleForTesting
+    IntegerJsonPropertyGenerator(
+            final String name,
+            final RandomIntegerGenerator randomIntegerGenerator,
+            final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter) {
         this.name = name;
         this.randomIntegerGenerator = randomIntegerGenerator;
+        this.unquotedJsonPropertyFormatter = unquotedJsonPropertyFormatter;
     }
 
     @Override
