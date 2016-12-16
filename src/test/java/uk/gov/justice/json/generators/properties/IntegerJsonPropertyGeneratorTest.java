@@ -2,17 +2,13 @@ package uk.gov.justice.json.generators.properties;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.Test;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
-
-import uk.gov.justice.json.formatting.QuotedJsonPropertyFormatter;
 import uk.gov.justice.json.formatting.UnquotedJsonPropertyFormatter;
 import uk.gov.justice.json.generators.values.RandomIntegerGenerator;
+
+import org.junit.Test;
 
 public class IntegerJsonPropertyGeneratorTest {
 

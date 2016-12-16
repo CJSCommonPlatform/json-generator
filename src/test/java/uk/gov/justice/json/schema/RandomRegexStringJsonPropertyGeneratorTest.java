@@ -1,19 +1,15 @@
 package uk.gov.justice.json.schema;
 
 import static java.util.UUID.fromString;
+import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import org.junit.Test;
-
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import uk.gov.justice.json.generators.values.RandomRegexStringGenerator;
 
 import java.util.UUID;
+
+import org.junit.Test;
 
 
 public class RandomRegexStringJsonPropertyGeneratorTest {

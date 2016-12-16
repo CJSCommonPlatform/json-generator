@@ -1,7 +1,7 @@
 package uk.gov.justice.json.generators.factories;
 
-import uk.gov.justice.json.generators.properties.ObjectJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
+import uk.gov.justice.json.generators.properties.ObjectJsonPropertyGenerator;
 
 import java.util.ArrayList;
 import java.util.List;

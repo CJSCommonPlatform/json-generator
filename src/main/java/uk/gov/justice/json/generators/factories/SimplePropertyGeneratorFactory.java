@@ -11,8 +11,6 @@ import uk.gov.justice.json.generators.properties.StringJsonPropertyGenerator;
 
 import java.util.Map;
 
-import com.google.common.annotations.VisibleForTesting;
-
 public class SimplePropertyGeneratorFactory {
 
     private FactoryProvider factoryProvider;
@@ -27,21 +25,19 @@ public class SimplePropertyGeneratorFactory {
         final Map<String, Object> propertyDefinitions = (Map<String, Object>) value;
 
         final String type = (String) propertyDefinitions.get("type");
-        if ("string".equals(type)) {
-            return getStringTypePropertyGenerator(propertyName, propertyDefinitions);
-        }
-        if ("integer".equals(type)) {
-            return new IntegerJsonPropertyGenerator(propertyName);
-        }
-        if ("boolean".equals(type)) {
-            return new BooleanJsonPropertyGenerator(propertyName);
-        }
-        if("object".equals(type)) {
-            final Object properties = propertyDefinitions.get("properties");
-            return factoryProvider.createNewObjectGeneratorFactory().createGenerator(propertyName, properties);
-        }
 
-        throw new JsonGenerationException("Unknown property type '" + type + "'");
+        switch (type) {
+            case "string":
+                return getStringTypePropertyGenerator(propertyName, propertyDefinitions);
+            case "integer":
+                return new IntegerJsonPropertyGenerator(propertyName);
+            case "boolean":
+                return new BooleanJsonPropertyGenerator(propertyName);
+            case "object":
+                return getObjectTypePropertyGenerator(propertyName, propertyDefinitions);
+            default:
+                throw new JsonGenerationException("Unknown property type '" + type + "'");
+        }
     }
 
     private JsonPropertyGenerator getStringTypePropertyGenerator(final String propertyName, final Map<String, Object> propertyDefinitions) {
@@ -62,5 +58,10 @@ public class SimplePropertyGeneratorFactory {
         }
 
         return new StringJsonPropertyGenerator(propertyName);
+    }
+
+    private JsonPropertyGenerator getObjectTypePropertyGenerator(final String propertyName, final Map<String, Object> propertyDefinitions) {
+        final Object properties = propertyDefinitions.get("properties");
+        return factoryProvider.createNewObjectGeneratorFactory().createGenerator(propertyName, properties);
     }
 }
