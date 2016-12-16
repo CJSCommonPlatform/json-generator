@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "stringEnumProperty": {
+      "enum": [
+        "red",
+        "amber",
+        "green"
+      ]
+    },
+    "integerEnumProperty": {
+      "enum": [
+        23,
+        42
+      ]
+    },
+    "booleanEnumProperty": {
+      "enum": [
+        true
+      ]
+    },
+    "untypedEnumProperty": {
+      "enum": [
+        "red",
+        false,
+        23
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "stringEnumProperty",
+    "integerEnumProperty",
+    "booleanEnumProperty",
+    "untypedEnumProperty"
+  ]
+}
