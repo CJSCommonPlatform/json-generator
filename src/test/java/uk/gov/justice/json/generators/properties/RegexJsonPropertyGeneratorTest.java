@@ -6,7 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static uk.gov.justice.json.Constants.DOUBLE_QUOTE;
 
-import uk.gov.justice.json.formatting.UnquotedJsonPropertyFormatter;
+import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
 import uk.gov.justice.json.generators.values.RandomRegexStringGenerator;
 
 import org.junit.Test;
@@ -17,13 +17,13 @@ public class RegexJsonPropertyGeneratorTest {
     private static final String PATTERN = "$a|regex|pattern^";
 
     private final RandomRegexStringGenerator randomRegexStringGenerator = mock(RandomRegexStringGenerator.class);
-    private final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter = mock(UnquotedJsonPropertyFormatter.class);
+    private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = mock(SimpleJsonPropertyFormatter.class);
 
     private final RegexJsonPropertyGenerator booleanJsonPropertyGenerator = new RegexJsonPropertyGenerator(
             PROPERTY_NAME,
             PATTERN,
             randomRegexStringGenerator,
-            unquotedJsonPropertyFormatter
+            simpleJsonPropertyFormatter
     );
 
     @Test
@@ -33,7 +33,7 @@ public class RegexJsonPropertyGeneratorTest {
         final String json  = "some json";
 
         when(randomRegexStringGenerator.nextValue()).thenReturn(randomRegexString);
-        when(unquotedJsonPropertyFormatter.toJson(PROPERTY_NAME, randomRegexString)).thenReturn(json);
+        when(simpleJsonPropertyFormatter.toJson(PROPERTY_NAME, randomRegexString)).thenReturn(json);
 
         assertThat(booleanJsonPropertyGenerator.nextJson(), is(json));
     }
@@ -48,7 +48,7 @@ public class RegexJsonPropertyGeneratorTest {
                 PROPERTY_NAME,
                 PATTERN,
                 randomRegexStringGenerator,
-                new UnquotedJsonPropertyFormatter()
+                new SimpleJsonPropertyFormatter()
         );
 
         final String json = propertyGenerator.nextJson();

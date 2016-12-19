@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import uk.gov.justice.json.formatting.UnquotedJsonPropertyFormatter;
+import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
 import uk.gov.justice.services.test.utils.core.random.BooleanGenerator;
 
 import org.junit.Test;
@@ -19,12 +19,12 @@ public class BooleanJsonPropertyGeneratorTest {
     private static final String PROPERTY_NAME = "booleanProperty";
 
     private final BooleanGenerator randomBooleanGenerator = mock(BooleanGenerator.class);
-    private final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter = mock(UnquotedJsonPropertyFormatter.class);
+    private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = mock(SimpleJsonPropertyFormatter.class);
 
     private final BooleanJsonPropertyGenerator booleanJsonPropertyGenerator = new BooleanJsonPropertyGenerator(
             PROPERTY_NAME,
             randomBooleanGenerator,
-            unquotedJsonPropertyFormatter
+            simpleJsonPropertyFormatter
     );
 
     @Test
@@ -34,7 +34,7 @@ public class BooleanJsonPropertyGeneratorTest {
         final String json  = "some json";
 
         when(randomBooleanGenerator.next()).thenReturn(randomBoolean);
-        when(unquotedJsonPropertyFormatter.toJson(PROPERTY_NAME, randomBoolean)).thenReturn(json);
+        when(simpleJsonPropertyFormatter.toJson(PROPERTY_NAME, randomBoolean)).thenReturn(json);
 
         assertThat(booleanJsonPropertyGenerator.nextJson(), is(json));
     }
@@ -48,7 +48,7 @@ public class BooleanJsonPropertyGeneratorTest {
         final BooleanJsonPropertyGenerator propertyGenerator = new BooleanJsonPropertyGenerator(
                 PROPERTY_NAME,
                 randomBooleanGenerator,
-                new UnquotedJsonPropertyFormatter()
+                new SimpleJsonPropertyFormatter()
         );
 
         final String json = propertyGenerator.nextJson();

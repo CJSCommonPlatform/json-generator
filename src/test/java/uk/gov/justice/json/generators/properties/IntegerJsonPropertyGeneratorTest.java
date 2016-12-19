@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import uk.gov.justice.json.formatting.UnquotedJsonPropertyFormatter;
+import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
 import uk.gov.justice.json.generators.values.RandomIntegerGenerator;
 
 import org.junit.Test;
@@ -15,12 +15,12 @@ public class IntegerJsonPropertyGeneratorTest {
     private static final String PROPERTY_NAME = "integerProperty";
 
     private final RandomIntegerGenerator randomIntegerGenerator = mock(RandomIntegerGenerator.class);
-    private final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter = mock(UnquotedJsonPropertyFormatter.class);
+    private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = mock(SimpleJsonPropertyFormatter.class);
 
     private final IntegerJsonPropertyGenerator integerJsonPropertyGenerator = new IntegerJsonPropertyGenerator(
             PROPERTY_NAME,
             randomIntegerGenerator,
-            unquotedJsonPropertyFormatter
+            simpleJsonPropertyFormatter
     );
 
     @Test
@@ -30,7 +30,7 @@ public class IntegerJsonPropertyGeneratorTest {
         final String json  = "some json";
 
         when(randomIntegerGenerator.nextValue()).thenReturn(randomInt);
-        when(unquotedJsonPropertyFormatter.toJson(PROPERTY_NAME, randomInt)).thenReturn(json);
+        when(simpleJsonPropertyFormatter.toJson(PROPERTY_NAME, randomInt)).thenReturn(json);
 
         assertThat(integerJsonPropertyGenerator.nextJson(), is(json));
     }
@@ -44,7 +44,7 @@ public class IntegerJsonPropertyGeneratorTest {
         final IntegerJsonPropertyGenerator propertyGenerator = new IntegerJsonPropertyGenerator(
                 PROPERTY_NAME,
                 randomIntegerGenerator,
-                new UnquotedJsonPropertyFormatter()
+                new SimpleJsonPropertyFormatter()
         );
 
         final String json = propertyGenerator.nextJson();

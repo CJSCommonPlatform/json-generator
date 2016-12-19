@@ -1,6 +1,6 @@
 package uk.gov.justice.json.generators.properties;
 
-import uk.gov.justice.json.formatting.UnquotedJsonPropertyFormatter;
+import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
 import uk.gov.justice.json.generators.values.RandomRegexStringGenerator;
 
 public class RegexJsonPropertyGenerator implements JsonPropertyGenerator {
@@ -9,21 +9,21 @@ public class RegexJsonPropertyGenerator implements JsonPropertyGenerator {
     private final String pattern;
     private final RandomRegexStringGenerator randomRegexStringGenerator;
 
-    private final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter;
+    private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter;
 
     public RegexJsonPropertyGenerator(final String name, final String pattern) {
-        this(name, pattern, new RandomRegexStringGenerator(pattern), new UnquotedJsonPropertyFormatter());
+        this(name, pattern, new RandomRegexStringGenerator(pattern), new SimpleJsonPropertyFormatter());
     }
 
     public RegexJsonPropertyGenerator(
             final String name,
             final String pattern,
             final RandomRegexStringGenerator randomRegexStringGenerator,
-            final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter) {
+            final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter) {
         this.name = name;
         this.pattern = pattern;
         this.randomRegexStringGenerator = randomRegexStringGenerator;
-        this.unquotedJsonPropertyFormatter = unquotedJsonPropertyFormatter;
+        this.simpleJsonPropertyFormatter = simpleJsonPropertyFormatter;
     }
 
     @Override
@@ -37,6 +37,6 @@ public class RegexJsonPropertyGenerator implements JsonPropertyGenerator {
 
     @Override
     public String nextJson() {
-        return unquotedJsonPropertyFormatter.toJson(name, randomRegexStringGenerator.nextValue());
+        return simpleJsonPropertyFormatter.toJson(name, randomRegexStringGenerator.nextValue());
     }
 }

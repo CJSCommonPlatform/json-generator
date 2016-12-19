@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import uk.gov.justice.json.formatting.UnquotedJsonPropertyFormatter;
+import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
 import uk.gov.justice.services.test.utils.core.random.StringGenerator;
 
 import org.junit.Test;
@@ -15,7 +15,7 @@ public class StringJsonPropertyGeneratorTest {
     private static final String PROPERTY_NAME = "stringProperty";
 
     private final StringGenerator randomStringGenerator = mock(StringGenerator.class);
-    private final UnquotedJsonPropertyFormatter quotedJsonPropertyFormatter = mock(UnquotedJsonPropertyFormatter.class);
+    private final SimpleJsonPropertyFormatter quotedJsonPropertyFormatter = mock(SimpleJsonPropertyFormatter.class);
 
     private final StringJsonPropertyGenerator stringJsonPropertyGenerator = new StringJsonPropertyGenerator(
             PROPERTY_NAME,
@@ -44,7 +44,7 @@ public class StringJsonPropertyGeneratorTest {
         final StringJsonPropertyGenerator propertyGenerator = new StringJsonPropertyGenerator(
                 PROPERTY_NAME,
                 randomStringGenerator,
-                new UnquotedJsonPropertyFormatter()
+                new SimpleJsonPropertyFormatter()
         );
 
         final String json = propertyGenerator.nextJson();

@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import uk.gov.justice.json.formatting.UnquotedJsonPropertyFormatter;
+import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
 import uk.gov.justice.json.generators.values.RandomEmailGenerator;
 
 import org.junit.Test;
@@ -15,12 +15,12 @@ public class EmailJsonPropertyGeneratorTest {
     private static final String PROPERTY_NAME = "emailProperty";
 
     private final RandomEmailGenerator randomEmailGenerator = mock(RandomEmailGenerator.class);
-    private final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter = mock(UnquotedJsonPropertyFormatter.class);
+    private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = mock(SimpleJsonPropertyFormatter.class);
 
     private final EmailJsonPropertyGenerator emailJsonPropertyGenerator = new EmailJsonPropertyGenerator(
             PROPERTY_NAME,
             randomEmailGenerator,
-            unquotedJsonPropertyFormatter
+            simpleJsonPropertyFormatter
     );
 
     @Test
@@ -30,7 +30,7 @@ public class EmailJsonPropertyGeneratorTest {
         final String json = "some json";
 
         when(randomEmailGenerator.nextValue()).thenReturn(randomEmail);
-        when(unquotedJsonPropertyFormatter.toJson(PROPERTY_NAME, randomEmail)).thenReturn(json);
+        when(simpleJsonPropertyFormatter.toJson(PROPERTY_NAME, randomEmail)).thenReturn(json);
 
         assertThat(emailJsonPropertyGenerator.nextJson(), is(json));
     }
@@ -44,7 +44,7 @@ public class EmailJsonPropertyGeneratorTest {
         final EmailJsonPropertyGenerator propertyGenerator = new EmailJsonPropertyGenerator(
                 PROPERTY_NAME,
                 randomEmailGenerator,
-                new UnquotedJsonPropertyFormatter()
+                new SimpleJsonPropertyFormatter()
         );
 
         final String json = propertyGenerator.nextJson();
