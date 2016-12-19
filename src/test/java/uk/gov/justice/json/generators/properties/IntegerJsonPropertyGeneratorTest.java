@@ -26,10 +26,10 @@ public class IntegerJsonPropertyGeneratorTest {
     @Test
     public void shouldGenerateCorrectJsonForABooleanPropertyWithARandomValue() throws Exception {
 
-        final int randomInt = 23;
+        final String randomInt = "23";
         final String json  = "some json";
 
-        when(randomIntegerGenerator.randomInt()).thenReturn(randomInt);
+        when(randomIntegerGenerator.nextValue()).thenReturn(randomInt);
         when(unquotedJsonPropertyFormatter.toJson(PROPERTY_NAME, randomInt)).thenReturn(json);
 
         assertThat(integerJsonPropertyGenerator.nextJson(), is(json));
@@ -38,8 +38,8 @@ public class IntegerJsonPropertyGeneratorTest {
     @Test
     public void shouldGenerateValidJson() throws Exception {
 
-        final int randomInt = 23;
-        when(randomIntegerGenerator.randomInt()).thenReturn(randomInt);
+        final String randomInt = "23";
+        when(randomIntegerGenerator.nextValue()).thenReturn(randomInt);
 
         final IntegerJsonPropertyGenerator propertyGenerator = new IntegerJsonPropertyGenerator(
                 PROPERTY_NAME,

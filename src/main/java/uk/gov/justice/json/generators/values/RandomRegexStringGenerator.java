@@ -1,13 +1,22 @@
 package uk.gov.justice.json.generators.values;
 
+import static uk.gov.justice.json.Constants.DOUBLE_QUOTE;
+
 import com.mifmif.common.regex.Generex;
 
-public class RandomRegexStringGenerator {
+public class RandomRegexStringGenerator implements JsonValueGenerator {
 
-    public String randomString(final String pattern) {
+    private final String pattern;
+
+    public RandomRegexStringGenerator(final String pattern) {
+        this.pattern = pattern;
+    }
+
+    @Override
+    public String nextValue() {
 
         //TODO fix the pattern properly
         final String fixedPattern = pattern.replace('^', ' ').replace('$', ' ').trim();
-        return new Generex(fixedPattern).random();
+        return DOUBLE_QUOTE + new Generex(fixedPattern).random() + DOUBLE_QUOTE;
     }
 }

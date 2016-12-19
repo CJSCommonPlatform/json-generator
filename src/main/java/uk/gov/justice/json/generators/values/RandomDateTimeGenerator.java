@@ -3,15 +3,17 @@ package uk.gov.justice.json.generators.values;
 import static java.time.ZoneOffset.UTC;
 import static java.time.ZonedDateTime.now;
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+import static uk.gov.justice.json.Constants.DOUBLE_QUOTE;
 
 import java.time.ZonedDateTime;
 import java.util.Random;
 
-public class RandomDateTimeGenerator {
+public class RandomDateTimeGenerator implements JsonValueGenerator {
 
     private final Random random = new Random();
 
-    public String randomDateTime() {
+    @Override
+    public String nextValue() {
 
         final int daysShift = random.nextInt(30) - 15;
         final int hoursShift = random.nextInt(24);
@@ -22,6 +24,6 @@ public class RandomDateTimeGenerator {
                 .plusHours(hoursShift)
                 .plusMinutes(minutesShift);
 
-        return now.format(ISO_LOCAL_DATE_TIME);
+        return DOUBLE_QUOTE + now.format(ISO_LOCAL_DATE_TIME) + DOUBLE_QUOTE;
     }
 }

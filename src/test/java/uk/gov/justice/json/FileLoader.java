@@ -10,8 +10,12 @@ import org.apache.commons.io.IOUtils;
 
 public class FileLoader {
 
-    public String loadAsJsonSting(final String pathname) throws IOException {
+    public String loadAsJsonSting(final String pathname) {
         final File file = new File(pathname);
-        return IOUtils.toString(new FileInputStream(file), defaultCharset());
+        try(final FileInputStream input = new FileInputStream(file)) {
+            return IOUtils.toString(input, defaultCharset());
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load file " + file.getAbsolutePath(), e);
+        }
     }
 }

@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "listArrayProperty": {
+      "type": "array",
+      "items": {
+        "type": "integer"
+      }
+    },
+    "tupleArrayProperty": {
+      "type": "array",
+      "items": [
+        {
+          "type": "number"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "string",
+          "enum": [
+            "NW",
+            "NE",
+            "SW",
+            "SE"
+          ]
+        }
+      ]
+    },
+    "unspecifiedArrayProperty": {
+      "type": "array"
+    },
+    "boundedArrayProperty": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 3
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "simpleArrayProperty"
+  ]
+}

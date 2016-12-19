@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import uk.gov.justice.json.formatting.QuotedJsonPropertyFormatter;
+import uk.gov.justice.json.formatting.UnquotedJsonPropertyFormatter;
 import uk.gov.justice.json.generators.values.RandomDateTimeGenerator;
 
 import org.junit.Test;
@@ -19,22 +19,22 @@ public class IsoDateTimeJsonPropertyGeneratorTest {
     private static final String PROPERTY_NAME = "dateTimeProperty";
 
     private final RandomDateTimeGenerator randomDateTimeGenerator = mock(RandomDateTimeGenerator.class);
-    private final QuotedJsonPropertyFormatter quotedJsonPropertyFormatter = mock(QuotedJsonPropertyFormatter.class);
+    private final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter = mock(UnquotedJsonPropertyFormatter.class);
 
     private final IsoDateTimeJsonPropertyGenerator isoDateTimeJsonPropertyGenerator = new IsoDateTimeJsonPropertyGenerator(
             PROPERTY_NAME,
             randomDateTimeGenerator,
-            quotedJsonPropertyFormatter
+            unquotedJsonPropertyFormatter
     );
 
     @Test
     public void shouldGenerateCorrectJsonForABooleanPropertyWithARandomValue() throws Exception {
 
-        final String randomDate = "2016-08-03T13:55:02+00:00";
+        final String randomDate = "\"2016-08-03T13:55:02+00:00\"";
         final String json  = "some json";
 
-        when(randomDateTimeGenerator.randomDateTime()).thenReturn(randomDate);
-        when(quotedJsonPropertyFormatter.toJson(PROPERTY_NAME, randomDate)).thenReturn(json);
+        when(randomDateTimeGenerator.nextValue()).thenReturn(randomDate);
+        when(unquotedJsonPropertyFormatter.toJson(PROPERTY_NAME, randomDate)).thenReturn(json);
 
         assertThat(isoDateTimeJsonPropertyGenerator.nextJson(), is(json));
     }
@@ -42,13 +42,13 @@ public class IsoDateTimeJsonPropertyGeneratorTest {
     @Test
     public void shouldGenerateValidJson() throws Exception {
 
-        final String randomDate = "2016-08-03T13:55:02+00:00";
-        when(randomDateTimeGenerator.randomDateTime()).thenReturn(randomDate);
+        final String randomDate = "\"2016-08-03T13:55:02+00:00\"";
+        when(randomDateTimeGenerator.nextValue()).thenReturn(randomDate);
 
         final IsoDateTimeJsonPropertyGenerator propertyGenerator = new IsoDateTimeJsonPropertyGenerator(
                 PROPERTY_NAME,
                 randomDateTimeGenerator,
-                new QuotedJsonPropertyFormatter()
+                new UnquotedJsonPropertyFormatter()
         );
 
         final String json = propertyGenerator.nextJson();

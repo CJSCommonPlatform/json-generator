@@ -1,6 +1,5 @@
 package uk.gov.justice.json.schema;
 
-import static java.nio.charset.Charset.defaultCharset;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasSize;
@@ -16,12 +15,8 @@ import uk.gov.justice.json.generators.properties.ObjectJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.RegexJsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.StringJsonPropertyGenerator;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.io.IOUtils;
 import org.junit.Test;
 
 public class JsonSchemaParserTest {

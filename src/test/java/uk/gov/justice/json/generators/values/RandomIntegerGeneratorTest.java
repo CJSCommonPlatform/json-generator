@@ -1,13 +1,12 @@
 package uk.gov.justice.json.generators.values;
 
+import static java.lang.Integer.parseInt;
 import static java.lang.String.format;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 public class RandomIntegerGeneratorTest {
-
-    private final RandomIntegerGenerator randomIntegerGenerator = new RandomIntegerGenerator();
 
     @Test
     public void shouldReturnIntegersInOnesNegativeRange() {
@@ -193,27 +192,27 @@ public class RandomIntegerGeneratorTest {
 
     @Test
     public void shouldReturnIntegersBetweenMinimumInclusiveAndMaximumExcluded() {
-        RandomIntegerGenerator ig = new RandomIntegerGenerator();
+        final RandomIntegerGenerator randomIntegerGenerator = new RandomIntegerGenerator();
         for (int i = 0; i < 10000; i++) {
-            int k = ig.randomInt();
+            int k = parseInt(randomIntegerGenerator.nextValue());
             assertTrue(k < Integer.MAX_VALUE);
             assertTrue(k >= Integer.MIN_VALUE);
         }
     }
 
     private void shouldTestRangesUsingMinMaxGenerator(final int min, final int max, final int loopCount) {
-        RandomIntegerGenerator ig = new RandomIntegerGenerator(min, max);
+        final RandomIntegerGenerator randomIntegerGenerator = new RandomIntegerGenerator(min, max);
         for (int i = 0; i < loopCount; i++) {
-            int k = ig.randomInt();
+            int k = parseInt(randomIntegerGenerator.nextValue());
             assertTrue(format("Value cannot be greater than Max value %s , got Value: %s", max, k), k < max);
             assertTrue(format("Value cannot be smaller than Min value %s , got Value: %s", min, k), k >= min);
         }
     }
 
     private void shouldTestRangesUsingMaxGenerator(final int max, final int loopCount) {
-        RandomIntegerGenerator ig = new RandomIntegerGenerator(0, max);
+        final RandomIntegerGenerator randomIntegerGenerator = new RandomIntegerGenerator(0, max);
         for (int i = 0; i < loopCount; i++) {
-            int k = ig.randomInt();
+            int k = parseInt(randomIntegerGenerator.nextValue());
             assertTrue(format("Value cannot be greater than Max value %s , got Value: %s", max, k), k < max);
             assertTrue(format("Value cannot be smaller than Min value %s , got Value: %s", 0, k), k >= 0);
         }
