@@ -5,7 +5,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import uk.gov.justice.json.formatting.UnquotedJsonPropertyFormatter;
+import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
 import uk.gov.justice.json.generators.values.RandomDateTimeGenerator;
 
 import org.junit.Test;
@@ -19,12 +19,12 @@ public class IsoDateTimeJsonPropertyGeneratorTest {
     private static final String PROPERTY_NAME = "dateTimeProperty";
 
     private final RandomDateTimeGenerator randomDateTimeGenerator = mock(RandomDateTimeGenerator.class);
-    private final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter = mock(UnquotedJsonPropertyFormatter.class);
+    private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = mock(SimpleJsonPropertyFormatter.class);
 
     private final IsoDateTimeJsonPropertyGenerator isoDateTimeJsonPropertyGenerator = new IsoDateTimeJsonPropertyGenerator(
             PROPERTY_NAME,
             randomDateTimeGenerator,
-            unquotedJsonPropertyFormatter
+            simpleJsonPropertyFormatter
     );
 
     @Test
@@ -34,7 +34,7 @@ public class IsoDateTimeJsonPropertyGeneratorTest {
         final String json  = "some json";
 
         when(randomDateTimeGenerator.nextValue()).thenReturn(randomDate);
-        when(unquotedJsonPropertyFormatter.toJson(PROPERTY_NAME, randomDate)).thenReturn(json);
+        when(simpleJsonPropertyFormatter.toJson(PROPERTY_NAME, randomDate)).thenReturn(json);
 
         assertThat(isoDateTimeJsonPropertyGenerator.nextJson(), is(json));
     }
@@ -48,7 +48,7 @@ public class IsoDateTimeJsonPropertyGeneratorTest {
         final IsoDateTimeJsonPropertyGenerator propertyGenerator = new IsoDateTimeJsonPropertyGenerator(
                 PROPERTY_NAME,
                 randomDateTimeGenerator,
-                new UnquotedJsonPropertyFormatter()
+                new SimpleJsonPropertyFormatter()
         );
 
         final String json = propertyGenerator.nextJson();

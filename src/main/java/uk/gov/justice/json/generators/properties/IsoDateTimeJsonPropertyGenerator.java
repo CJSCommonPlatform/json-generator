@@ -1,6 +1,6 @@
 package uk.gov.justice.json.generators.properties;
 
-import uk.gov.justice.json.formatting.UnquotedJsonPropertyFormatter;
+import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
 import uk.gov.justice.json.generators.values.RandomDateTimeGenerator;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -9,20 +9,20 @@ public class IsoDateTimeJsonPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
     private final RandomDateTimeGenerator randomDateTimeGenerator;
-    private final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter;
+    private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter;
 
     public IsoDateTimeJsonPropertyGenerator(final String name) {
-        this(name, new RandomDateTimeGenerator(), new UnquotedJsonPropertyFormatter());
+        this(name, new RandomDateTimeGenerator(), new SimpleJsonPropertyFormatter());
     }
 
     @VisibleForTesting
     IsoDateTimeJsonPropertyGenerator(
             final String name,
             final RandomDateTimeGenerator randomDateTimeGenerator,
-            final UnquotedJsonPropertyFormatter unquotedJsonPropertyFormatter) {
+            final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter) {
         this.name = name;
         this.randomDateTimeGenerator = randomDateTimeGenerator;
-        this.unquotedJsonPropertyFormatter = unquotedJsonPropertyFormatter;
+        this.simpleJsonPropertyFormatter = simpleJsonPropertyFormatter;
     }
 
     @Override
@@ -32,6 +32,6 @@ public class IsoDateTimeJsonPropertyGenerator implements JsonPropertyGenerator {
 
     @Override
     public String nextJson() {
-        return unquotedJsonPropertyFormatter.toJson(name, randomDateTimeGenerator.nextValue());
+        return simpleJsonPropertyFormatter.toJson(name, randomDateTimeGenerator.nextValue());
     }
 }

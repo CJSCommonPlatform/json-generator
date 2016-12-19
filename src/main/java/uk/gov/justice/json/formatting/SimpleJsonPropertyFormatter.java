@@ -1,6 +1,6 @@
 package uk.gov.justice.json.formatting;
 
-public class UnquotedJsonPropertyFormatter {
+public class SimpleJsonPropertyFormatter {
 
     private static final String TEMPLATE = "\"%s\": %s";
 
