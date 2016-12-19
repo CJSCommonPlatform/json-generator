@@ -34,6 +34,6 @@ public class IntegerJsonPropertyGenerator implements JsonPropertyGenerator {
     public String nextJson() {
         return unquotedJsonPropertyFormatter.toJson(
                 name,
-                randomIntegerGenerator.randomInt());
+                randomIntegerGenerator.nextValue());
     }
 }

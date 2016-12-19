@@ -5,7 +5,7 @@ import static java.lang.String.format;
 
 import java.util.Random;
 
-public class RandomIntegerGenerator {
+public class RandomIntegerGenerator implements JsonValueGenerator {
 
     private final Random random = new Random();
 
@@ -25,7 +25,7 @@ public class RandomIntegerGenerator {
         this.max = max;
     }
 
-    public int randomInt() {
-        return random.ints(min, max).limit(1).findFirst().getAsInt();
+    public String nextValue() {
+        return random.ints(min, max).limit(1).findFirst().getAsInt() + "";
     }
 }
