@@ -1,7 +1,7 @@
 package uk.gov.justice.json.generators.properties;
 
 import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
-import uk.gov.justice.json.generators.values.RandomListItemSelector;
+import uk.gov.justice.json.generators.values.RandomEnumValueGenerator;
 
 import java.util.List;
 
@@ -10,7 +10,6 @@ public class EnumJsonPropertyGenerator implements JsonPropertyGenerator {
     private final String name;
     private final List<Object> enums;
 
-    private RandomListItemSelector randomListItemSelector = new RandomListItemSelector();
     private SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = new SimpleJsonPropertyFormatter();
 
     public EnumJsonPropertyGenerator(
@@ -27,10 +26,7 @@ public class EnumJsonPropertyGenerator implements JsonPropertyGenerator {
 
     @Override
     public String nextJson() {
-
-        final Object randomValue = randomListItemSelector.selectRandomlyFrom(enums);
-
-
+        final String randomValue = new RandomEnumValueGenerator(enums).nextValue();
         return simpleJsonPropertyFormatter.toJson(name, randomValue);
     }
 }
