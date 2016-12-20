@@ -24,7 +24,7 @@
         true
       ]
     },
-    "untypedEnumProperty": {
+    "tupleEnumProperty": {
       "enum": [
         "red",
         false,
@@ -38,6 +38,6 @@
     "stringEnumProperty",
     "integerEnumProperty",
     "booleanEnumProperty",
-    "untypedEnumProperty"
+    "tupleEnumProperty"
   ]
 }
