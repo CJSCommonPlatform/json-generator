@@ -27,7 +27,7 @@ public class SimplePropertyGeneratorFactory {
         final Map<String, Object> propertyDefinitions = (Map<String, Object>) value;
 
         final String type = (String) propertyDefinitions.get("type");
-        if(propertyDefinitions.containsKey("enum")) {
+        if (propertyDefinitions.containsKey("enum")) {
             final List<Object> enums = (List<Object>) propertyDefinitions.get("enum");
             return new EnumJsonPropertyGenerator(propertyName, enums);
 
@@ -42,8 +42,8 @@ public class SimplePropertyGeneratorFactory {
                 return new BooleanJsonPropertyGenerator(propertyName);
             case "object":
                 return getObjectTypePropertyGenerator(propertyName, propertyDefinitions);
-            case "enum":
-//                return new EnumJsonPropertyGenerator(propertyName, propertyDefinitions);
+            case "array":
+                return getArrayGenerator(propertyName, propertyDefinitions);
             default:
                 throw new JsonGenerationException("Unknown property type '" + type + "'");
         }
@@ -73,4 +73,30 @@ public class SimplePropertyGeneratorFactory {
         final Object properties = propertyDefinitions.get("properties");
         return factoryProvider.createNewObjectGeneratorFactory().createGenerator(propertyName, properties);
     }
+
+    @SuppressWarnings("unchecked")
+    private JsonPropertyGenerator getArrayGenerator(final String propertyName, final Map<String, Object> propertyDefinitions) {
+
+        final Object items = propertyDefinitions.get("items");
+
+        // unspecifiedArrayProperty
+        if (items == null) {
+            return new UnspecifiedArrayPropertyGeneratorFactory().createGenerator(propertyName);
+        }
+
+        // tupleArrayProperty
+        if (items instanceof List) {
+            final List<Map<String, Object>> itemsList = (List<Map<String, Object>>) items;
+            return new TupleArrayPropertyGeneratorFactory().createGenerator(propertyName, itemsList);
+        }
+
+        // listArrayProperty
+        if (items instanceof Map) {
+            final Map<String, Object> itemsMap = (Map<String, Object>) items;
+            return new ListArrayPropertyGeneratorFactory().createGenerator(propertyName, itemsMap);
+        }
+
+        throw new RuntimeException("Oh dear");
+    }
 }
+

@@ -74,5 +74,14 @@ public class JsonSchemaParserTest {
         System.out.println(json);
     }
 
+    @Test
+    public void shouldCreateGeneratorsForArrayProperties() throws Exception {
 
+        final String jsonSchema = fileLoader.loadAsJsonSting("src/test/resources/array-property-schema.json");
+
+        final JsonDocumentGenerator jsonDocumentGenerator = jsonSchemaParser.parse(jsonSchema);
+
+        final String json = jsonDocumentGenerator.generate();
+        System.out.println(json);
+    }
 }

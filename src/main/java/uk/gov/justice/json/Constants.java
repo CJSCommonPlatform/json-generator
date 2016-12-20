@@ -9,4 +9,6 @@ public interface Constants {
     String LEFT_BRACE = "{";
     String RIGHT_BRACE = "}";
     String COMMA = ",";
+    String LEFT_BRACKET = "[";
+    String RIGHT_BRACKET = "]";
 }
