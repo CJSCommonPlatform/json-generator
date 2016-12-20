@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 
 public class Parser {
 
+    @SuppressWarnings("unchecked")
     public Map<String, Object> toMap(String json) {
         return new Gson().fromJson(json, Map.class);
     }

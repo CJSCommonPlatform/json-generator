@@ -26,6 +26,7 @@ public class TupleArrayPropertyGeneratorFactory {
         return new ArrayPropertyGenerator(propertyName, generators);
     }
 
+    @SuppressWarnings("unchecked")
     private JsonValueGenerator createGenerator(final Map<String, Object> propertyDefinitions) {
 
         if (propertyDefinitions.containsKey("enum")) {
