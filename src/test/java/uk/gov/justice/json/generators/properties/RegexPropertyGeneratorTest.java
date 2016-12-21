@@ -11,7 +11,7 @@ import uk.gov.justice.json.generators.values.RandomRegexStringGenerator;
 
 import org.junit.Test;
 
-public class RegexJsonPropertyGeneratorTest {
+public class RegexPropertyGeneratorTest {
 
     private static final String PROPERTY_NAME = "regexProperty";
     private static final String PATTERN = "$a|regex|pattern^";
@@ -19,7 +19,7 @@ public class RegexJsonPropertyGeneratorTest {
     private final RandomRegexStringGenerator randomRegexStringGenerator = mock(RandomRegexStringGenerator.class);
     private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = mock(SimpleJsonPropertyFormatter.class);
 
-    private final RegexJsonPropertyGenerator booleanJsonPropertyGenerator = new RegexJsonPropertyGenerator(
+    private final RegexPropertyGenerator booleanJsonPropertyGenerator = new RegexPropertyGenerator(
             PROPERTY_NAME,
             PATTERN,
             randomRegexStringGenerator,
@@ -44,7 +44,7 @@ public class RegexJsonPropertyGeneratorTest {
         final String randomRegexString = DOUBLE_QUOTE + "generated_from_regex_pattern" + DOUBLE_QUOTE;
         when(randomRegexStringGenerator.nextValue()).thenReturn(randomRegexString);
 
-        final RegexJsonPropertyGenerator propertyGenerator = new RegexJsonPropertyGenerator(
+        final RegexPropertyGenerator propertyGenerator = new RegexPropertyGenerator(
                 PROPERTY_NAME,
                 PATTERN,
                 randomRegexStringGenerator,

@@ -18,7 +18,7 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
 
 import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
-import uk.gov.justice.json.generators.properties.ObjectJsonPropertyGenerator;
+import uk.gov.justice.json.generators.properties.ObjectPropertyGenerator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -63,14 +63,14 @@ public class ObjectGeneratorSelectorTest {
         when(propertyGeneratorSelector.createGenerator(propertyName_2, propertyValue_2)).thenReturn(propertyGenerator_2);
         when(propertyGeneratorSelector.createGenerator(propertyName_3, propertyValue_3)).thenReturn(propertyGenerator_3);
 
-        final ObjectJsonPropertyGenerator objectJsonPropertyGenerator = objectGeneratorSelector.createGenerator(
+        final ObjectPropertyGenerator objectPropertyGenerator = objectGeneratorSelector.createGenerator(
                 objectPropertyName,
                 properties);
 
-        assertThat(objectJsonPropertyGenerator.getName(), is(objectPropertyName));
-        assertThat(objectJsonPropertyGenerator.getJsonPropertyGenerators().size(), is(3));
-        assertThat(objectJsonPropertyGenerator.getJsonPropertyGenerators(), hasItem(propertyGenerator_1));
-        assertThat(objectJsonPropertyGenerator.getJsonPropertyGenerators(), hasItem(propertyGenerator_2));
-        assertThat(objectJsonPropertyGenerator.getJsonPropertyGenerators(), hasItem(propertyGenerator_3));
+        assertThat(objectPropertyGenerator.getName(), is(objectPropertyName));
+        assertThat(objectPropertyGenerator.getJsonPropertyGenerators().size(), is(3));
+        assertThat(objectPropertyGenerator.getJsonPropertyGenerators(), hasItem(propertyGenerator_1));
+        assertThat(objectPropertyGenerator.getJsonPropertyGenerators(), hasItem(propertyGenerator_2));
+        assertThat(objectPropertyGenerator.getJsonPropertyGenerators(), hasItem(propertyGenerator_3));
     }
 }

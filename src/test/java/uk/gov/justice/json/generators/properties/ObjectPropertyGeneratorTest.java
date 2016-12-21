@@ -12,7 +12,7 @@ import uk.gov.justice.json.formatting.CurlyBracedJsonPropertyFormatter;
 
 import org.junit.Test;
 
-public class ObjectJsonPropertyGeneratorTest {
+public class ObjectPropertyGeneratorTest {
 
     private static final String PROPERTY_NAME = "objectProperty";
 
@@ -27,13 +27,13 @@ public class ObjectJsonPropertyGeneratorTest {
         when(propertyGenerator_1.nextJson()).thenReturn(format(propertySting, "One", 1));
         when(propertyGenerator_2.nextJson()).thenReturn(format(propertySting, "Two", 2));
 
-        final ObjectJsonPropertyGenerator objectJsonPropertyGenerator = new ObjectJsonPropertyGenerator(
+        final ObjectPropertyGenerator objectPropertyGenerator = new ObjectPropertyGenerator(
                 PROPERTY_NAME,
                 asList(propertyGenerator_1, propertyGenerator_2),
                 new CurlyBracedJsonPropertyFormatter()
         );
 
-        final String json = objectJsonPropertyGenerator.nextJson();
+        final String json = objectPropertyGenerator.nextJson();
 
         assertThat(json, is("\"objectProperty\": { \"propertyOne\": 1,\"propertyTwo\": 2 }"));
     }
@@ -47,13 +47,13 @@ public class ObjectJsonPropertyGeneratorTest {
         final JsonPropertyGenerator propertyGenerator_1 = mock(JsonPropertyGenerator.class);
         when(propertyGenerator_1.nextJson()).thenReturn(format(propertySting, "One", 1));
 
-        final ObjectJsonPropertyGenerator objectJsonPropertyGenerator = new ObjectJsonPropertyGenerator(
+        final ObjectPropertyGenerator objectPropertyGenerator = new ObjectPropertyGenerator(
                 PROPERTY_NAME,
                 singletonList(propertyGenerator_1),
                 new CurlyBracedJsonPropertyFormatter()
         );
 
-        final String json = objectJsonPropertyGenerator.nextJson();
+        final String json = objectPropertyGenerator.nextJson();
 
         assertThat(json, is("\"objectProperty\": { \"propertyOne\": 1 }"));
     }

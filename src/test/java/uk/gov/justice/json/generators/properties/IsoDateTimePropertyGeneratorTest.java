@@ -14,14 +14,14 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class IsoDateTimeJsonPropertyGeneratorTest {
+public class IsoDateTimePropertyGeneratorTest {
 
     private static final String PROPERTY_NAME = "dateTimeProperty";
 
     private final RandomDateTimeGenerator randomDateTimeGenerator = mock(RandomDateTimeGenerator.class);
     private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = mock(SimpleJsonPropertyFormatter.class);
 
-    private final IsoDateTimeJsonPropertyGenerator isoDateTimeJsonPropertyGenerator = new IsoDateTimeJsonPropertyGenerator(
+    private final IsoDateTimePropertyGenerator isoDateTimePropertyGenerator = new IsoDateTimePropertyGenerator(
             PROPERTY_NAME,
             randomDateTimeGenerator,
             simpleJsonPropertyFormatter
@@ -36,7 +36,7 @@ public class IsoDateTimeJsonPropertyGeneratorTest {
         when(randomDateTimeGenerator.nextValue()).thenReturn(randomDate);
         when(simpleJsonPropertyFormatter.toJson(PROPERTY_NAME, randomDate)).thenReturn(json);
 
-        assertThat(isoDateTimeJsonPropertyGenerator.nextJson(), is(json));
+        assertThat(isoDateTimePropertyGenerator.nextJson(), is(json));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class IsoDateTimeJsonPropertyGeneratorTest {
         final String randomDate = "\"2016-08-03T13:55:02+00:00\"";
         when(randomDateTimeGenerator.nextValue()).thenReturn(randomDate);
 
-        final IsoDateTimeJsonPropertyGenerator propertyGenerator = new IsoDateTimeJsonPropertyGenerator(
+        final IsoDateTimePropertyGenerator propertyGenerator = new IsoDateTimePropertyGenerator(
                 PROPERTY_NAME,
                 randomDateTimeGenerator,
                 new SimpleJsonPropertyFormatter()

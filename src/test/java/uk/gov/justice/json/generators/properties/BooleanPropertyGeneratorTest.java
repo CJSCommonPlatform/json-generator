@@ -14,14 +14,14 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class BooleanJsonPropertyGeneratorTest {
+public class BooleanPropertyGeneratorTest {
 
     private static final String PROPERTY_NAME = "booleanProperty";
 
     private final BooleanGenerator randomBooleanGenerator = mock(BooleanGenerator.class);
     private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = mock(SimpleJsonPropertyFormatter.class);
 
-    private final BooleanJsonPropertyGenerator booleanJsonPropertyGenerator = new BooleanJsonPropertyGenerator(
+    private final BooleanPropertyGenerator booleanPropertyGenerator = new BooleanPropertyGenerator(
             PROPERTY_NAME,
             randomBooleanGenerator,
             simpleJsonPropertyFormatter
@@ -36,7 +36,7 @@ public class BooleanJsonPropertyGeneratorTest {
         when(randomBooleanGenerator.next()).thenReturn(randomBoolean);
         when(simpleJsonPropertyFormatter.toJson(PROPERTY_NAME, randomBoolean)).thenReturn(json);
 
-        assertThat(booleanJsonPropertyGenerator.nextJson(), is(json));
+        assertThat(booleanPropertyGenerator.nextJson(), is(json));
     }
 
     @Test
@@ -45,7 +45,7 @@ public class BooleanJsonPropertyGeneratorTest {
         final boolean randomBoolean = true;
         when(randomBooleanGenerator.next()).thenReturn(randomBoolean);
 
-        final BooleanJsonPropertyGenerator propertyGenerator = new BooleanJsonPropertyGenerator(
+        final BooleanPropertyGenerator propertyGenerator = new BooleanPropertyGenerator(
                 PROPERTY_NAME,
                 randomBooleanGenerator,
                 new SimpleJsonPropertyFormatter()

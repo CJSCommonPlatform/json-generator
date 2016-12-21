@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-public class EnumJsonPropertyGeneratorTest {
+public class EnumPropertyGeneratorTest {
 
     @Test
     public void shouldFormatAStringPropertyIntoAJsonFragment() throws Exception {
@@ -16,11 +16,11 @@ public class EnumJsonPropertyGeneratorTest {
         final String propertyName = "stringProperty";
         final List<Object> values = singletonList("value");
 
-        final EnumJsonPropertyGenerator enumJsonPropertyGenerator = new EnumJsonPropertyGenerator(
+        final EnumPropertyGenerator enumPropertyGenerator = new EnumPropertyGenerator(
                 propertyName,
                 values);
 
-        assertThat(enumJsonPropertyGenerator.nextJson(), is("\"stringProperty\": \"value\""));
+        assertThat(enumPropertyGenerator.nextJson(), is("\"stringProperty\": \"value\""));
     }
 
     @Test
@@ -29,11 +29,11 @@ public class EnumJsonPropertyGeneratorTest {
         final String propertyName = "doubleProperty";
         final List<Object> values = singletonList(23.23);
 
-        final EnumJsonPropertyGenerator enumJsonPropertyGenerator = new EnumJsonPropertyGenerator(
+        final EnumPropertyGenerator enumPropertyGenerator = new EnumPropertyGenerator(
                 propertyName,
                 values);
 
-        assertThat(enumJsonPropertyGenerator.nextJson(), is("\"doubleProperty\": 23.23"));
+        assertThat(enumPropertyGenerator.nextJson(), is("\"doubleProperty\": 23.23"));
     }
 
     @Test
@@ -42,11 +42,11 @@ public class EnumJsonPropertyGeneratorTest {
         final String propertyName = "booleanProperty";
         final List<Object> values = singletonList(true);
 
-        final EnumJsonPropertyGenerator enumJsonPropertyGenerator = new EnumJsonPropertyGenerator(
+        final EnumPropertyGenerator enumPropertyGenerator = new EnumPropertyGenerator(
                 propertyName,
                 values);
 
-        assertThat(enumJsonPropertyGenerator.nextJson(), is("\"booleanProperty\": true"));
+        assertThat(enumPropertyGenerator.nextJson(), is("\"booleanProperty\": true"));
     }
 
     @Test
@@ -55,10 +55,10 @@ public class EnumJsonPropertyGeneratorTest {
         final String propertyName = "integerProperty";
         final List<Object> values = singletonList(23);
 
-        final EnumJsonPropertyGenerator enumJsonPropertyGenerator = new EnumJsonPropertyGenerator(
+        final EnumPropertyGenerator enumPropertyGenerator = new EnumPropertyGenerator(
                 propertyName,
                 values);
 
-        assertThat(enumJsonPropertyGenerator.nextJson(), is("\"integerProperty\": 23"));
+        assertThat(enumPropertyGenerator.nextJson(), is("\"integerProperty\": 23"));
     }
 }

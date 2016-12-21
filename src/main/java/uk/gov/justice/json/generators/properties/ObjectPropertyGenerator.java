@@ -6,17 +6,17 @@ import uk.gov.justice.json.formatting.CurlyBracedJsonPropertyFormatter;
 
 import java.util.List;
 
-public class ObjectJsonPropertyGenerator implements JsonPropertyGenerator {
+public class ObjectPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
     private final List<JsonPropertyGenerator> jsonPropertyGenerators;
     private final CurlyBracedJsonPropertyFormatter curlyBracedJsonPropertyFormatter;
 
-    public ObjectJsonPropertyGenerator(final String name, final List<JsonPropertyGenerator> jsonPropertyGenerators) {
+    public ObjectPropertyGenerator(final String name, final List<JsonPropertyGenerator> jsonPropertyGenerators) {
         this(name, jsonPropertyGenerators, new CurlyBracedJsonPropertyFormatter());
     }
 
-    public ObjectJsonPropertyGenerator(
+    public ObjectPropertyGenerator(
             final String name,
             final List<JsonPropertyGenerator> jsonPropertyGenerators,
             final CurlyBracedJsonPropertyFormatter curlyBracedJsonPropertyFormatter) {
