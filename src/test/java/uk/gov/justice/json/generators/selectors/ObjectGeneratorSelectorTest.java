@@ -1,27 +1,22 @@
 package uk.gov.justice.json.generators.selectors;
 
 import static org.hamcrest.CoreMatchers.hasItem;
-
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
-import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
 
 import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.ObjectPropertyGenerator;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 
 @RunWith(MockitoJUnitRunner.class)

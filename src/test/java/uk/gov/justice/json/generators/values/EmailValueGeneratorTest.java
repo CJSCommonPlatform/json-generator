@@ -17,13 +17,13 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class RandomEmailGeneratorTest {
+public class EmailValueGeneratorTest {
 
     @Mock
     private EmailAddressGenerator emailAddressGenerator;
 
     @InjectMocks
-    private RandomEmailGenerator randomEmailGenerator;
+    private EmailValueGenerator emailValueGenerator;
 
     @Test
     public void shouldGenerateARandomEmailInQuotes() throws Exception {
@@ -31,7 +31,7 @@ public class RandomEmailGeneratorTest {
         final String randomEmail = "fred.bloggs@gerritt.com";
         when(emailAddressGenerator.next()).thenReturn(randomEmail);
 
-        final String jsonEmailValue = randomEmailGenerator.nextValue();
+        final String jsonEmailValue = emailValueGenerator.nextValue();
         assertThat(jsonEmailValue, startsWith(DOUBLE_QUOTE));
         assertThat(jsonEmailValue, endsWith(DOUBLE_QUOTE));
 

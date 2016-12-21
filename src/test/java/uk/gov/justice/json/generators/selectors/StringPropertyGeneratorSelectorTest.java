@@ -1,20 +1,9 @@
 package uk.gov.justice.json.generators.selectors;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
-
-import com.google.common.collect.ImmutableMap.Builder;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assume.assumeThat;
-
-import org.junit.Test;
-import org.mockito.InjectMocks;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 
 import uk.gov.justice.json.generators.properties.EmailPropertyGenerator;
 import uk.gov.justice.json.generators.properties.IsoDateTimePropertyGenerator;
@@ -24,6 +13,12 @@ import uk.gov.justice.json.generators.properties.StringPropertyGenerator;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.google.common.collect.ImmutableMap.Builder;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.runners.MockitoJUnitRunner;
 
 
 @RunWith(MockitoJUnitRunner.class)

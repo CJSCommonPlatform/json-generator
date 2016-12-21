@@ -5,10 +5,10 @@ import static java.util.Arrays.asList;
 import uk.gov.justice.json.JsonGenerationException;
 import uk.gov.justice.json.generators.properties.ArrayPropertyGenerator;
 import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
+import uk.gov.justice.json.generators.values.BooleanValueGenerator;
+import uk.gov.justice.json.generators.values.IntegerValueGenerator;
 import uk.gov.justice.json.generators.values.JsonValueGenerator;
-import uk.gov.justice.json.generators.values.RandomBooleanGenerator;
-import uk.gov.justice.json.generators.values.RandomIntegerGenerator;
-import uk.gov.justice.json.generators.values.RandomStringGenerator;
+import uk.gov.justice.json.generators.values.StringValueGenerator;
 
 import java.util.List;
 import java.util.Map;
@@ -29,21 +29,21 @@ public class ListArrayGeneratorSelector {
         switch (type) {
             case "string":
                 return asList(
-                        new RandomStringGenerator(),
-                        new RandomStringGenerator(),
-                        new RandomStringGenerator()
+                        new StringValueGenerator(),
+                        new StringValueGenerator(),
+                        new StringValueGenerator()
                 );
             case "integer":
                 return asList(
-                        new RandomIntegerGenerator(),
-                        new RandomIntegerGenerator(),
-                        new RandomIntegerGenerator()
+                        new IntegerValueGenerator(),
+                        new IntegerValueGenerator(),
+                        new IntegerValueGenerator()
                 );
             case "boolean":
                 return asList(
-                        new RandomBooleanGenerator(),
-                        new RandomBooleanGenerator(),
-                        new RandomBooleanGenerator()
+                        new BooleanValueGenerator(),
+                        new BooleanValueGenerator(),
+                        new BooleanValueGenerator()
                 );
             default:
                 throw new JsonGenerationException("Failed to create generators for list array property '" + propertyName + "'. Unknown type '" + type + "");

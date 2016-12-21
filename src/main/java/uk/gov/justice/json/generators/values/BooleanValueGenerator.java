@@ -2,7 +2,7 @@ package uk.gov.justice.json.generators.values;
 
 import uk.gov.justice.services.test.utils.core.random.BooleanGenerator;
 
-public class RandomBooleanGenerator implements JsonValueGenerator {
+public class BooleanValueGenerator implements JsonValueGenerator {
 
     private BooleanGenerator booleanGenerator = new BooleanGenerator();
 

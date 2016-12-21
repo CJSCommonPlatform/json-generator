@@ -13,23 +13,23 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class RandomBooleanGeneratorTest {
+public class BooleanValueGeneratorTest {
 
     @Mock
     private BooleanGenerator booleanGenerator;
 
     @InjectMocks
-    private RandomBooleanGenerator randomBooleanGenerator;
+    private BooleanValueGenerator booleanValueGenerator;
 
     @Test
     public void shouldReturnARandomBooleanAsAString() throws Exception {
 
         when(booleanGenerator.next()).thenReturn(true, false, true, true, false);
 
-        assertThat(randomBooleanGenerator.nextValue(), is("true"));
-        assertThat(randomBooleanGenerator.nextValue(), is("false"));
-        assertThat(randomBooleanGenerator.nextValue(), is("true"));
-        assertThat(randomBooleanGenerator.nextValue(), is("true"));
-        assertThat(randomBooleanGenerator.nextValue(), is("false"));
+        assertThat(booleanValueGenerator.nextValue(), is("true"));
+        assertThat(booleanValueGenerator.nextValue(), is("false"));
+        assertThat(booleanValueGenerator.nextValue(), is("true"));
+        assertThat(booleanValueGenerator.nextValue(), is("true"));
+        assertThat(booleanValueGenerator.nextValue(), is("false"));
     }
 }

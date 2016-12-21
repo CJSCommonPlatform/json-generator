@@ -1,8 +1,7 @@
 package uk.gov.justice.json.generators.properties;
 
-import static uk.gov.justice.json.Constants.COMMA;
-
-import uk.gov.justice.json.formatting.CurlyBracedJsonPropertyFormatter;
+import uk.gov.justice.json.formatting.JsonPropertyFormatter;
+import uk.gov.justice.json.generators.values.ObjectValueGenerator;
 
 import java.util.List;
 
@@ -10,19 +9,12 @@ public class ObjectPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
     private final List<JsonPropertyGenerator> jsonPropertyGenerators;
-    private final CurlyBracedJsonPropertyFormatter curlyBracedJsonPropertyFormatter;
-
-    public ObjectPropertyGenerator(final String name, final List<JsonPropertyGenerator> jsonPropertyGenerators) {
-        this(name, jsonPropertyGenerators, new CurlyBracedJsonPropertyFormatter());
-    }
 
     public ObjectPropertyGenerator(
             final String name,
-            final List<JsonPropertyGenerator> jsonPropertyGenerators,
-            final CurlyBracedJsonPropertyFormatter curlyBracedJsonPropertyFormatter) {
+            final List<JsonPropertyGenerator> jsonPropertyGenerators) {
         this.name = name;
         this.jsonPropertyGenerators = jsonPropertyGenerators;
-        this.curlyBracedJsonPropertyFormatter = curlyBracedJsonPropertyFormatter;
     }
 
     @Override
@@ -36,16 +28,9 @@ public class ObjectPropertyGenerator implements JsonPropertyGenerator {
 
     @Override
     public String nextJson() {
+        final ObjectValueGenerator objectValueGenerator = new ObjectValueGenerator(jsonPropertyGenerators);
+        final JsonPropertyFormatter jsonPropertyFormatter = new JsonPropertyFormatter();
 
-        final StringBuilder stringBuilder = new StringBuilder();
-
-        jsonPropertyGenerators.forEach(propertyGenerator -> {
-            if (stringBuilder.length() > 0) {
-                stringBuilder.append(COMMA);
-            }
-            stringBuilder.append(propertyGenerator.nextJson());
-        });
-
-        return curlyBracedJsonPropertyFormatter.toJson(name, stringBuilder.toString());
+        return jsonPropertyFormatter.toJson(name, objectValueGenerator.nextValue());
     }
 }

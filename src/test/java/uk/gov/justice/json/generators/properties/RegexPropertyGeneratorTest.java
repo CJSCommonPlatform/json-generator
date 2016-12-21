@@ -6,8 +6,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static uk.gov.justice.json.Constants.DOUBLE_QUOTE;
 
-import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
-import uk.gov.justice.json.generators.values.RandomRegexStringGenerator;
+import uk.gov.justice.json.formatting.JsonPropertyFormatter;
+import uk.gov.justice.json.generators.values.RegexValueGenerator;
 
 import org.junit.Test;
 
@@ -16,14 +16,14 @@ public class RegexPropertyGeneratorTest {
     private static final String PROPERTY_NAME = "regexProperty";
     private static final String PATTERN = "$a|regex|pattern^";
 
-    private final RandomRegexStringGenerator randomRegexStringGenerator = mock(RandomRegexStringGenerator.class);
-    private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = mock(SimpleJsonPropertyFormatter.class);
+    private final RegexValueGenerator regexValueGenerator = mock(RegexValueGenerator.class);
+    private final JsonPropertyFormatter jsonPropertyFormatter = mock(JsonPropertyFormatter.class);
 
     private final RegexPropertyGenerator booleanJsonPropertyGenerator = new RegexPropertyGenerator(
             PROPERTY_NAME,
             PATTERN,
-            randomRegexStringGenerator,
-            simpleJsonPropertyFormatter
+            regexValueGenerator,
+            jsonPropertyFormatter
     );
 
     @Test
@@ -32,8 +32,8 @@ public class RegexPropertyGeneratorTest {
         final String randomRegexString = "generated_from_regex_pattern";
         final String json  = "some json";
 
-        when(randomRegexStringGenerator.nextValue()).thenReturn(randomRegexString);
-        when(simpleJsonPropertyFormatter.toJson(PROPERTY_NAME, randomRegexString)).thenReturn(json);
+        when(regexValueGenerator.nextValue()).thenReturn(randomRegexString);
+        when(jsonPropertyFormatter.toJson(PROPERTY_NAME, randomRegexString)).thenReturn(json);
 
         assertThat(booleanJsonPropertyGenerator.nextJson(), is(json));
     }
@@ -42,13 +42,13 @@ public class RegexPropertyGeneratorTest {
     public void shouldGenerateValidJson() throws Exception {
 
         final String randomRegexString = DOUBLE_QUOTE + "generated_from_regex_pattern" + DOUBLE_QUOTE;
-        when(randomRegexStringGenerator.nextValue()).thenReturn(randomRegexString);
+        when(regexValueGenerator.nextValue()).thenReturn(randomRegexString);
 
         final RegexPropertyGenerator propertyGenerator = new RegexPropertyGenerator(
                 PROPERTY_NAME,
                 PATTERN,
-                randomRegexStringGenerator,
-                new SimpleJsonPropertyFormatter()
+                regexValueGenerator,
+                new JsonPropertyFormatter()
         );
 
         final String json = propertyGenerator.nextJson();

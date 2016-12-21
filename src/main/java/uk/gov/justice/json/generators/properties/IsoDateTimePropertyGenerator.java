@@ -1,28 +1,28 @@
 package uk.gov.justice.json.generators.properties;
 
-import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
-import uk.gov.justice.json.generators.values.RandomDateTimeGenerator;
+import uk.gov.justice.json.formatting.JsonPropertyFormatter;
+import uk.gov.justice.json.generators.values.DateTimeValueGenerator;
 
 import com.google.common.annotations.VisibleForTesting;
 
 public class IsoDateTimePropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
-    private final RandomDateTimeGenerator randomDateTimeGenerator;
-    private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter;
+    private final DateTimeValueGenerator dateTimeValueGenerator;
+    private final JsonPropertyFormatter jsonPropertyFormatter;
 
     public IsoDateTimePropertyGenerator(final String name) {
-        this(name, new RandomDateTimeGenerator(), new SimpleJsonPropertyFormatter());
+        this(name, new DateTimeValueGenerator(), new JsonPropertyFormatter());
     }
 
     @VisibleForTesting
     IsoDateTimePropertyGenerator(
             final String name,
-            final RandomDateTimeGenerator randomDateTimeGenerator,
-            final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter) {
+            final DateTimeValueGenerator dateTimeValueGenerator,
+            final JsonPropertyFormatter jsonPropertyFormatter) {
         this.name = name;
-        this.randomDateTimeGenerator = randomDateTimeGenerator;
-        this.simpleJsonPropertyFormatter = simpleJsonPropertyFormatter;
+        this.dateTimeValueGenerator = dateTimeValueGenerator;
+        this.jsonPropertyFormatter = jsonPropertyFormatter;
     }
 
     @Override
@@ -32,6 +32,6 @@ public class IsoDateTimePropertyGenerator implements JsonPropertyGenerator {
 
     @Override
     public String nextJson() {
-        return simpleJsonPropertyFormatter.toJson(name, randomDateTimeGenerator.nextValue());
+        return jsonPropertyFormatter.toJson(name, dateTimeValueGenerator.nextValue());
     }
 }

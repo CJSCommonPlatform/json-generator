@@ -4,7 +4,7 @@ import static uk.gov.justice.json.Constants.DOUBLE_QUOTE;
 
 import uk.gov.justice.services.test.utils.core.random.EmailAddressGenerator;
 
-public class RandomEmailGenerator implements JsonValueGenerator {
+public class EmailValueGenerator implements JsonValueGenerator {
 
     private EmailAddressGenerator emailAddressGenerator = new EmailAddressGenerator();
 

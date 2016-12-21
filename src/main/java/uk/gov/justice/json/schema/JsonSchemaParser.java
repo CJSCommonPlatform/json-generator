@@ -2,8 +2,8 @@ package uk.gov.justice.json.schema;
 
 import static java.util.stream.Collectors.toList;
 
-import uk.gov.justice.json.generators.selectors.PropertyGeneratorSelector;
 import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
+import uk.gov.justice.json.generators.selectors.PropertyGeneratorSelector;
 
 import java.util.List;
 import java.util.Map;

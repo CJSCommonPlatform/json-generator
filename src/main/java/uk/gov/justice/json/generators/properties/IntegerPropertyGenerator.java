@@ -1,28 +1,28 @@
 package uk.gov.justice.json.generators.properties;
 
-import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
-import uk.gov.justice.json.generators.values.RandomIntegerGenerator;
+import uk.gov.justice.json.formatting.JsonPropertyFormatter;
+import uk.gov.justice.json.generators.values.IntegerValueGenerator;
 
 import com.google.common.annotations.VisibleForTesting;
 
 public class IntegerPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
-    private final RandomIntegerGenerator randomIntegerGenerator;
-    private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter;
+    private final IntegerValueGenerator integerValueGenerator;
+    private final JsonPropertyFormatter jsonPropertyFormatter;
 
     public IntegerPropertyGenerator(final String name) {
-        this(name, new RandomIntegerGenerator(), new SimpleJsonPropertyFormatter());
+        this(name, new IntegerValueGenerator(), new JsonPropertyFormatter());
     }
 
     @VisibleForTesting
     IntegerPropertyGenerator(
             final String name,
-            final RandomIntegerGenerator randomIntegerGenerator,
-            final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter) {
+            final IntegerValueGenerator integerValueGenerator,
+            final JsonPropertyFormatter jsonPropertyFormatter) {
         this.name = name;
-        this.randomIntegerGenerator = randomIntegerGenerator;
-        this.simpleJsonPropertyFormatter = simpleJsonPropertyFormatter;
+        this.integerValueGenerator = integerValueGenerator;
+        this.jsonPropertyFormatter = jsonPropertyFormatter;
     }
 
     @Override
@@ -32,8 +32,8 @@ public class IntegerPropertyGenerator implements JsonPropertyGenerator {
 
     @Override
     public String nextJson() {
-        return simpleJsonPropertyFormatter.toJson(
+        return jsonPropertyFormatter.toJson(
                 name,
-                randomIntegerGenerator.nextValue());
+                integerValueGenerator.nextValue());
     }
 }
