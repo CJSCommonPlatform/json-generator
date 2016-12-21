@@ -28,7 +28,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class SimplePropertyGeneratorFactoryTest {
+public class BasicPropertyGeneratorFactoryTest {
 
     @Mock
     private FactoryProvider factoryProvider;
@@ -37,7 +37,7 @@ public class SimplePropertyGeneratorFactoryTest {
     private ObjectPropertyGeneratorFactory objectPropertyGeneratorFactory;
 
     @InjectMocks
-    private SimplePropertyGeneratorFactory simplePropertyGeneratorFactory;
+    private BasicPropertyGeneratorFactory basicPropertyGeneratorFactory;
 
     @Test
     public void shouldCreateAStringPropertyGeneratorIfTheTypeIsString() throws Exception {
@@ -46,7 +46,7 @@ public class SimplePropertyGeneratorFactoryTest {
         final Map<String, Object> propertyDefinitions =  new HashMap<>();
         propertyDefinitions.put("type", "string");
 
-        final JsonPropertyGenerator generator = simplePropertyGeneratorFactory.createGenerator(propertyName, propertyDefinitions);
+        final JsonPropertyGenerator generator = basicPropertyGeneratorFactory.createGenerator(propertyName, propertyDefinitions);
         assertThat(generator, is(instanceOf(StringJsonPropertyGenerator.class)));
         assertThat(generator.getName(), is(propertyName));
     }
@@ -59,7 +59,7 @@ public class SimplePropertyGeneratorFactoryTest {
         propertyDefinitions.put("type", "string");
         propertyDefinitions.put("format", "email");
 
-        final JsonPropertyGenerator generator = simplePropertyGeneratorFactory.createGenerator(propertyName, propertyDefinitions);
+        final JsonPropertyGenerator generator = basicPropertyGeneratorFactory.createGenerator(propertyName, propertyDefinitions);
         assertThat(generator, is(instanceOf(EmailJsonPropertyGenerator.class)));
         assertThat(generator.getName(), is(propertyName));
     }
@@ -72,7 +72,7 @@ public class SimplePropertyGeneratorFactoryTest {
         propertyDefinitions.put("type", "string");
         propertyDefinitions.put("format", "date-time");
 
-        final JsonPropertyGenerator generator = simplePropertyGeneratorFactory.createGenerator(propertyName, propertyDefinitions);
+        final JsonPropertyGenerator generator = basicPropertyGeneratorFactory.createGenerator(propertyName, propertyDefinitions);
         assertThat(generator, is(instanceOf(IsoDateTimeJsonPropertyGenerator.class)));
         assertThat(generator.getName(), is(propertyName));
     }
@@ -87,7 +87,7 @@ public class SimplePropertyGeneratorFactoryTest {
         propertyDefinitions.put("type", "string");
         propertyDefinitions.put("pattern", pattern);
 
-        final JsonPropertyGenerator generator = simplePropertyGeneratorFactory.createGenerator(propertyName, propertyDefinitions);
+        final JsonPropertyGenerator generator = basicPropertyGeneratorFactory.createGenerator(propertyName, propertyDefinitions);
         assertThat(generator, is(instanceOf(RegexJsonPropertyGenerator.class)));
 
         assertThat(generator.getName(), is(propertyName));
@@ -101,7 +101,7 @@ public class SimplePropertyGeneratorFactoryTest {
         final Map<String, Object> propertyDefinitions =  new HashMap<>();
         propertyDefinitions.put("type", "integer");
 
-        final JsonPropertyGenerator generator = simplePropertyGeneratorFactory.createGenerator(propertyName, propertyDefinitions);
+        final JsonPropertyGenerator generator = basicPropertyGeneratorFactory.createGenerator(propertyName, propertyDefinitions);
         assertThat(generator, is(instanceOf(IntegerJsonPropertyGenerator.class)));
         assertThat(generator.getName(), is(propertyName));
     }
@@ -113,7 +113,7 @@ public class SimplePropertyGeneratorFactoryTest {
         final Map<String, Object> propertyDefinitions =  new HashMap<>();
         propertyDefinitions.put("type", "boolean");
 
-        final JsonPropertyGenerator generator = simplePropertyGeneratorFactory.createGenerator(propertyName, propertyDefinitions);
+        final JsonPropertyGenerator generator = basicPropertyGeneratorFactory.createGenerator(propertyName, propertyDefinitions);
         assertThat(generator, is(instanceOf(BooleanJsonPropertyGenerator.class)));
         assertThat(generator.getName(), is(propertyName));
     }
@@ -132,7 +132,7 @@ public class SimplePropertyGeneratorFactoryTest {
         when(factoryProvider.createNewObjectGeneratorFactory()).thenReturn(objectPropertyGeneratorFactory);
         when(objectPropertyGeneratorFactory.createGenerator(propertyName, properties)).thenReturn(objectJsonPropertyGenerator);
 
-        assertThat(simplePropertyGeneratorFactory.createGenerator(
+        assertThat(basicPropertyGeneratorFactory.createGenerator(
                 propertyName,
                 propertyDefinitions), is(sameInstance(objectJsonPropertyGenerator)));
     }
@@ -144,7 +144,7 @@ public class SimplePropertyGeneratorFactoryTest {
         propertyDefinitions.put("type", "something-silly");
 
         try {
-            simplePropertyGeneratorFactory.createGenerator(propertyName, propertyDefinitions);
+            basicPropertyGeneratorFactory.createGenerator(propertyName, propertyDefinitions);
             fail();
         } catch (JsonGenerationException expected) {
             assertThat(expected.getMessage(), is("Unknown property type 'something-silly'"));

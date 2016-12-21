@@ -2,7 +2,9 @@ package uk.gov.justice.json.generators.values;
 
 import static java.util.UUID.fromString;
 import static org.hamcrest.CoreMatchers.endsWith;
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.junit.Assert.assertThat;
@@ -20,7 +22,7 @@ public class RandomRegexStringGeneratorTest {
     private final RandomRegexStringGenerator randomRegexStringGenerator = new RandomRegexStringGenerator(UUID_PATTERN);
 
     @Test
-    public void shouldGenerateString() throws Exception {
+    public void shouldGenerateAStringFromARegularExpression() throws Exception {
 
         final String randomString = randomRegexStringGenerator.nextValue();
 
@@ -30,6 +32,8 @@ public class RandomRegexStringGeneratorTest {
         final UUID uuid = fromString(stripQuotesFrom(randomString));
 
         assertThat(uuid, is(notNullValue()));
+
+        assertThat(randomRegexStringGenerator.nextValue(), is(not(equalTo(randomString))));
     }
 
     private String stripQuotesFrom(final String randomString) {
