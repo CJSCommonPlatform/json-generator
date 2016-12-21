@@ -5,18 +5,18 @@ import uk.gov.justice.services.test.utils.core.random.BooleanGenerator;
 
 import com.google.common.annotations.VisibleForTesting;
 
-public class BooleanJsonPropertyGenerator implements JsonPropertyGenerator {
+public class BooleanPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
     private final BooleanGenerator booleanGenerator;
     private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter;
 
-    public BooleanJsonPropertyGenerator(final String name) {
+    public BooleanPropertyGenerator(final String name) {
         this(name, new BooleanGenerator(), new SimpleJsonPropertyFormatter());
     }
 
     @VisibleForTesting
-    BooleanJsonPropertyGenerator(
+    BooleanPropertyGenerator(
             final String name,
             final BooleanGenerator randomBooleanGenerator,
             final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter) {

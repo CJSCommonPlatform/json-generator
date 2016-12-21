@@ -10,14 +10,14 @@ import uk.gov.justice.json.generators.values.RandomEmailGenerator;
 
 import org.junit.Test;
 
-public class EmailJsonPropertyGeneratorTest {
+public class EmailPropertyGeneratorTest {
 
     private static final String PROPERTY_NAME = "emailProperty";
 
     private final RandomEmailGenerator randomEmailGenerator = mock(RandomEmailGenerator.class);
     private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = mock(SimpleJsonPropertyFormatter.class);
 
-    private final EmailJsonPropertyGenerator emailJsonPropertyGenerator = new EmailJsonPropertyGenerator(
+    private final EmailPropertyGenerator emailPropertyGenerator = new EmailPropertyGenerator(
             PROPERTY_NAME,
             randomEmailGenerator,
             simpleJsonPropertyFormatter
@@ -32,7 +32,7 @@ public class EmailJsonPropertyGeneratorTest {
         when(randomEmailGenerator.nextValue()).thenReturn(randomEmail);
         when(simpleJsonPropertyFormatter.toJson(PROPERTY_NAME, randomEmail)).thenReturn(json);
 
-        assertThat(emailJsonPropertyGenerator.nextJson(), is(json));
+        assertThat(emailPropertyGenerator.nextJson(), is(json));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class EmailJsonPropertyGeneratorTest {
         final String randomEmail = "\"fred.bloggs@gerritt.com\"";
         when(randomEmailGenerator.nextValue()).thenReturn(randomEmail);
 
-        final EmailJsonPropertyGenerator propertyGenerator = new EmailJsonPropertyGenerator(
+        final EmailPropertyGenerator propertyGenerator = new EmailPropertyGenerator(
                 PROPERTY_NAME,
                 randomEmailGenerator,
                 new SimpleJsonPropertyFormatter()

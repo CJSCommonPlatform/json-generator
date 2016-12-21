@@ -5,18 +5,18 @@ import uk.gov.justice.json.generators.values.RandomEmailGenerator;
 
 import com.google.common.annotations.VisibleForTesting;
 
-public class EmailJsonPropertyGenerator implements JsonPropertyGenerator {
+public class EmailPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
     private final RandomEmailGenerator randomEmailGenerator;
     private final SimpleJsonPropertyFormatter quotedJsonPropertyFormatter;
 
-    public EmailJsonPropertyGenerator(final String name) {
+    public EmailPropertyGenerator(final String name) {
         this(name, new RandomEmailGenerator(), new SimpleJsonPropertyFormatter());
     }
 
     @VisibleForTesting
-    EmailJsonPropertyGenerator(
+    EmailPropertyGenerator(
             final String name,
             final RandomEmailGenerator randomEmailGenerator,
             final SimpleJsonPropertyFormatter quotedJsonPropertyFormatter) {

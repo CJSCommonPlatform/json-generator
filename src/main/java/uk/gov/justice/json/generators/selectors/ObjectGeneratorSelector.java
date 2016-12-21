@@ -1,7 +1,7 @@
 package uk.gov.justice.json.generators.selectors;
 
 import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
-import uk.gov.justice.json.generators.properties.ObjectJsonPropertyGenerator;
+import uk.gov.justice.json.generators.properties.ObjectPropertyGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class ObjectGeneratorSelector {
     private SelectorFactory selectorFactory = new SelectorFactory();
 
     @SuppressWarnings("unchecked")
-    public ObjectJsonPropertyGenerator createGenerator(final String propertyName, final Map<String, Object> properties) {
+    public ObjectPropertyGenerator createGenerator(final String propertyName, final Map<String, Object> properties) {
 
         final List<JsonPropertyGenerator> jsonPropertyGenerators = new ArrayList<>();
         final PropertyGeneratorSelector propertyGeneratorSelector = selectorFactory.createNewPropertyGeneratorSelector();
@@ -22,6 +22,6 @@ public class ObjectGeneratorSelector {
         });
 
 
-        return new ObjectJsonPropertyGenerator(propertyName, jsonPropertyGenerators);
+        return new ObjectPropertyGenerator(propertyName, jsonPropertyGenerators);
     }
 }

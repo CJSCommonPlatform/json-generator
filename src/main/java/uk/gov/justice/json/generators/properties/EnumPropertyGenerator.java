@@ -5,14 +5,14 @@ import uk.gov.justice.json.generators.values.RandomEnumValueGenerator;
 
 import java.util.List;
 
-public class EnumJsonPropertyGenerator implements JsonPropertyGenerator {
+public class EnumPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
     private final List<Object> enums;
 
     private SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = new SimpleJsonPropertyFormatter();
 
-    public EnumJsonPropertyGenerator(
+    public EnumPropertyGenerator(
             final String name,
             final List<Object> enums) {
         this.name = name;

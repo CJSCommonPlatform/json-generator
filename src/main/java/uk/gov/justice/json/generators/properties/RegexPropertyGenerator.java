@@ -3,7 +3,7 @@ package uk.gov.justice.json.generators.properties;
 import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
 import uk.gov.justice.json.generators.values.RandomRegexStringGenerator;
 
-public class RegexJsonPropertyGenerator implements JsonPropertyGenerator {
+public class RegexPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
     private final String pattern;
@@ -11,11 +11,11 @@ public class RegexJsonPropertyGenerator implements JsonPropertyGenerator {
 
     private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter;
 
-    public RegexJsonPropertyGenerator(final String name, final String pattern) {
+    public RegexPropertyGenerator(final String name, final String pattern) {
         this(name, pattern, new RandomRegexStringGenerator(pattern), new SimpleJsonPropertyFormatter());
     }
 
-    public RegexJsonPropertyGenerator(
+    public RegexPropertyGenerator(
             final String name,
             final String pattern,
             final RandomRegexStringGenerator randomRegexStringGenerator,

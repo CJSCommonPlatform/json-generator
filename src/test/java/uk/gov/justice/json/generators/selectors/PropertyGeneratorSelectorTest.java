@@ -9,13 +9,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import uk.gov.justice.json.JsonGenerationException;
-import uk.gov.justice.json.generators.properties.BooleanJsonPropertyGenerator;
-import uk.gov.justice.json.generators.properties.EmailJsonPropertyGenerator;
+import uk.gov.justice.json.generators.properties.BooleanPropertyGenerator;
+import uk.gov.justice.json.generators.properties.EmailPropertyGenerator;
 import uk.gov.justice.json.generators.properties.IntegerJsonPropertyGenerator;
-import uk.gov.justice.json.generators.properties.IsoDateTimeJsonPropertyGenerator;
+import uk.gov.justice.json.generators.properties.IsoDateTimePropertyGenerator;
 import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
-import uk.gov.justice.json.generators.properties.ObjectJsonPropertyGenerator;
-import uk.gov.justice.json.generators.properties.RegexJsonPropertyGenerator;
+import uk.gov.justice.json.generators.properties.ObjectPropertyGenerator;
+import uk.gov.justice.json.generators.properties.RegexPropertyGenerator;
 import uk.gov.justice.json.generators.properties.StringJsonPropertyGenerator;
 
 import java.util.HashMap;
@@ -60,7 +60,7 @@ public class PropertyGeneratorSelectorTest {
         propertyDefinitions.put("format", "email");
 
         final JsonPropertyGenerator generator = propertyGeneratorSelector.createGenerator(propertyName, propertyDefinitions);
-        assertThat(generator, is(instanceOf(EmailJsonPropertyGenerator.class)));
+        assertThat(generator, is(instanceOf(EmailPropertyGenerator.class)));
         assertThat(generator.getName(), is(propertyName));
     }
 
@@ -73,7 +73,7 @@ public class PropertyGeneratorSelectorTest {
         propertyDefinitions.put("format", "date-time");
 
         final JsonPropertyGenerator generator = propertyGeneratorSelector.createGenerator(propertyName, propertyDefinitions);
-        assertThat(generator, is(instanceOf(IsoDateTimeJsonPropertyGenerator.class)));
+        assertThat(generator, is(instanceOf(IsoDateTimePropertyGenerator.class)));
         assertThat(generator.getName(), is(propertyName));
     }
 
@@ -88,10 +88,10 @@ public class PropertyGeneratorSelectorTest {
         propertyDefinitions.put("pattern", pattern);
 
         final JsonPropertyGenerator generator = propertyGeneratorSelector.createGenerator(propertyName, propertyDefinitions);
-        assertThat(generator, is(instanceOf(RegexJsonPropertyGenerator.class)));
+        assertThat(generator, is(instanceOf(RegexPropertyGenerator.class)));
 
         assertThat(generator.getName(), is(propertyName));
-        assertThat(((RegexJsonPropertyGenerator) generator).getPattern(), is(pattern));
+        assertThat(((RegexPropertyGenerator) generator).getPattern(), is(pattern));
     }
 
     @Test
@@ -114,7 +114,7 @@ public class PropertyGeneratorSelectorTest {
         propertyDefinitions.put("type", "boolean");
 
         final JsonPropertyGenerator generator = propertyGeneratorSelector.createGenerator(propertyName, propertyDefinitions);
-        assertThat(generator, is(instanceOf(BooleanJsonPropertyGenerator.class)));
+        assertThat(generator, is(instanceOf(BooleanPropertyGenerator.class)));
         assertThat(generator.getName(), is(propertyName));
     }
 
@@ -127,14 +127,14 @@ public class PropertyGeneratorSelectorTest {
         propertyDefinitions.put("type", "object");
         propertyDefinitions.put("properties", properties);
 
-        final ObjectJsonPropertyGenerator objectJsonPropertyGenerator = mock(ObjectJsonPropertyGenerator.class);
+        final ObjectPropertyGenerator objectPropertyGenerator = mock(ObjectPropertyGenerator.class);
 
         when(selectorFactory.createNewObjectGeneratorSelector()).thenReturn(objectGeneratorSelector);
-        when(objectGeneratorSelector.createGenerator(propertyName, properties)).thenReturn(objectJsonPropertyGenerator);
+        when(objectGeneratorSelector.createGenerator(propertyName, properties)).thenReturn(objectPropertyGenerator);
 
         assertThat(propertyGeneratorSelector.createGenerator(
                 propertyName,
-                propertyDefinitions), is(sameInstance(objectJsonPropertyGenerator)));
+                propertyDefinitions), is(sameInstance(objectPropertyGenerator)));
     }
 
     @Test

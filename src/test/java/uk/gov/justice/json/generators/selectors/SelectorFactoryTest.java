@@ -6,6 +6,10 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 
+import uk.gov.justice.json.generators.selectors.arrays.ListArrayGeneratorSelector;
+import uk.gov.justice.json.generators.selectors.arrays.TupleArrayGeneratorSelector;
+import uk.gov.justice.json.generators.selectors.arrays.UnspecifiedArrayGeneratorSelector;
+
 import org.junit.Test;
 
 public class SelectorFactoryTest {

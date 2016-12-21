@@ -1,4 +1,4 @@
-package uk.gov.justice.json.generators.selectors;
+package uk.gov.justice.json.generators.selectors.arrays;
 
 import static java.util.Arrays.asList;
 
