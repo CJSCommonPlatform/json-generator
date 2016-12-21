@@ -13,7 +13,7 @@ public class ArrayGeneratorSelector {
     private SelectorFactory selectorFactory = new SelectorFactory();
 
     @SuppressWarnings("unchecked")
-    public JsonPropertyGenerator createArrayGenerator(final String propertyName, final Map<String, Object> propertyDefinitions) {
+    public JsonPropertyGenerator getArrayGenerator(final String propertyName, final Map<String, Object> propertyDefinitions) {
 
         final Object items = propertyDefinitions.get("items");
 

@@ -15,6 +15,7 @@ public class UnspecifiedArrayGeneratorSelector {
 
     public JsonPropertyGenerator createGenerator(final String propertyName) {
 
+        // TODO: return a random number of generators of random types
         final List<JsonValueGenerator> generators = asList(
                 new RandomStringGenerator(),
                 new RandomBooleanGenerator(),

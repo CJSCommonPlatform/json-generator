@@ -10,14 +10,14 @@ import uk.gov.justice.json.generators.values.RandomIntegerGenerator;
 
 import org.junit.Test;
 
-public class IntegerJsonPropertyGeneratorTest {
+public class IntegerPropertyGeneratorTest {
 
     private static final String PROPERTY_NAME = "integerProperty";
 
     private final RandomIntegerGenerator randomIntegerGenerator = mock(RandomIntegerGenerator.class);
     private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = mock(SimpleJsonPropertyFormatter.class);
 
-    private final IntegerJsonPropertyGenerator integerJsonPropertyGenerator = new IntegerJsonPropertyGenerator(
+    private final IntegerPropertyGenerator integerPropertyGenerator = new IntegerPropertyGenerator(
             PROPERTY_NAME,
             randomIntegerGenerator,
             simpleJsonPropertyFormatter
@@ -32,7 +32,7 @@ public class IntegerJsonPropertyGeneratorTest {
         when(randomIntegerGenerator.nextValue()).thenReturn(randomInt);
         when(simpleJsonPropertyFormatter.toJson(PROPERTY_NAME, randomInt)).thenReturn(json);
 
-        assertThat(integerJsonPropertyGenerator.nextJson(), is(json));
+        assertThat(integerPropertyGenerator.nextJson(), is(json));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class IntegerJsonPropertyGeneratorTest {
         final String randomInt = "23";
         when(randomIntegerGenerator.nextValue()).thenReturn(randomInt);
 
-        final IntegerJsonPropertyGenerator propertyGenerator = new IntegerJsonPropertyGenerator(
+        final IntegerPropertyGenerator propertyGenerator = new IntegerPropertyGenerator(
                 PROPERTY_NAME,
                 randomIntegerGenerator,
                 new SimpleJsonPropertyFormatter()

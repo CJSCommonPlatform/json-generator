@@ -17,41 +17,37 @@ public class ListArrayGeneratorSelector {
 
     public JsonPropertyGenerator createGenerator(final String propertyName, final Map<String, Object> items) {
 
-        if (items.size() == 1) {
-            // create a random bunch of generators of the same type
-            final String type = items.get("type").toString();
-            final List<JsonValueGenerator> generators;
+        return new ArrayPropertyGenerator(
+                propertyName,
+                getListArrayGenerators(propertyName, items));
+    }
 
-            switch (type) {
-                case "string":
-                    generators = asList(
-                            new RandomStringGenerator(),
-                            new RandomStringGenerator(),
-                            new RandomStringGenerator()
-                    );
-                    break;
-                case "integer":
-                    generators = asList(
-                            new RandomIntegerGenerator(),
-                            new RandomIntegerGenerator(),
-                            new RandomIntegerGenerator()
-                    );
-                    break;
-                case "boolean":
-                    generators = asList(
-                            new RandomBooleanGenerator(),
-                            new RandomBooleanGenerator(),
-                            new RandomBooleanGenerator()
-                    );
-                    break;
-                default:
-                    throw new JsonGenerationException("Oh no");
+    // @TODO: make these return a random number of generators rather than always three
+    private List<JsonValueGenerator> getListArrayGenerators(final String propertyName, final Map<String, Object> items) {
+        final String type = items.get("type").toString();
 
-            }
+        switch (type) {
+            case "string":
+                return asList(
+                        new RandomStringGenerator(),
+                        new RandomStringGenerator(),
+                        new RandomStringGenerator()
+                );
+            case "integer":
+                return asList(
+                        new RandomIntegerGenerator(),
+                        new RandomIntegerGenerator(),
+                        new RandomIntegerGenerator()
+                );
+            case "boolean":
+                return asList(
+                        new RandomBooleanGenerator(),
+                        new RandomBooleanGenerator(),
+                        new RandomBooleanGenerator()
+                );
+            default:
+                throw new JsonGenerationException("Failed to create generators for list array property '" + propertyName + "'. Unknown type '" + type + "");
 
-            return new ArrayPropertyGenerator(propertyName, generators);
         }
-
-        return null;
     }
 }
