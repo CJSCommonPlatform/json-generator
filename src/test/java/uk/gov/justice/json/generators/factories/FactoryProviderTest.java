@@ -25,9 +25,36 @@ public class FactoryProviderTest {
     @Test
     public void shouldCreateASimplePropertyGeneratorFactory() throws Exception {
 
-        final SimplePropertyGeneratorFactory simplePropertyGeneratorFactory = factoryProvider.createNewPropertyGeneratorFactory();
+        final BasicPropertyGeneratorFactory basicPropertyGeneratorFactory = factoryProvider.createNewPropertyGeneratorFactory();
 
-        assertThat(simplePropertyGeneratorFactory, is(notNullValue()));
-        assertThat(factoryProvider.createNewObjectGeneratorFactory(), is(not(sameInstance(simplePropertyGeneratorFactory))));
+        assertThat(basicPropertyGeneratorFactory, is(notNullValue()));
+        assertThat(factoryProvider.createNewObjectGeneratorFactory(), is(not(sameInstance(basicPropertyGeneratorFactory))));
+    }
+
+    @Test
+    public void shouldCreateAListArrayPropertyGeneratorFactory() throws Exception {
+
+        final ListArrayPropertyGeneratorFactory listArrayPropertyGeneratorFactory = factoryProvider.createNewListArrayPropertyGeneratorFactory();
+
+        assertThat(listArrayPropertyGeneratorFactory, is(notNullValue()));
+        assertThat(factoryProvider.createNewListArrayPropertyGeneratorFactory(), is(not(sameInstance(listArrayPropertyGeneratorFactory))));
+    }
+
+    @Test
+    public void shouldCreateATupleArrayPropertyGeneratorFactory() throws Exception {
+
+        final TupleArrayPropertyGeneratorFactory tupleArrayPropertyGeneratorFactory = factoryProvider.createNewTupleArrayPropertyGeneratorFactory();
+
+        assertThat(tupleArrayPropertyGeneratorFactory, is(notNullValue()));
+        assertThat(factoryProvider.createNewTupleArrayPropertyGeneratorFactory(), is(not(sameInstance(tupleArrayPropertyGeneratorFactory))));
+    }
+
+    @Test
+    public void shouldCreateAnUnspecifiedArrayPropertyGeneratorFactory() throws Exception {
+
+        final UnspecifiedArrayPropertyGeneratorFactory unspecifiedArrayPropertyGeneratorFactory = factoryProvider.createNewUnspecifiedArrayPropertyGeneratorFactory();
+
+        assertThat(unspecifiedArrayPropertyGeneratorFactory, is(notNullValue()));
+        assertThat(factoryProvider.createNewUnspecifiedArrayPropertyGeneratorFactory(), is(not(sameInstance(unspecifiedArrayPropertyGeneratorFactory))));
     }
 }

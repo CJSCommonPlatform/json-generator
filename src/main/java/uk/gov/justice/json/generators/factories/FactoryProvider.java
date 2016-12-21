@@ -6,7 +6,19 @@ public class FactoryProvider {
         return new ObjectPropertyGeneratorFactory();
     }
 
-    public SimplePropertyGeneratorFactory createNewPropertyGeneratorFactory() {
-        return new SimplePropertyGeneratorFactory();
+    public BasicPropertyGeneratorFactory createNewPropertyGeneratorFactory() {
+        return new BasicPropertyGeneratorFactory();
+    }
+
+    public ListArrayPropertyGeneratorFactory createNewListArrayPropertyGeneratorFactory() {
+        return new ListArrayPropertyGeneratorFactory();
+    }
+
+    public TupleArrayPropertyGeneratorFactory createNewTupleArrayPropertyGeneratorFactory() {
+        return new TupleArrayPropertyGeneratorFactory();
+    }
+
+    public UnspecifiedArrayPropertyGeneratorFactory createNewUnspecifiedArrayPropertyGeneratorFactory() {
+        return new UnspecifiedArrayPropertyGeneratorFactory();
     }
 }

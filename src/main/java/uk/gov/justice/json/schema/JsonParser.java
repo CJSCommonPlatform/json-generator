@@ -4,10 +4,12 @@ import java.util.Map;
 
 import com.google.gson.Gson;
 
-public class Parser {
+public class JsonParser {
+
+    private final Gson gson = new Gson();
 
     @SuppressWarnings("unchecked")
     public Map<String, Object> toMap(String json) {
-        return new Gson().fromJson(json, Map.class);
+        return gson.fromJson(json, Map.class);
     }
 }

@@ -9,16 +9,16 @@ import java.util.Map;
 
 import org.junit.Test;
 
-public class ParserTest {
+public class JsonParserTest {
 
-    private final Parser parser = new Parser();
+    private final JsonParser jsonParser = new JsonParser();
     private final FileLoader fileLoader = new FileLoader();
 
     @Test
     public void shouldParseAJsonDocumentToAString() throws Exception {
 
         final String jsonSchema = fileLoader.loadAsJsonSting("src/test/resources/simple-property-schema.json");
-        final Map<String, Object> objectMap = parser.toMap(jsonSchema);
+        final Map<String, Object> objectMap = jsonParser.toMap(jsonSchema);
 
         assertThat(objectMap.get("$schema"), is("http://json-schema.org/draft-04/schema#"));
         assertThat(objectMap.get("id"), is("/"));

@@ -7,31 +7,21 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.annotations.VisibleForTesting;
-
 public class ObjectPropertyGeneratorFactory {
 
-    private final FactoryProvider factoryProvider;
-
-    public ObjectPropertyGeneratorFactory() {
-        this(new FactoryProvider());
-    }
-
-    @VisibleForTesting
-    ObjectPropertyGeneratorFactory(final FactoryProvider factoryProvider) {
-        this.factoryProvider = factoryProvider;
-    }
+    private FactoryProvider factoryProvider = new FactoryProvider();
 
     @SuppressWarnings("unchecked")
-    public ObjectJsonPropertyGenerator createGenerator(final String propertyName, final Object value) {
+    public ObjectJsonPropertyGenerator createGenerator(final String propertyName, final Object propertyValue) {
 
-        final Map<String, Object> properties = (Map<String, Object>) value;
+        final Map<String, Object> properties = (Map<String, Object>) propertyValue;
         final List<JsonPropertyGenerator> jsonPropertyGenerators = new ArrayList<>();
-        final SimplePropertyGeneratorFactory newPropertyGeneratorFactory = factoryProvider.createNewPropertyGeneratorFactory();
+        final BasicPropertyGeneratorFactory basicPropertyGeneratorFactory = factoryProvider.createNewPropertyGeneratorFactory();
 
-        properties.forEach((name, values) -> {
-            jsonPropertyGenerators.add(newPropertyGeneratorFactory.createGenerator(name, values));
+        properties.forEach((name, value) -> {
+            jsonPropertyGenerators.add(basicPropertyGeneratorFactory.createGenerator(name, value));
         });
+
 
         return new ObjectJsonPropertyGenerator(propertyName, jsonPropertyGenerators);
     }
