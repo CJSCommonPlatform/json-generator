@@ -1,21 +1,17 @@
-package uk.gov.justice.json.generators.factories;
+package uk.gov.justice.json.generators.selectors;
 
 import static java.util.Arrays.asList;
-import static java.util.stream.Collectors.toList;
 
-import uk.gov.justice.json.JsonGenerationException;
 import uk.gov.justice.json.generators.properties.ArrayPropertyGenerator;
 import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
 import uk.gov.justice.json.generators.values.JsonValueGenerator;
 import uk.gov.justice.json.generators.values.RandomBooleanGenerator;
-import uk.gov.justice.json.generators.values.RandomEnumValueGenerator;
 import uk.gov.justice.json.generators.values.RandomIntegerGenerator;
 import uk.gov.justice.json.generators.values.RandomStringGenerator;
 
 import java.util.List;
-import java.util.Map;
 
-public class UnspecifiedArrayPropertyGeneratorFactory {
+public class UnspecifiedArrayGeneratorSelector {
 
     public JsonPropertyGenerator createGenerator(final String propertyName) {
 

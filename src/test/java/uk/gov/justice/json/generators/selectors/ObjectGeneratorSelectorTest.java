@@ -1,24 +1,18 @@
-package uk.gov.justice.json.generators.factories;
+package uk.gov.justice.json.generators.selectors;
 
-import static java.util.Arrays.asList;
 import static org.hamcrest.CoreMatchers.hasItem;
-import static org.junit.Assert.*;
 
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.sameInstance;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
@@ -26,21 +20,18 @@ import static org.mockito.Mockito.*;
 import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.ObjectJsonPropertyGenerator;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 
 @RunWith(MockitoJUnitRunner.class)
-public class ObjectPropertyGeneratorFactoryTest {
+public class ObjectGeneratorSelectorTest {
 
     @Mock
-    private FactoryProvider factoryProvider;
+    private SelectorFactory selectorFactory;
 
     @InjectMocks
-    private ObjectPropertyGeneratorFactory objectPropertyGeneratorFactory;
+    private ObjectGeneratorSelector objectGeneratorSelector;
 
     @Test
     public void shouldCreateAnObjectPropertyGeneratorWithCorrectJsonPropertyGenerators() throws Exception {
@@ -60,19 +51,19 @@ public class ObjectPropertyGeneratorFactoryTest {
         properties.put(propertyName_2, propertyValue_2);
         properties.put(propertyName_3, propertyValue_3);
 
-        final BasicPropertyGeneratorFactory basicPropertyGeneratorFactory = mock(BasicPropertyGeneratorFactory.class);
+        final PropertyGeneratorSelector propertyGeneratorSelector = mock(PropertyGeneratorSelector.class);
         final JsonPropertyGenerator propertyGenerator_1 = mock(JsonPropertyGenerator.class);
         final JsonPropertyGenerator propertyGenerator_2 = mock(JsonPropertyGenerator.class);
         final JsonPropertyGenerator propertyGenerator_3 = mock(JsonPropertyGenerator.class);
 
 
-        when(factoryProvider.createNewPropertyGeneratorFactory()).thenReturn(basicPropertyGeneratorFactory);
+        when(selectorFactory.createNewPropertyGeneratorSelector()).thenReturn(propertyGeneratorSelector);
 
-        when(basicPropertyGeneratorFactory.createGenerator(propertyName_1, propertyValue_1)).thenReturn(propertyGenerator_1);
-        when(basicPropertyGeneratorFactory.createGenerator(propertyName_2, propertyValue_2)).thenReturn(propertyGenerator_2);
-        when(basicPropertyGeneratorFactory.createGenerator(propertyName_3, propertyValue_3)).thenReturn(propertyGenerator_3);
+        when(propertyGeneratorSelector.createGenerator(propertyName_1, propertyValue_1)).thenReturn(propertyGenerator_1);
+        when(propertyGeneratorSelector.createGenerator(propertyName_2, propertyValue_2)).thenReturn(propertyGenerator_2);
+        when(propertyGeneratorSelector.createGenerator(propertyName_3, propertyValue_3)).thenReturn(propertyGenerator_3);
 
-        final ObjectJsonPropertyGenerator objectJsonPropertyGenerator = objectPropertyGeneratorFactory.createGenerator(
+        final ObjectJsonPropertyGenerator objectJsonPropertyGenerator = objectGeneratorSelector.createGenerator(
                 objectPropertyName,
                 properties);
 

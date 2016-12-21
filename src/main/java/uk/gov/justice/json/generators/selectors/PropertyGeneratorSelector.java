@@ -1,4 +1,4 @@
-package uk.gov.justice.json.generators.factories;
+package uk.gov.justice.json.generators.selectors;
 
 import static java.lang.String.format;
 
@@ -15,12 +15,12 @@ import uk.gov.justice.json.generators.properties.StringJsonPropertyGenerator;
 import java.util.List;
 import java.util.Map;
 
-public class BasicPropertyGeneratorFactory {
+public class PropertyGeneratorSelector {
 
-    private FactoryProvider factoryProvider;
+    private SelectorFactory selectorFactory;
 
-    public BasicPropertyGeneratorFactory() {
-        factoryProvider = new FactoryProvider();
+    public PropertyGeneratorSelector() {
+        selectorFactory = new SelectorFactory();
     }
 
     @SuppressWarnings("unchecked")
@@ -30,8 +30,7 @@ public class BasicPropertyGeneratorFactory {
 
         final String type = (String) propertyDefinitions.get("type");
         if (propertyDefinitions.containsKey("enum")) {
-            final List<Object> enums = (List<Object>) propertyDefinitions.get("enum");
-            return new EnumJsonPropertyGenerator(propertyName, enums);
+            return getEnumPropertyGenerator(propertyName, propertyDefinitions);
 
         }
 
@@ -51,6 +50,13 @@ public class BasicPropertyGeneratorFactory {
         }
     }
 
+    @SuppressWarnings("unchecked")
+    private JsonPropertyGenerator getEnumPropertyGenerator(final String propertyName, final Map<String, Object> propertyDefinitions) {
+        final List<Object> enums = (List<Object>) propertyDefinitions.get("enum");
+        return new EnumJsonPropertyGenerator(propertyName, enums);
+    }
+
+    @SuppressWarnings("unchecked")
     private JsonPropertyGenerator getStringTypePropertyGenerator(final String propertyName, final Map<String, Object> propertyDefinitions) {
 
         final String format = (String) propertyDefinitions.get("format");
@@ -71,9 +77,10 @@ public class BasicPropertyGeneratorFactory {
         return new StringJsonPropertyGenerator(propertyName);
     }
 
+    @SuppressWarnings("unchecked")
     private JsonPropertyGenerator getObjectTypePropertyGenerator(final String propertyName, final Map<String, Object> propertyDefinitions) {
-        final Object properties = propertyDefinitions.get("properties");
-        return factoryProvider.createNewObjectGeneratorFactory().createGenerator(propertyName, properties);
+        final Map<String, Object> properties = (Map<String, Object>) propertyDefinitions.get("properties");
+        return selectorFactory.createNewObjectGeneratorSelector().createGenerator(propertyName, properties);
     }
 
     @SuppressWarnings("unchecked")
@@ -83,24 +90,24 @@ public class BasicPropertyGeneratorFactory {
 
         // unspecifiedArrayProperty
         if (items == null) {
-            return factoryProvider
-                    .createNewUnspecifiedArrayPropertyGeneratorFactory()
+            return selectorFactory
+                    .createNewUnspecifiedArrayGeneratorSelector()
                     .createGenerator(propertyName);
         }
 
         // tupleArrayProperty
         if (items instanceof List) {
             final List<Map<String, Object>> itemsList = (List<Map<String, Object>>) items;
-            return factoryProvider
-                    .createNewTupleArrayPropertyGeneratorFactory()
+            return selectorFactory
+                    .createNewTupleArrayGeneratorSelector()
                     .createGenerator(propertyName, itemsList);
         }
 
         // listArrayProperty
         if (items instanceof Map) {
             final Map<String, Object> itemsMap = (Map<String, Object>) items;
-            return factoryProvider
-                    .createNewListArrayPropertyGeneratorFactory()
+            return selectorFactory
+                    .createNewListArrayGeneratorSelector()
                     .createGenerator(propertyName, itemsMap);
         }
 

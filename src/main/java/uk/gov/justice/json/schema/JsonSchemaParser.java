@@ -2,7 +2,7 @@ package uk.gov.justice.json.schema;
 
 import static java.util.stream.Collectors.toList;
 
-import uk.gov.justice.json.generators.factories.BasicPropertyGeneratorFactory;
+import uk.gov.justice.json.generators.selectors.PropertyGeneratorSelector;
 import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.Map;
 
 public class JsonSchemaParser {
 
-    private BasicPropertyGeneratorFactory basicPropertyGeneratorFactory = new BasicPropertyGeneratorFactory();
+    private PropertyGeneratorSelector propertyGeneratorSelector = new PropertyGeneratorSelector();
     private JsonParser jsonParser = new JsonParser();
 
     @SuppressWarnings("unchecked")
@@ -24,7 +24,7 @@ public class JsonSchemaParser {
                 .keySet()
                 .stream()
                 .filter(this::isPropertyName)
-                .map(propertyName -> basicPropertyGeneratorFactory.createGenerator(propertyName, properties.get(propertyName)))
+                .map(propertyName -> propertyGeneratorSelector.createGenerator(propertyName, properties.get(propertyName)))
                 .collect(toList());
 
         return new JsonDocumentGenerator(jsonPropertyGenerators);
