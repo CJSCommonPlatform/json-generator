@@ -1,4 +1,4 @@
-package uk.gov.justice.json.generators.factories;
+package uk.gov.justice.json.generators.selectors;
 
 import static java.util.Arrays.asList;
 
@@ -13,7 +13,7 @@ import uk.gov.justice.json.generators.values.RandomStringGenerator;
 import java.util.List;
 import java.util.Map;
 
-public class ListArrayPropertyGeneratorFactory {
+public class ListArrayGeneratorSelector {
 
     public JsonPropertyGenerator createGenerator(final String propertyName, final Map<String, Object> items) {
 
