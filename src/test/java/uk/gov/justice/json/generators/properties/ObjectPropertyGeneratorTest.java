@@ -8,8 +8,6 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import uk.gov.justice.json.formatting.CurlyBracedJsonPropertyFormatter;
-
 import org.junit.Test;
 
 public class ObjectPropertyGeneratorTest {
@@ -29,13 +27,12 @@ public class ObjectPropertyGeneratorTest {
 
         final ObjectPropertyGenerator objectPropertyGenerator = new ObjectPropertyGenerator(
                 PROPERTY_NAME,
-                asList(propertyGenerator_1, propertyGenerator_2),
-                new CurlyBracedJsonPropertyFormatter()
+                asList(propertyGenerator_1, propertyGenerator_2)
         );
 
         final String json = objectPropertyGenerator.nextJson();
 
-        assertThat(json, is("\"objectProperty\": { \"propertyOne\": 1,\"propertyTwo\": 2 }"));
+        assertThat(json, is("\"objectProperty\": {\"propertyOne\": 1,\"propertyTwo\": 2}"));
     }
 
     @Test
@@ -49,12 +46,11 @@ public class ObjectPropertyGeneratorTest {
 
         final ObjectPropertyGenerator objectPropertyGenerator = new ObjectPropertyGenerator(
                 PROPERTY_NAME,
-                singletonList(propertyGenerator_1),
-                new CurlyBracedJsonPropertyFormatter()
+                singletonList(propertyGenerator_1)
         );
 
         final String json = objectPropertyGenerator.nextJson();
 
-        assertThat(json, is("\"objectProperty\": { \"propertyOne\": 1 }"));
+        assertThat(json, is("\"objectProperty\": {\"propertyOne\": 1}"));
     }
 }

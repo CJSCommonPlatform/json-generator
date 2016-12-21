@@ -1,6 +1,6 @@
 package uk.gov.justice.json.generators.properties;
 
-import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
+import uk.gov.justice.json.formatting.JsonPropertyFormatter;
 import uk.gov.justice.services.test.utils.core.random.BooleanGenerator;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -9,20 +9,20 @@ public class BooleanPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
     private final BooleanGenerator booleanGenerator;
-    private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter;
+    private final JsonPropertyFormatter jsonPropertyFormatter;
 
     public BooleanPropertyGenerator(final String name) {
-        this(name, new BooleanGenerator(), new SimpleJsonPropertyFormatter());
+        this(name, new BooleanGenerator(), new JsonPropertyFormatter());
     }
 
     @VisibleForTesting
     BooleanPropertyGenerator(
             final String name,
             final BooleanGenerator randomBooleanGenerator,
-            final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter) {
+            final JsonPropertyFormatter jsonPropertyFormatter) {
         this.name = name;
         this.booleanGenerator = randomBooleanGenerator;
-        this.simpleJsonPropertyFormatter = simpleJsonPropertyFormatter;
+        this.jsonPropertyFormatter = jsonPropertyFormatter;
     }
 
     @Override
@@ -32,6 +32,6 @@ public class BooleanPropertyGenerator implements JsonPropertyGenerator {
 
     @Override
     public String nextJson() {
-        return simpleJsonPropertyFormatter.toJson(name, booleanGenerator.next());
+        return jsonPropertyFormatter.toJson(name, booleanGenerator.next());
     }
 }

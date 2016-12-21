@@ -1,27 +1,27 @@
 package uk.gov.justice.json.generators.properties;
 
-import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
-import uk.gov.justice.json.generators.values.RandomEmailGenerator;
+import uk.gov.justice.json.formatting.JsonPropertyFormatter;
+import uk.gov.justice.json.generators.values.EmailValueGenerator;
 
 import com.google.common.annotations.VisibleForTesting;
 
 public class EmailPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
-    private final RandomEmailGenerator randomEmailGenerator;
-    private final SimpleJsonPropertyFormatter quotedJsonPropertyFormatter;
+    private final EmailValueGenerator emailValueGenerator;
+    private final JsonPropertyFormatter quotedJsonPropertyFormatter;
 
     public EmailPropertyGenerator(final String name) {
-        this(name, new RandomEmailGenerator(), new SimpleJsonPropertyFormatter());
+        this(name, new EmailValueGenerator(), new JsonPropertyFormatter());
     }
 
     @VisibleForTesting
     EmailPropertyGenerator(
             final String name,
-            final RandomEmailGenerator randomEmailGenerator,
-            final SimpleJsonPropertyFormatter quotedJsonPropertyFormatter) {
+            final EmailValueGenerator emailValueGenerator,
+            final JsonPropertyFormatter quotedJsonPropertyFormatter) {
         this.name = name;
-        this.randomEmailGenerator = randomEmailGenerator;
+        this.emailValueGenerator = emailValueGenerator;
         this.quotedJsonPropertyFormatter = quotedJsonPropertyFormatter;
     }
 
@@ -32,6 +32,6 @@ public class EmailPropertyGenerator implements JsonPropertyGenerator {
 
     @Override
     public String nextJson() {
-        return quotedJsonPropertyFormatter.toJson(name, randomEmailGenerator.nextValue());
+        return quotedJsonPropertyFormatter.toJson(name, emailValueGenerator.nextValue());
     }
 }

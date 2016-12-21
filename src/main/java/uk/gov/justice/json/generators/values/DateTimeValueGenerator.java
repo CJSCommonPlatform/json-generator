@@ -8,7 +8,7 @@ import static uk.gov.justice.json.Constants.DOUBLE_QUOTE;
 import java.time.ZonedDateTime;
 import java.util.Random;
 
-public class RandomDateTimeGenerator implements JsonValueGenerator {
+public class DateTimeValueGenerator implements JsonValueGenerator {
 
     private final Random random = new Random();
 

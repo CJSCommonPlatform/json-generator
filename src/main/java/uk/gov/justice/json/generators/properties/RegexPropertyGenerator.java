@@ -1,29 +1,29 @@
 package uk.gov.justice.json.generators.properties;
 
-import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
-import uk.gov.justice.json.generators.values.RandomRegexStringGenerator;
+import uk.gov.justice.json.formatting.JsonPropertyFormatter;
+import uk.gov.justice.json.generators.values.RegexValueGenerator;
 
 public class RegexPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
     private final String pattern;
-    private final RandomRegexStringGenerator randomRegexStringGenerator;
+    private final RegexValueGenerator regexValueGenerator;
 
-    private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter;
+    private final JsonPropertyFormatter jsonPropertyFormatter;
 
     public RegexPropertyGenerator(final String name, final String pattern) {
-        this(name, pattern, new RandomRegexStringGenerator(pattern), new SimpleJsonPropertyFormatter());
+        this(name, pattern, new RegexValueGenerator(pattern), new JsonPropertyFormatter());
     }
 
     public RegexPropertyGenerator(
             final String name,
             final String pattern,
-            final RandomRegexStringGenerator randomRegexStringGenerator,
-            final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter) {
+            final RegexValueGenerator regexValueGenerator,
+            final JsonPropertyFormatter jsonPropertyFormatter) {
         this.name = name;
         this.pattern = pattern;
-        this.randomRegexStringGenerator = randomRegexStringGenerator;
-        this.simpleJsonPropertyFormatter = simpleJsonPropertyFormatter;
+        this.regexValueGenerator = regexValueGenerator;
+        this.jsonPropertyFormatter = jsonPropertyFormatter;
     }
 
     @Override
@@ -37,6 +37,6 @@ public class RegexPropertyGenerator implements JsonPropertyGenerator {
 
     @Override
     public String nextJson() {
-        return simpleJsonPropertyFormatter.toJson(name, randomRegexStringGenerator.nextValue());
+        return jsonPropertyFormatter.toJson(name, regexValueGenerator.nextValue());
     }
 }

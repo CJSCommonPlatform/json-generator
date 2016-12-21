@@ -5,8 +5,8 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
-import uk.gov.justice.json.generators.values.RandomDateTimeGenerator;
+import uk.gov.justice.json.formatting.JsonPropertyFormatter;
+import uk.gov.justice.json.generators.values.DateTimeValueGenerator;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,13 +18,13 @@ public class IsoDateTimePropertyGeneratorTest {
 
     private static final String PROPERTY_NAME = "dateTimeProperty";
 
-    private final RandomDateTimeGenerator randomDateTimeGenerator = mock(RandomDateTimeGenerator.class);
-    private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = mock(SimpleJsonPropertyFormatter.class);
+    private final DateTimeValueGenerator dateTimeValueGenerator = mock(DateTimeValueGenerator.class);
+    private final JsonPropertyFormatter jsonPropertyFormatter = mock(JsonPropertyFormatter.class);
 
     private final IsoDateTimePropertyGenerator isoDateTimePropertyGenerator = new IsoDateTimePropertyGenerator(
             PROPERTY_NAME,
-            randomDateTimeGenerator,
-            simpleJsonPropertyFormatter
+            dateTimeValueGenerator,
+            jsonPropertyFormatter
     );
 
     @Test
@@ -33,8 +33,8 @@ public class IsoDateTimePropertyGeneratorTest {
         final String randomDate = "\"2016-08-03T13:55:02+00:00\"";
         final String json  = "some json";
 
-        when(randomDateTimeGenerator.nextValue()).thenReturn(randomDate);
-        when(simpleJsonPropertyFormatter.toJson(PROPERTY_NAME, randomDate)).thenReturn(json);
+        when(dateTimeValueGenerator.nextValue()).thenReturn(randomDate);
+        when(jsonPropertyFormatter.toJson(PROPERTY_NAME, randomDate)).thenReturn(json);
 
         assertThat(isoDateTimePropertyGenerator.nextJson(), is(json));
     }
@@ -43,12 +43,12 @@ public class IsoDateTimePropertyGeneratorTest {
     public void shouldGenerateValidJson() throws Exception {
 
         final String randomDate = "\"2016-08-03T13:55:02+00:00\"";
-        when(randomDateTimeGenerator.nextValue()).thenReturn(randomDate);
+        when(dateTimeValueGenerator.nextValue()).thenReturn(randomDate);
 
         final IsoDateTimePropertyGenerator propertyGenerator = new IsoDateTimePropertyGenerator(
                 PROPERTY_NAME,
-                randomDateTimeGenerator,
-                new SimpleJsonPropertyFormatter()
+                dateTimeValueGenerator,
+                new JsonPropertyFormatter()
         );
 
         final String json = propertyGenerator.nextJson();

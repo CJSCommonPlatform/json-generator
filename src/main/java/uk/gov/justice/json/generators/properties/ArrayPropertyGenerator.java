@@ -4,7 +4,7 @@ import static uk.gov.justice.json.Constants.COMMA;
 import static uk.gov.justice.json.Constants.LEFT_BRACKET;
 import static uk.gov.justice.json.Constants.RIGHT_BRACKET;
 
-import uk.gov.justice.json.Constants;
+import uk.gov.justice.json.formatting.JsonPropertyFormatter;
 import uk.gov.justice.json.generators.values.JsonValueGenerator;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class ArrayPropertyGenerator implements JsonPropertyGenerator {
         stringBuilder.insert(0, LEFT_BRACKET);
         stringBuilder.append(RIGHT_BRACKET);
 
-        return stringBuilder.toString();
+        return new JsonPropertyFormatter().toJson(name, stringBuilder.toString());
     }
 
     private StringBuilder appendNextValue(final StringBuilder stringBuilder, final JsonValueGenerator jsonValueGenerator) {

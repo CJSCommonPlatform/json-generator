@@ -14,17 +14,17 @@ import java.util.UUID;
 
 import org.junit.Test;
 
-public class RandomRegexStringGeneratorTest {
+public class RegexValueGeneratorTest {
 
 
     private static final String UUID_PATTERN = "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$";
 
-    private final RandomRegexStringGenerator randomRegexStringGenerator = new RandomRegexStringGenerator(UUID_PATTERN);
+    private final RegexValueGenerator regexValueGenerator = new RegexValueGenerator(UUID_PATTERN);
 
     @Test
     public void shouldGenerateAStringFromARegularExpression() throws Exception {
 
-        final String randomString = randomRegexStringGenerator.nextValue();
+        final String randomString = regexValueGenerator.nextValue();
 
         assertThat(randomString, startsWith(DOUBLE_QUOTE));
         assertThat(randomString, endsWith(DOUBLE_QUOTE));
@@ -33,7 +33,7 @@ public class RandomRegexStringGeneratorTest {
 
         assertThat(uuid, is(notNullValue()));
 
-        assertThat(randomRegexStringGenerator.nextValue(), is(not(equalTo(randomString))));
+        assertThat(regexValueGenerator.nextValue(), is(not(equalTo(randomString))));
     }
 
     private String stripQuotesFrom(final String randomString) {

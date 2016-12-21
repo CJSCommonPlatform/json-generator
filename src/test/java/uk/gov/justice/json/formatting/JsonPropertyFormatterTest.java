@@ -6,9 +6,9 @@ import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 
-public class SimpleJsonPropertyFormatterTest {
+public class JsonPropertyFormatterTest {
 
-    private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = new SimpleJsonPropertyFormatter();
+    private final JsonPropertyFormatter jsonPropertyFormatter = new JsonPropertyFormatter();
 
     @Test
     public void shouldGenerateTheCorrectJsonFragmentForAQuotedProperty() throws Exception {
@@ -16,6 +16,6 @@ public class SimpleJsonPropertyFormatterTest {
         final String name = "myProperty";
         final boolean value = true;
 
-        assertThat(simpleJsonPropertyFormatter.toJson(name, value), is("\"myProperty\": true"));
+        assertThat(jsonPropertyFormatter.toJson(name, value), is("\"myProperty\": true"));
     }
 }

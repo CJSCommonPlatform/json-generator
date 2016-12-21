@@ -5,18 +5,18 @@ import static java.lang.String.format;
 
 import java.util.Random;
 
-public class RandomIntegerGenerator implements JsonValueGenerator {
+public class IntegerValueGenerator implements JsonValueGenerator {
 
     private final Random random = new Random();
 
     private final int min;
     private final int max;
 
-    public RandomIntegerGenerator() {
+    public IntegerValueGenerator() {
         this(0, MAX_VALUE);
     }
 
-    public RandomIntegerGenerator(final int min, final int max) {
+    public IntegerValueGenerator(final int min, final int max) {
         if (min >= max) {
             throw new IllegalArgumentException(
                     format("Min value cannot be greater than or equal to Max value, got Min: %s and Max: %s", min, max));

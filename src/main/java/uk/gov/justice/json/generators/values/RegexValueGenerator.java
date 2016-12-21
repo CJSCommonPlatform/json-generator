@@ -4,11 +4,11 @@ import static uk.gov.justice.json.Constants.DOUBLE_QUOTE;
 
 import com.mifmif.common.regex.Generex;
 
-public class RandomRegexStringGenerator implements JsonValueGenerator {
+public class RegexValueGenerator implements JsonValueGenerator {
 
     private final String pattern;
 
-    public RandomRegexStringGenerator(final String pattern) {
+    public RegexValueGenerator(final String pattern) {
         this.pattern = pattern;
     }
 

@@ -5,8 +5,8 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
-import uk.gov.justice.json.generators.values.RandomIntegerGenerator;
+import uk.gov.justice.json.formatting.JsonPropertyFormatter;
+import uk.gov.justice.json.generators.values.IntegerValueGenerator;
 
 import org.junit.Test;
 
@@ -14,13 +14,13 @@ public class IntegerPropertyGeneratorTest {
 
     private static final String PROPERTY_NAME = "integerProperty";
 
-    private final RandomIntegerGenerator randomIntegerGenerator = mock(RandomIntegerGenerator.class);
-    private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter = mock(SimpleJsonPropertyFormatter.class);
+    private final IntegerValueGenerator integerValueGenerator = mock(IntegerValueGenerator.class);
+    private final JsonPropertyFormatter jsonPropertyFormatter = mock(JsonPropertyFormatter.class);
 
     private final IntegerPropertyGenerator integerPropertyGenerator = new IntegerPropertyGenerator(
             PROPERTY_NAME,
-            randomIntegerGenerator,
-            simpleJsonPropertyFormatter
+            integerValueGenerator,
+            jsonPropertyFormatter
     );
 
     @Test
@@ -29,8 +29,8 @@ public class IntegerPropertyGeneratorTest {
         final String randomInt = "23";
         final String json  = "some json";
 
-        when(randomIntegerGenerator.nextValue()).thenReturn(randomInt);
-        when(simpleJsonPropertyFormatter.toJson(PROPERTY_NAME, randomInt)).thenReturn(json);
+        when(integerValueGenerator.nextValue()).thenReturn(randomInt);
+        when(jsonPropertyFormatter.toJson(PROPERTY_NAME, randomInt)).thenReturn(json);
 
         assertThat(integerPropertyGenerator.nextJson(), is(json));
     }
@@ -39,12 +39,12 @@ public class IntegerPropertyGeneratorTest {
     public void shouldGenerateValidJson() throws Exception {
 
         final String randomInt = "23";
-        when(randomIntegerGenerator.nextValue()).thenReturn(randomInt);
+        when(integerValueGenerator.nextValue()).thenReturn(randomInt);
 
         final IntegerPropertyGenerator propertyGenerator = new IntegerPropertyGenerator(
                 PROPERTY_NAME,
-                randomIntegerGenerator,
-                new SimpleJsonPropertyFormatter()
+                integerValueGenerator,
+                new JsonPropertyFormatter()
         );
 
         final String json = propertyGenerator.nextJson();
