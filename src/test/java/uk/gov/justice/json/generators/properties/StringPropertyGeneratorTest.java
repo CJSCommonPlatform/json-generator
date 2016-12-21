@@ -10,14 +10,14 @@ import uk.gov.justice.services.test.utils.core.random.StringGenerator;
 
 import org.junit.Test;
 
-public class StringJsonPropertyGeneratorTest {
+public class StringPropertyGeneratorTest {
 
     private static final String PROPERTY_NAME = "stringProperty";
 
     private final StringGenerator randomStringGenerator = mock(StringGenerator.class);
     private final SimpleJsonPropertyFormatter quotedJsonPropertyFormatter = mock(SimpleJsonPropertyFormatter.class);
 
-    private final StringJsonPropertyGenerator stringJsonPropertyGenerator = new StringJsonPropertyGenerator(
+    private final StringPropertyGenerator stringPropertyGenerator = new StringPropertyGenerator(
             PROPERTY_NAME,
             randomStringGenerator,
             quotedJsonPropertyFormatter
@@ -32,7 +32,7 @@ public class StringJsonPropertyGeneratorTest {
         when(randomStringGenerator.next()).thenReturn(randomString);
         when(quotedJsonPropertyFormatter.toJson(PROPERTY_NAME, randomString)).thenReturn(json);
 
-        assertThat(stringJsonPropertyGenerator.nextJson(), is(json));
+        assertThat(stringPropertyGenerator.nextJson(), is(json));
     }
 
     @Test
@@ -41,7 +41,7 @@ public class StringJsonPropertyGeneratorTest {
         final String randomString = "\"a_random_string\"";
         when(randomStringGenerator.next()).thenReturn(randomString);
 
-        final StringJsonPropertyGenerator propertyGenerator = new StringJsonPropertyGenerator(
+        final StringPropertyGenerator propertyGenerator = new StringPropertyGenerator(
                 PROPERTY_NAME,
                 randomStringGenerator,
                 new SimpleJsonPropertyFormatter()

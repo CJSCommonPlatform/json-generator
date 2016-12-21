@@ -9,14 +9,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import uk.gov.justice.json.JsonGenerationException;
+import uk.gov.justice.json.generators.properties.ArrayPropertyGenerator;
 import uk.gov.justice.json.generators.properties.BooleanPropertyGenerator;
-import uk.gov.justice.json.generators.properties.EmailPropertyGenerator;
-import uk.gov.justice.json.generators.properties.IntegerJsonPropertyGenerator;
-import uk.gov.justice.json.generators.properties.IsoDateTimePropertyGenerator;
+import uk.gov.justice.json.generators.properties.IntegerPropertyGenerator;
 import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.ObjectPropertyGenerator;
-import uk.gov.justice.json.generators.properties.RegexPropertyGenerator;
-import uk.gov.justice.json.generators.properties.StringJsonPropertyGenerator;
+import uk.gov.justice.json.generators.properties.StringPropertyGenerator;
+import uk.gov.justice.json.generators.selectors.arrays.ArrayGeneratorSelector;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,6 +35,12 @@ public class PropertyGeneratorSelectorTest {
     @Mock
     private ObjectGeneratorSelector objectGeneratorSelector;
 
+    @Mock
+    private StringPropertyGeneratorSelector stringPropertyGeneratorSelector;
+
+    @Mock
+    private ArrayGeneratorSelector arrayGeneratorSelector;
+
     @InjectMocks
     private PropertyGeneratorSelector propertyGeneratorSelector;
 
@@ -46,52 +51,13 @@ public class PropertyGeneratorSelectorTest {
         final Map<String, Object> propertyDefinitions =  new HashMap<>();
         propertyDefinitions.put("type", "string");
 
-        final JsonPropertyGenerator generator = propertyGeneratorSelector.createGenerator(propertyName, propertyDefinitions);
-        assertThat(generator, is(instanceOf(StringJsonPropertyGenerator.class)));
-        assertThat(generator.getName(), is(propertyName));
-    }
+        final StringPropertyGenerator stringPropertyGenerator = mock(StringPropertyGenerator.class);
 
-    @Test
-    public void shouldCreateAnEmailPropertyGeneratorIfTheTypeIsStringAndTheFormatIsEmail() throws Exception {
+        when(stringPropertyGeneratorSelector.getStringPropertyGenerator(
+                propertyName,
+                propertyDefinitions)).thenReturn(stringPropertyGenerator);
 
-        final String propertyName = "stringProperty";
-        final Map<String, Object> propertyDefinitions =  new HashMap<>();
-        propertyDefinitions.put("type", "string");
-        propertyDefinitions.put("format", "email");
-
-        final JsonPropertyGenerator generator = propertyGeneratorSelector.createGenerator(propertyName, propertyDefinitions);
-        assertThat(generator, is(instanceOf(EmailPropertyGenerator.class)));
-        assertThat(generator.getName(), is(propertyName));
-    }
-
-    @Test
-    public void shouldCreateADateTimePropertyGeneratorIfTheTypeIsStringAndTheFormatIsDateTime() throws Exception {
-
-        final String propertyName = "dateProperty";
-        final Map<String, Object> propertyDefinitions =  new HashMap<>();
-        propertyDefinitions.put("type", "string");
-        propertyDefinitions.put("format", "date-time");
-
-        final JsonPropertyGenerator generator = propertyGeneratorSelector.createGenerator(propertyName, propertyDefinitions);
-        assertThat(generator, is(instanceOf(IsoDateTimePropertyGenerator.class)));
-        assertThat(generator.getName(), is(propertyName));
-    }
-
-    @Test
-    public void shouldCreateARegexPropertyGeneratorIfTheTypeIsStringAndThePatternPropertyIsSet() throws Exception {
-
-        final String propertyName = "regexProperty";
-        final String pattern = "$a|regex|pattern^";
-
-        final Map<String, Object> propertyDefinitions =  new HashMap<>();
-        propertyDefinitions.put("type", "string");
-        propertyDefinitions.put("pattern", pattern);
-
-        final JsonPropertyGenerator generator = propertyGeneratorSelector.createGenerator(propertyName, propertyDefinitions);
-        assertThat(generator, is(instanceOf(RegexPropertyGenerator.class)));
-
-        assertThat(generator.getName(), is(propertyName));
-        assertThat(((RegexPropertyGenerator) generator).getPattern(), is(pattern));
+        assertThat(propertyGeneratorSelector.createGenerator(propertyName, propertyDefinitions), is(stringPropertyGenerator));
     }
 
     @Test
@@ -102,7 +68,7 @@ public class PropertyGeneratorSelectorTest {
         propertyDefinitions.put("type", "integer");
 
         final JsonPropertyGenerator generator = propertyGeneratorSelector.createGenerator(propertyName, propertyDefinitions);
-        assertThat(generator, is(instanceOf(IntegerJsonPropertyGenerator.class)));
+        assertThat(generator, is(instanceOf(IntegerPropertyGenerator.class)));
         assertThat(generator.getName(), is(propertyName));
     }
 
@@ -119,7 +85,21 @@ public class PropertyGeneratorSelectorTest {
     }
 
     @Test
-    public void shouldCreateAnObjectFactoryIfTheTypeIsObject() throws Exception {
+    public void shouldCreateAnArrayPropertyGeneratorIfTheTypeIsArray() throws Exception {
+
+        final String propertyName = "arrayProperty";
+        final Map<String, Object> propertyDefinitions =  new HashMap<>();
+        propertyDefinitions.put("type", "array");
+
+        final ArrayPropertyGenerator arrayPropertyGenerator = mock(ArrayPropertyGenerator.class);
+
+        when(arrayGeneratorSelector.getArrayGenerator(propertyName, propertyDefinitions)).thenReturn(arrayPropertyGenerator);
+
+        assertThat(propertyGeneratorSelector.createGenerator(propertyName, propertyDefinitions), is(arrayPropertyGenerator));
+    }
+
+    @Test
+    public void shouldCreateAnObjectGeneratorIfTheTypeIsObject() throws Exception {
 
         final String propertyName = "objectProperty";
         final Map<String, Object> propertyDefinitions =  new HashMap<>();

@@ -8,12 +8,12 @@ import static org.junit.Assert.assertThat;
 import uk.gov.justice.json.FileLoader;
 import uk.gov.justice.json.generators.properties.BooleanPropertyGenerator;
 import uk.gov.justice.json.generators.properties.EmailPropertyGenerator;
-import uk.gov.justice.json.generators.properties.IntegerJsonPropertyGenerator;
+import uk.gov.justice.json.generators.properties.IntegerPropertyGenerator;
 import uk.gov.justice.json.generators.properties.IsoDateTimePropertyGenerator;
 import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
 import uk.gov.justice.json.generators.properties.ObjectPropertyGenerator;
 import uk.gov.justice.json.generators.properties.RegexPropertyGenerator;
-import uk.gov.justice.json.generators.properties.StringJsonPropertyGenerator;
+import uk.gov.justice.json.generators.properties.StringPropertyGenerator;
 
 import java.util.List;
 
@@ -35,13 +35,13 @@ public class JsonSchemaParserTest {
         assertThat(jsonPropertyGenerators, hasSize(6));
 
         assertThat(jsonPropertyGenerators.get(0).getName(), is("stringProperty"));
-        assertThat(jsonPropertyGenerators.get(0), is(instanceOf(StringJsonPropertyGenerator.class)));
+        assertThat(jsonPropertyGenerators.get(0), is(instanceOf(StringPropertyGenerator.class)));
         assertThat(jsonPropertyGenerators.get(1).getName(), is("emailProperty"));
         assertThat(jsonPropertyGenerators.get(1), is(instanceOf(EmailPropertyGenerator.class)));
         assertThat(jsonPropertyGenerators.get(2).getName(), is("dateProperty"));
         assertThat(jsonPropertyGenerators.get(2), is(instanceOf(IsoDateTimePropertyGenerator.class)));
         assertThat(jsonPropertyGenerators.get(3).getName(), is("integerProperty"));
-        assertThat(jsonPropertyGenerators.get(3), is(instanceOf(IntegerJsonPropertyGenerator.class)));
+        assertThat(jsonPropertyGenerators.get(3), is(instanceOf(IntegerPropertyGenerator.class)));
         assertThat(jsonPropertyGenerators.get(4).getName(), is("regExProperty"));
         assertThat(jsonPropertyGenerators.get(4), is(instanceOf(RegexPropertyGenerator.class)));
         assertThat(jsonPropertyGenerators.get(5).getName(), is("booleanProperty"));

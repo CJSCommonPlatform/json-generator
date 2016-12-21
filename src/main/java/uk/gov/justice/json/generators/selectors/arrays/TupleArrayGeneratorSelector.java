@@ -45,7 +45,6 @@ public class TupleArrayGeneratorSelector {
                 return new RandomIntegerGenerator();
         }
 
-
         throw new JsonGenerationException("oh dear");
     }
 }

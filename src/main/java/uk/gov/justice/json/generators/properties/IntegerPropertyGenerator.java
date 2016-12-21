@@ -1,27 +1,27 @@
 package uk.gov.justice.json.generators.properties;
 
 import uk.gov.justice.json.formatting.SimpleJsonPropertyFormatter;
-import uk.gov.justice.services.test.utils.core.random.StringGenerator;
+import uk.gov.justice.json.generators.values.RandomIntegerGenerator;
 
 import com.google.common.annotations.VisibleForTesting;
 
-public class StringJsonPropertyGenerator implements JsonPropertyGenerator {
+public class IntegerPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
-    private final StringGenerator randomStringGenerator;
+    private final RandomIntegerGenerator randomIntegerGenerator;
     private final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter;
 
-    public StringJsonPropertyGenerator(final String name) {
-        this(name, new StringGenerator(), new SimpleJsonPropertyFormatter());
+    public IntegerPropertyGenerator(final String name) {
+        this(name, new RandomIntegerGenerator(), new SimpleJsonPropertyFormatter());
     }
 
     @VisibleForTesting
-    StringJsonPropertyGenerator(
+    IntegerPropertyGenerator(
             final String name,
-            final StringGenerator randomStringGenerator,
+            final RandomIntegerGenerator randomIntegerGenerator,
             final SimpleJsonPropertyFormatter simpleJsonPropertyFormatter) {
         this.name = name;
-        this.randomStringGenerator = randomStringGenerator;
+        this.randomIntegerGenerator = randomIntegerGenerator;
         this.simpleJsonPropertyFormatter = simpleJsonPropertyFormatter;
     }
 
@@ -32,6 +32,8 @@ public class StringJsonPropertyGenerator implements JsonPropertyGenerator {
 
     @Override
     public String nextJson() {
-        return simpleJsonPropertyFormatter.toJson(name, randomStringGenerator.next());
+        return simpleJsonPropertyFormatter.toJson(
+                name,
+                randomIntegerGenerator.nextValue());
     }
 }
