@@ -84,4 +84,15 @@ public class JsonSchemaParserTest {
         final String json = jsonDocumentGenerator.generate();
         System.out.println(json);
     }
+
+    @Test
+    public void shouldCreateGeneratorsForOneOfSchemas() throws Exception {
+
+        final String jsonSchema = fileLoader.loadAsJsonSting("src/test/resources/oneof-property-schema.json");
+
+        final JsonDocumentGenerator jsonDocumentGenerator = jsonSchemaParser.parse(jsonSchema);
+
+        final String json = jsonDocumentGenerator.generate();
+        System.out.println(json);
+    }
 }

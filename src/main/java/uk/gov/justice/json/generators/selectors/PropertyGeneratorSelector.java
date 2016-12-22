@@ -25,6 +25,10 @@ public class PropertyGeneratorSelector {
             return new EnumPropertyGenerator(propertyName, (List<Object>) propertyDefinitions.get("enum"));
         }
 
+        if(propertyDefinitions.containsKey("oneOf")) {
+            return getOneOfGenerator(propertyName, (List<Object>) propertyDefinitions.get("oneOf"));
+        }
+
         final String type = (String) propertyDefinitions.get("type");
 
         switch (type) {
@@ -46,6 +50,10 @@ public class PropertyGeneratorSelector {
     private JsonPropertyGenerator getObjectGenerator(final String propertyName, final Map<String, Object> propertyDefinitions) {
         final Map<String, Object> properties = (Map<String, Object>) propertyDefinitions.get("properties");
         return selectorFactory.createNewObjectGeneratorSelector().createGenerator(propertyName, properties);
+    }
+
+    private JsonPropertyGenerator getOneOfGenerator(final String propertyName, final List<Object> schemas) {
+        return new OneOfSelector().getOneOf(propertyName, schemas);
     }
 }
 

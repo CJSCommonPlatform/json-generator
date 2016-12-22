@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "/",
+  "type": "object",
+  "properties": {
+    "oneOfProperty": {
+      "oneOf": [
+        {
+          "properties": {
+            "content": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "content"
+          ]
+        },
+        {
+          "properties": {
+            "externalLink": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false,
+          "required": [
+            "externalLink"
+          ]
+        }
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "oneOfProperty"
+  ]
+}
