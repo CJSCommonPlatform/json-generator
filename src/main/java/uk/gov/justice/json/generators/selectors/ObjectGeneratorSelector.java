@@ -17,10 +17,7 @@ public class ObjectGeneratorSelector {
         final List<JsonPropertyGenerator> jsonPropertyGenerators = new ArrayList<>();
         final PropertyGeneratorSelector propertyGeneratorSelector = selectorFactory.createNewPropertyGeneratorSelector();
 
-        properties.forEach((name, value) -> {
-            jsonPropertyGenerators.add(propertyGeneratorSelector.createGenerator(name, value));
-        });
-
+        properties.forEach((name, value) -> jsonPropertyGenerators.add(propertyGeneratorSelector.createGenerator(name, value)));
 
         return new ObjectPropertyGenerator(propertyName, jsonPropertyGenerators);
     }

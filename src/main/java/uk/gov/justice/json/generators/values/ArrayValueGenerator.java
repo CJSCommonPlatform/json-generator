@@ -1,18 +1,18 @@
 package uk.gov.justice.json.generators.values;
 
 import static uk.gov.justice.json.Constants.COMMA;
-import static uk.gov.justice.json.Constants.LEFT_BRACE;
-import static uk.gov.justice.json.Constants.RIGHT_BRACE;
+import static uk.gov.justice.json.Constants.LEFT_BRACKET;
+import static uk.gov.justice.json.Constants.RIGHT_BRACKET;
 
 import uk.gov.justice.json.generators.properties.JsonPropertyGenerator;
 
 import java.util.List;
 
-public class ObjectValueGenerator implements JsonValueGenerator {
+public class ArrayValueGenerator implements JsonValueGenerator {
 
-    private final List<JsonPropertyGenerator>  jsonPropertyGenerators;
+    private final List<JsonPropertyGenerator> jsonPropertyGenerators;
 
-    public ObjectValueGenerator(final List<JsonPropertyGenerator> jsonPropertyGenerators) {
+    public ArrayValueGenerator(final List<JsonPropertyGenerator> jsonPropertyGenerators) {
         this.jsonPropertyGenerators = jsonPropertyGenerators;
     }
 
@@ -21,7 +21,6 @@ public class ObjectValueGenerator implements JsonValueGenerator {
     public String nextValue() {
 
         final StringBuilder stringBuilder = new StringBuilder();
-
         jsonPropertyGenerators.forEach(propertyGenerator -> {
             if (stringBuilder.length() > 0) {
                 stringBuilder.append(COMMA);
@@ -29,8 +28,8 @@ public class ObjectValueGenerator implements JsonValueGenerator {
             stringBuilder.append(propertyGenerator.nextJson());
         });
 
-        stringBuilder.insert(0, LEFT_BRACE);
-        stringBuilder.append(RIGHT_BRACE);
+        stringBuilder.insert(0, LEFT_BRACKET);
+        stringBuilder.append(RIGHT_BRACKET);
 
         return stringBuilder.toString();
     }

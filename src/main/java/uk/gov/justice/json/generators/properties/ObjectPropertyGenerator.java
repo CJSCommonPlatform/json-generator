@@ -10,6 +10,8 @@ public class ObjectPropertyGenerator implements JsonPropertyGenerator {
     private final String name;
     private final List<JsonPropertyGenerator> jsonPropertyGenerators;
 
+    private final JsonPropertyFormatter jsonPropertyFormatter = new JsonPropertyFormatter();
+
     public ObjectPropertyGenerator(
             final String name,
             final List<JsonPropertyGenerator> jsonPropertyGenerators) {
@@ -29,7 +31,6 @@ public class ObjectPropertyGenerator implements JsonPropertyGenerator {
     @Override
     public String nextJson() {
         final ObjectValueGenerator objectValueGenerator = new ObjectValueGenerator(jsonPropertyGenerators);
-        final JsonPropertyFormatter jsonPropertyFormatter = new JsonPropertyFormatter();
 
         return jsonPropertyFormatter.toJson(name, objectValueGenerator.nextValue());
     }
