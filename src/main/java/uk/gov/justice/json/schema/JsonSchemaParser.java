@@ -33,6 +33,4 @@ public class JsonSchemaParser {
     private boolean isPropertyName(final String couldBeAPropertyName) {
         return ! (couldBeAPropertyName.equals("additionalProperties") || couldBeAPropertyName.equals("required"));
     }
-
-
 }
