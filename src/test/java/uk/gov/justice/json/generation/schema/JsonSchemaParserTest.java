@@ -29,8 +29,8 @@ public class JsonSchemaParserTest {
     public void shouldCreateGeneratorsForSimpleProperties() throws Exception {
 
         final String jsonSchema = fileLoader.loadAsJsonSting("src/test/resources/simple-property-schema.json");
-        final JsonDocumentGenerator jsonDocumentGenerator = jsonSchemaParser.parse(jsonSchema);
-        final List<JsonPropertyGenerator> jsonPropertyGenerators = jsonDocumentGenerator.getJsonPropertyGenerators();
+        final JsonGenerator jsonGenerator = jsonSchemaParser.parse(jsonSchema);
+        final List<JsonPropertyGenerator> jsonPropertyGenerators = jsonGenerator.getJsonPropertyGenerators();
 
         assertThat(jsonPropertyGenerators, hasSize(6));
 
@@ -52,9 +52,9 @@ public class JsonSchemaParserTest {
     public void shouldCreateGeneratorsForObjectProperties() throws Exception {
 
         final String jsonSchema = fileLoader.loadAsJsonSting("src/test/resources/object-property-schema.json");
-        final JsonDocumentGenerator jsonDocumentGenerator = jsonSchemaParser.parse(jsonSchema);
+        final JsonGenerator jsonGenerator = jsonSchemaParser.parse(jsonSchema);
 
-        final List<JsonPropertyGenerator> jsonPropertyGenerators = jsonDocumentGenerator.getJsonPropertyGenerators();
+        final List<JsonPropertyGenerator> jsonPropertyGenerators = jsonGenerator.getJsonPropertyGenerators();
 
 
         assertThat(jsonPropertyGenerators, hasSize(1));
@@ -68,9 +68,9 @@ public class JsonSchemaParserTest {
 
         final String jsonSchema = fileLoader.loadAsJsonSting("src/test/resources/enum-property-schema.json");
 
-        final JsonDocumentGenerator jsonDocumentGenerator = jsonSchemaParser.parse(jsonSchema);
+        final JsonGenerator jsonGenerator = jsonSchemaParser.parse(jsonSchema);
 
-        final String json = jsonDocumentGenerator.generate();
+        final String json = jsonGenerator.generate();
         System.out.println(json);
     }
 
@@ -79,9 +79,9 @@ public class JsonSchemaParserTest {
 
         final String jsonSchema = fileLoader.loadAsJsonSting("src/test/resources/array-property-schema.json");
 
-        final JsonDocumentGenerator jsonDocumentGenerator = jsonSchemaParser.parse(jsonSchema);
+        final JsonGenerator jsonGenerator = jsonSchemaParser.parse(jsonSchema);
 
-        final String json = jsonDocumentGenerator.generate();
+        final String json = jsonGenerator.generate();
         System.out.println(json);
     }
 
@@ -90,9 +90,9 @@ public class JsonSchemaParserTest {
 
         final String jsonSchema = fileLoader.loadAsJsonSting("src/test/resources/oneof-property-schema.json");
 
-        final JsonDocumentGenerator jsonDocumentGenerator = jsonSchemaParser.parse(jsonSchema);
+        final JsonGenerator jsonGenerator = jsonSchemaParser.parse(jsonSchema);
 
-        final String json = jsonDocumentGenerator.generate();
+        final String json = jsonGenerator.generate();
         System.out.println(json);
     }
 }
