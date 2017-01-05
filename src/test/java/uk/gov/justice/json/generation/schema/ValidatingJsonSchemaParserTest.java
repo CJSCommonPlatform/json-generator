@@ -46,16 +46,14 @@ public class ValidatingJsonSchemaParserTest {
 
     @Test
     public void shouldFailOnValidatingOnIncorrectSchema() throws Exception{
-//        final String schema = loadAsString("/invalid-schema.json");
-//
-//        try {
-//            validator.validate(schema);
-//            fail();
-//        } catch (ValidationException expected) {
-//            final List<ValidationException> causingExceptions = expected.getCausingExceptions();
-//            assertThat(causingExceptions, hasSize(2));
-//            verifyNoMoreInteractions(jsonSchemaParser);
-//        }
+        final String schema = loadAsString("/invalid-schema.json");
+        doThrow(ValidationException.class).when(validator).validate(schema);
+        try {
+            validatingJsonSchemaParser.validateAndParse(schema);
+            fail();
+        } catch (ValidationException expected) {
+            verifyNoMoreInteractions(jsonSchemaParser);
+        }
     }
 
     private String loadAsString(final String schemaPath) throws URISyntaxException, IOException {
