@@ -10,11 +10,11 @@ import java.util.List;
 
 import com.google.common.annotations.VisibleForTesting;
 
-public class JsonDocumentGenerator {
+public class JsonGenerator {
 
     private final List<JsonPropertyGenerator> jsonPropertyGenerators;
 
-    public JsonDocumentGenerator(final List<JsonPropertyGenerator> jsonPropertyGenerators) {
+    public JsonGenerator(final List<JsonPropertyGenerator> jsonPropertyGenerators) {
         this.jsonPropertyGenerators = jsonPropertyGenerators;
     }
 

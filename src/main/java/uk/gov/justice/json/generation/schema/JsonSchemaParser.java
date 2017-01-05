@@ -14,7 +14,7 @@ public class JsonSchemaParser {
     private JsonParser jsonParser = new JsonParser();
 
     @SuppressWarnings("unchecked")
-    public JsonDocumentGenerator parse(final String schema) {
+    public JsonGenerator parse(final String schema) {
 
         final Map<String, Object> schemaMap = jsonParser.toMap(schema);
 
@@ -27,7 +27,7 @@ public class JsonSchemaParser {
                 .map(propertyName -> propertyGeneratorSelector.createGenerator(propertyName, properties.get(propertyName)))
                 .collect(toList());
 
-        return new JsonDocumentGenerator(jsonPropertyGenerators);
+        return new JsonGenerator(jsonPropertyGenerators);
     }
 
     private boolean isPropertyName(final String couldBeAPropertyName) {
