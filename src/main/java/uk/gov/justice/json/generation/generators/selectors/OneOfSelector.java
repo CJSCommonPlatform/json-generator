@@ -22,7 +22,6 @@ public class OneOfSelector {
         properties.forEach((name, value) -> {
             final JsonPropertyGenerator jsonPropertyGenerator = new PropertyGeneratorSelector().createGenerator(name, value);
             propertyGenerators.add(jsonPropertyGenerator);
-
         });
 
         return new ObjectPropertyGenerator(propertyName, propertyGenerators);

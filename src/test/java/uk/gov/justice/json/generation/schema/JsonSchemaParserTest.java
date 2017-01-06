@@ -95,4 +95,22 @@ public class JsonSchemaParserTest {
         final String json = jsonGenerator.generate();
         System.out.println(json);
     }
+
+    @Test
+    public void shouldCreateGeneratorsForDefinitions() throws Exception {
+
+        final String jsonSchema = fileLoader.loadAsJsonSting("src/test/resources/ref.json");
+
+        final JsonGenerator jsonGenerator = jsonSchemaParser.parse(jsonSchema);
+
+        final String json = jsonGenerator.generate();
+        System.out.println(json);
+        final List<JsonPropertyGenerator> jsonPropertyGenerators = jsonGenerator.getJsonPropertyGenerators();
+
+        assertThat(jsonPropertyGenerators, hasSize(2));
+
+        assertThat(jsonPropertyGenerators.get(0).getName(), is("uuid"));
+        assertThat(jsonPropertyGenerators.get(0), is(instanceOf(RegexPropertyGenerator.class)));
+
+    }
 }
