@@ -1,24 +1,17 @@
 package uk.gov.justice.json.generation.generators.selectors;
 
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assume.assumeThat;
-
-import uk.gov.justice.json.generation.generators.properties.EmailPropertyGenerator;
-import uk.gov.justice.json.generation.generators.properties.IsoDateTimePropertyGenerator;
-import uk.gov.justice.json.generation.generators.properties.JsonPropertyGenerator;
-import uk.gov.justice.json.generation.generators.properties.RegexPropertyGenerator;
-import uk.gov.justice.json.generation.generators.properties.StringPropertyGenerator;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import com.google.common.collect.ImmutableMap.Builder;
+import org.everit.json.schema.StringSchema;
+import org.everit.json.schema.internal.DateTimeFormatValidator;
+import org.everit.json.schema.internal.EmailFormatValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
+import uk.gov.justice.json.generation.generators.properties.*;
+
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 
 @RunWith(MockitoJUnitRunner.class)
@@ -31,13 +24,10 @@ public class StringPropertyGeneratorSelectorTest {
     public void shouldGetAStringPropertyGeneratorIfFormatAndPatternAreUndefined() throws Exception {
 
         final String propertyName = "stringProperty";
-        final Map<String, Object> propertyDefinitions = new HashMap<>();
+        final StringSchema stringSchema = new StringSchema();
 
-        assumeThat(propertyDefinitions.isEmpty(), is(true));
-
-        final JsonPropertyGenerator jsonPropertyGenerator = stringPropertyGeneratorSelector.getStringPropertyGenerator(
-                propertyName,
-                propertyDefinitions);
+        final JsonPropertyGenerator jsonPropertyGenerator = stringPropertyGeneratorSelector.getPropertyGenerator(
+                propertyName, stringSchema);
 
         assertThat(jsonPropertyGenerator, is(instanceOf(StringPropertyGenerator.class)));
         assertThat(jsonPropertyGenerator.getName(), is(propertyName));
@@ -47,14 +37,9 @@ public class StringPropertyGeneratorSelectorTest {
     public void shouldGetAnEmailPropertyGeneratorIfTheFormatIsEmail() throws Exception {
 
         final String propertyName = "emailProperty";
-
-        final Map<String, Object> propertyDefinitions = new Builder<String, Object>()
-                .put("format", "email")
-                .build();
-
-        final JsonPropertyGenerator jsonPropertyGenerator = stringPropertyGeneratorSelector.getStringPropertyGenerator(
-                propertyName,
-                propertyDefinitions);
+        final StringSchema stringSchema = new StringSchema().builder().formatValidator(new EmailFormatValidator()).build();
+        final JsonPropertyGenerator jsonPropertyGenerator = stringPropertyGeneratorSelector.getPropertyGenerator(
+                propertyName, stringSchema);
 
         assertThat(jsonPropertyGenerator, is(instanceOf(EmailPropertyGenerator.class)));
         assertThat(jsonPropertyGenerator.getName(), is(propertyName));
@@ -64,15 +49,10 @@ public class StringPropertyGeneratorSelectorTest {
     public void shouldGetADateTimePropertyGeneratorIfTheFormatIsDateTime() throws Exception {
 
         final String propertyName = "dateTimeProperty";
+        final StringSchema stringSchema = new StringSchema().builder().formatValidator(new DateTimeFormatValidator()).build();
 
-        final Map<String, Object> propertyDefinitions = new Builder<String, Object>()
-                .put("format", "date-time")
-                .build();
-
-        final JsonPropertyGenerator jsonPropertyGenerator = stringPropertyGeneratorSelector.getStringPropertyGenerator(
-                propertyName,
-                propertyDefinitions);
-
+        final JsonPropertyGenerator jsonPropertyGenerator = stringPropertyGeneratorSelector.getPropertyGenerator(
+                propertyName, stringSchema);
         assertThat(jsonPropertyGenerator, is(instanceOf(IsoDateTimePropertyGenerator.class)));
         assertThat(jsonPropertyGenerator.getName(), is(propertyName));
     }
@@ -82,17 +62,12 @@ public class StringPropertyGeneratorSelectorTest {
 
         final String propertyName = "regexProperty";
         final String pattern = "$.my|regex[1].^";
-
-        final Map<String, Object> propertyDefinitions = new Builder<String, Object>()
-                .put("pattern", pattern)
-                .build();
-
-        final JsonPropertyGenerator jsonPropertyGenerator = stringPropertyGeneratorSelector.getStringPropertyGenerator(
-                propertyName,
-                propertyDefinitions);
+        final StringSchema stringSchema = new StringSchema().builder().pattern(pattern).build();
+        final JsonPropertyGenerator jsonPropertyGenerator = stringPropertyGeneratorSelector.getPropertyGenerator(
+                propertyName, stringSchema);
 
         assertThat(jsonPropertyGenerator, is(instanceOf(RegexPropertyGenerator.class)));
         assertThat(jsonPropertyGenerator.getName(), is(propertyName));
-        assertThat(((RegexPropertyGenerator) jsonPropertyGenerator).getPattern(), is(pattern));
+        assertThat(((RegexPropertyGenerator) jsonPropertyGenerator).getPattern().pattern(), is(pattern));
     }
 }

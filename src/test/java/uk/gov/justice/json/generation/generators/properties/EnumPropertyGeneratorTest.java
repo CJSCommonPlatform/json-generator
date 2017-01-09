@@ -1,10 +1,12 @@
 package uk.gov.justice.json.generation.generators.properties;
 
+import static java.util.Collections.singleton;
 import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -14,7 +16,7 @@ public class EnumPropertyGeneratorTest {
     public void shouldFormatAStringPropertyIntoAJsonFragment() throws Exception {
 
         final String propertyName = "stringProperty";
-        final List<Object> values = singletonList("value");
+        final Set<Object> values = singleton("value");
 
         final EnumPropertyGenerator enumPropertyGenerator = new EnumPropertyGenerator(
                 propertyName,
@@ -27,7 +29,7 @@ public class EnumPropertyGeneratorTest {
     public void shouldFormatADoublePropertyIntoAJsonFragment() throws Exception {
 
         final String propertyName = "doubleProperty";
-        final List<Object> values = singletonList(23.23);
+        final Set<Object> values = singleton(23.23);
 
         final EnumPropertyGenerator enumPropertyGenerator = new EnumPropertyGenerator(
                 propertyName,
@@ -40,7 +42,7 @@ public class EnumPropertyGeneratorTest {
     public void shouldFormatABooleanPropertyIntoAJsonFragment() throws Exception {
 
         final String propertyName = "booleanProperty";
-        final List<Object> values = singletonList(true);
+        final Set<Object> values = singleton(true);
 
         final EnumPropertyGenerator enumPropertyGenerator = new EnumPropertyGenerator(
                 propertyName,
@@ -53,7 +55,7 @@ public class EnumPropertyGeneratorTest {
     public void shouldFormatAnIntegerPropertyIntoAJsonFragment() throws Exception {
 
         final String propertyName = "integerProperty";
-        final List<Object> values = singletonList(23);
+        final Set<Object> values = singleton(23);
 
         final EnumPropertyGenerator enumPropertyGenerator = new EnumPropertyGenerator(
                 propertyName,

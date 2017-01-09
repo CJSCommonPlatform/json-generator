@@ -11,10 +11,12 @@ import uk.gov.justice.json.generation.generators.values.RegexValueGenerator;
 
 import org.junit.Test;
 
+import java.util.regex.Pattern;
+
 public class RegexPropertyGeneratorTest {
 
     private static final String PROPERTY_NAME = "regexProperty";
-    private static final String PATTERN = "$a|regex|pattern^";
+    private static final Pattern PATTERN = Pattern.compile("$a|regex|pattern^");
 
     private final RegexValueGenerator regexValueGenerator = mock(RegexValueGenerator.class);
     private final JsonPropertyFormatter jsonPropertyFormatter = mock(JsonPropertyFormatter.class);

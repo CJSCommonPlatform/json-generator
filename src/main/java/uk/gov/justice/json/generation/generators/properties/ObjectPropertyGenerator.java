@@ -24,7 +24,7 @@ public class ObjectPropertyGenerator implements JsonPropertyGenerator {
         return name;
     }
 
-    public List<JsonPropertyGenerator> getJsonPropertyGenerators() {
+    public List<JsonPropertyGenerator> getJsonProøpertyGenerators() {
         return jsonPropertyGenerators;
     }
 

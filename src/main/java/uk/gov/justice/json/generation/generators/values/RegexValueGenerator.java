@@ -4,11 +4,13 @@ import static uk.gov.justice.json.generation.Constants.DOUBLE_QUOTE;
 
 import com.mifmif.common.regex.Generex;
 
+import java.util.regex.Pattern;
+
 public class RegexValueGenerator implements JsonValueGenerator {
 
-    private final String pattern;
+    private final Pattern pattern;
 
-    public RegexValueGenerator(final String pattern) {
+    public RegexValueGenerator(final Pattern pattern) {
         this.pattern = pattern;
     }
 
@@ -16,7 +18,7 @@ public class RegexValueGenerator implements JsonValueGenerator {
     public String nextValue() {
 
         //TODO fix the pattern properly
-        final String fixedPattern = pattern.replace('^', ' ').replace('$', ' ').trim();
-        return DOUBLE_QUOTE + new Generex(fixedPattern).random() + DOUBLE_QUOTE;
+       // final String fixedPattern = pattern.replace('^', ' ').replace('$', ' ').trim();
+        return DOUBLE_QUOTE + new Generex(pattern.toString()).random() + DOUBLE_QUOTE;
     }
 }

@@ -14,7 +14,7 @@ import uk.gov.justice.json.generation.generators.values.StringValueGenerator;
 import java.util.List;
 import java.util.Map;
 
-public class ListArrayGeneratorSelector {
+public class BoundedArrayGeneratorSelector {
 
     public JsonPropertyGenerator createGenerator(final String propertyName, final Map<String, EnumSchema> items) {
 
@@ -35,6 +35,12 @@ public class ListArrayGeneratorSelector {
                         new StringValueGenerator()
                 );
             case "integer":
+                return asList(
+                        new IntegerValueGenerator(),
+                        new IntegerValueGenerator(),
+                        new IntegerValueGenerator()
+                );
+            case "number":
                 return asList(
                         new IntegerValueGenerator(),
                         new IntegerValueGenerator(),

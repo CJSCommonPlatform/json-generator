@@ -1,6 +1,7 @@
 package uk.gov.justice.json.generation.generators.properties;
 
 import uk.gov.justice.json.generation.formatting.JsonPropertyFormatter;
+import uk.gov.justice.json.generation.generators.values.JsonValueGenerator;
 import uk.gov.justice.services.test.utils.core.random.BooleanGenerator;
 
 import com.google.common.annotations.VisibleForTesting;
@@ -34,4 +35,6 @@ public class BooleanPropertyGenerator implements JsonPropertyGenerator {
     public String nextJson() {
         return jsonPropertyFormatter.toJson(name, booleanGenerator.next());
     }
+
+
 }

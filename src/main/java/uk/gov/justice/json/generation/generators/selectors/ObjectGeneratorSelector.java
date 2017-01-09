@@ -1,5 +1,6 @@
 package uk.gov.justice.json.generation.generators.selectors;
 
+import org.everit.json.schema.Schema;
 import uk.gov.justice.json.generation.generators.properties.JsonPropertyGenerator;
 import uk.gov.justice.json.generation.generators.properties.ObjectPropertyGenerator;
 
@@ -12,12 +13,12 @@ public class ObjectGeneratorSelector {
     private SelectorFactory selectorFactory = new SelectorFactory();
 
     @SuppressWarnings("unchecked")
-    public ObjectPropertyGenerator createGenerator(final String propertyName, final Map<String, Object> properties) {
+    public ObjectPropertyGenerator createGenerator(final String propertyName, final Map<String, Schema> properties) {
 
         final List<JsonPropertyGenerator> jsonPropertyGenerators = new ArrayList<>();
         final PropertyGeneratorSelector propertyGeneratorSelector = selectorFactory.createNewPropertyGeneratorSelector();
 
-        properties.forEach((name, value) -> jsonPropertyGenerators.add(propertyGeneratorSelector.createGenerator(name, value)));
+        properties.forEach((name,        value) -> jsonPropertyGenerators.add(propertyGeneratorSelector.createGenerator(name, value)));
 
         return new ObjectPropertyGenerator(propertyName, jsonPropertyGenerators);
     }

@@ -2,6 +2,8 @@ package uk.gov.justice.json.generation.generators.selectors.arrays;
 
 import static java.util.stream.Collectors.toList;
 
+import org.everit.json.schema.EnumSchema;
+import org.everit.json.schema.Schema;
 import uk.gov.justice.json.generation.JsonGenerationException;
 import uk.gov.justice.json.generation.generators.properties.ArrayPropertyGenerator;
 import uk.gov.justice.json.generation.generators.properties.JsonPropertyGenerator;
@@ -16,7 +18,7 @@ import java.util.Map;
 
 public class TupleArrayGeneratorSelector {
 
-    public JsonPropertyGenerator createGenerator(final String propertyName, final List<Map<String, Object>> items) {
+    public JsonPropertyGenerator createGenerator(final String propertyName, final List<Schema> items) {
 
 
         final List<JsonValueGenerator> generators = items.stream()
@@ -27,22 +29,18 @@ public class TupleArrayGeneratorSelector {
     }
 
     @SuppressWarnings("unchecked")
-    private JsonValueGenerator createGenerator(final Map<String, Object> propertyDefinitions) {
+    private JsonValueGenerator createGenerator(final Schema schema) {
 
-        if (propertyDefinitions.containsKey("enum")) {
-            final List<Object> enums = (List<Object>) propertyDefinitions.get("enum");
-            return new EnumValueGenerator(enums);
-        }
 
-        final String type = (String) propertyDefinitions.get("type");
-
-        switch (type) {
-            case "string":
+        switch (schema.getClass().getSimpleName()) {
+            case "StringSchema":
                 return new StringValueGenerator();
-            case "boolean":
+            case "BooleanSchema":
                 return new BooleanValueGenerator();
-            case "integer":
+            case "NumberSchema":
                 return new IntegerValueGenerator();
+            case "EnumSchema":
+                return new EnumValueGenerator(((EnumSchema)schema).getPossibleValues());
         }
 
         throw new JsonGenerationException("oh dear");

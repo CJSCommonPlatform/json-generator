@@ -1,5 +1,6 @@
 package uk.gov.justice.json.generation.generators.selectors;
 
+import uk.gov.justice.json.generation.generators.selectors.arrays.BoundedArrayGeneratorSelector;
 import uk.gov.justice.json.generation.generators.selectors.arrays.ListArrayGeneratorSelector;
 import uk.gov.justice.json.generation.generators.selectors.arrays.TupleArrayGeneratorSelector;
 import uk.gov.justice.json.generation.generators.selectors.arrays.UnspecifiedArrayGeneratorSelector;
@@ -24,5 +25,9 @@ public class SelectorFactory {
 
     public UnspecifiedArrayGeneratorSelector createNewUnspecifiedArrayGeneratorSelector() {
         return new UnspecifiedArrayGeneratorSelector();
+    }
+
+    public BoundedArrayGeneratorSelector createNewBoundedArrayGeneratorSelector() {
+        return new BoundedArrayGeneratorSelector();
     }
 }

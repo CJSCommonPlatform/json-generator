@@ -34,33 +34,18 @@ public class JsonSchemaParserTest {
 
         assertThat(jsonPropertyGenerators, hasSize(6));
 
-        assertThat(jsonPropertyGenerators.get(0).getName(), is("stringProperty"));
-        assertThat(jsonPropertyGenerators.get(0), is(instanceOf(StringPropertyGenerator.class)));
-        assertThat(jsonPropertyGenerators.get(1).getName(), is("emailProperty"));
-        assertThat(jsonPropertyGenerators.get(1), is(instanceOf(EmailPropertyGenerator.class)));
-        assertThat(jsonPropertyGenerators.get(2).getName(), is("dateProperty"));
-        assertThat(jsonPropertyGenerators.get(2), is(instanceOf(IsoDateTimePropertyGenerator.class)));
-        assertThat(jsonPropertyGenerators.get(3).getName(), is("integerProperty"));
-        assertThat(jsonPropertyGenerators.get(3), is(instanceOf(IntegerPropertyGenerator.class)));
-        assertThat(jsonPropertyGenerators.get(4).getName(), is("regExProperty"));
-        assertThat(jsonPropertyGenerators.get(4), is(instanceOf(RegexPropertyGenerator.class)));
-        assertThat(jsonPropertyGenerators.get(5).getName(), is("booleanProperty"));
-        assertThat(jsonPropertyGenerators.get(5), is(instanceOf(BooleanPropertyGenerator.class)));
-    }
-
-    @Test
-    public void shouldCreateGeneratorsForObjectProperties() throws Exception {
-
-        final String jsonSchema = fileLoader.loadAsJsonSting("src/test/resources/object-property-schema.json");
-        final JsonGenerator jsonGenerator = jsonSchemaParser.parse(jsonSchema);
-
-        final List<JsonPropertyGenerator> jsonPropertyGenerators = jsonGenerator.getJsonPropertyGenerators();
-
-
-        assertThat(jsonPropertyGenerators, hasSize(1));
-
-        assertThat(jsonPropertyGenerators.get(0).getName(), is("objectProperty"));
-        assertThat(jsonPropertyGenerators.get(0), is(instanceOf(ObjectPropertyGenerator.class)));
+        assertThat(jsonPropertyGenerators.get(0).getName(), is("emailProperty"));
+        assertThat(jsonPropertyGenerators.get(0), is(instanceOf(EmailPropertyGenerator.class)));
+        assertThat(jsonPropertyGenerators.get(1).getName(), is("booleanProperty"));
+        assertThat(jsonPropertyGenerators.get(1), is(instanceOf(BooleanPropertyGenerator.class)));
+        assertThat(jsonPropertyGenerators.get(2).getName(), is("regExProperty"));
+        assertThat(jsonPropertyGenerators.get(2), is(instanceOf(RegexPropertyGenerator.class)));
+        assertThat(jsonPropertyGenerators.get(3).getName(), is("dateProperty"));
+        assertThat(jsonPropertyGenerators.get(3), is(instanceOf(IsoDateTimePropertyGenerator.class)));
+        assertThat(jsonPropertyGenerators.get(4).getName(), is("integerProperty"));
+        assertThat(jsonPropertyGenerators.get(4), is(instanceOf(IntegerPropertyGenerator.class)));
+        assertThat(jsonPropertyGenerators.get(5).getName(), is("stringProperty"));
+        assertThat(jsonPropertyGenerators.get(5), is(instanceOf(StringPropertyGenerator.class)));
     }
 
     @Test
@@ -86,18 +71,7 @@ public class JsonSchemaParserTest {
     }
 
     @Test
-    public void shouldCreateGeneratorsForOneOfSchemas() throws Exception {
-
-        final String jsonSchema = fileLoader.loadAsJsonSting("src/test/resources/oneof-property-schema.json");
-
-        final JsonGenerator jsonGenerator = jsonSchemaParser.parse(jsonSchema);
-
-        final String json = jsonGenerator.generate();
-        System.out.println(json);
-    }
-
-    @Test
-    public void shouldCreateGeneratorsForDefinitions() throws Exception {
+    public void shouldCreateGeneratorsForReferences() throws Exception {
 
         final String jsonSchema = fileLoader.loadAsJsonSting("src/test/resources/ref.json");
 
@@ -109,8 +83,33 @@ public class JsonSchemaParserTest {
 
         assertThat(jsonPropertyGenerators, hasSize(2));
 
-        assertThat(jsonPropertyGenerators.get(0).getName(), is("uuid"));
+        assertThat(jsonPropertyGenerators.get(0).getName(), is("secondId"));
         assertThat(jsonPropertyGenerators.get(0), is(instanceOf(RegexPropertyGenerator.class)));
+        assertThat(jsonPropertyGenerators.get(1).getName(), is("firstId"));
+        assertThat(jsonPropertyGenerators.get(1), is(instanceOf(RegexPropertyGenerator.class)));
+    }
 
+    @Test
+    public void shouldCreateGeneratorsForOneOfSchemas() throws Exception {
+
+        final String jsonSchema = fileLoader.loadAsJsonSting("src/test/resources/oneof-property-schema.json");
+
+        final JsonGenerator jsonGenerator = jsonSchemaParser.parse(jsonSchema);
+
+        final String json = jsonGenerator.generate();
+        System.out.println(json);
+    }
+
+    @Test
+    public void shouldCreateGeneratorsForObjectProperties() throws Exception {
+
+        final String jsonSchema = fileLoader.loadAsJsonSting("src/test/resources/object-property-schema.json");
+        final JsonGenerator jsonGenerator = jsonSchemaParser.parse(jsonSchema);
+
+        final List<JsonPropertyGenerator> jsonPropertyGenerators = jsonGenerator.getJsonPropertyGenerators();
+
+        assertThat(jsonPropertyGenerators, hasSize(1));
+        assertThat(jsonPropertyGenerators.get(0).getName(), is("objectProperty"));
+        assertThat(jsonPropertyGenerators.get(0), is(instanceOf(ObjectPropertyGenerator.class)));
     }
 }

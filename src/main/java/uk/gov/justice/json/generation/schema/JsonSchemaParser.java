@@ -5,7 +5,6 @@ import static java.util.stream.Collectors.toList;
 import org.everit.json.schema.ObjectSchema;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.loader.SchemaLoader;
-import uk.gov.justice.json.generation.generators.definitions.DefinitionsProvider;
 import uk.gov.justice.json.generation.generators.properties.JsonPropertyGenerator;
 import uk.gov.justice.json.generation.generators.selectors.PropertyGeneratorSelector;
 
@@ -20,34 +19,15 @@ public class JsonSchemaParser {
     @SuppressWarnings("unchecked")
     public JsonGenerator parse(final String schema) {
 
-//        final Map<String, Object> schemaMap = jsonParser.toMap(schema);
-//
-//        final SchemaLoader schemaLoader = jsonParser.toSchemaLoader(schema);
-//
-//        Schema.Builder<ObjectSchema> schemaBuilder = (Schema.Builder<ObjectSchema>) schemaLoader.load();
-//
-//        final ObjectSchema objectSchema = schemaBuilder.build();
-
-
-       // final Map<String, Schema> properties =    objectSchema.getPropertySchemas();
-
         final Map<String, Object> schemaMap = jsonParser.toMap(schema);
 
+        final SchemaLoader schemaLoader = jsonParser.toSchemaLoader(schema);
 
-        final Map<String, Object> properties = (Map<String, Object>) schemaMap.get("properties");
+        Schema.Builder<ObjectSchema> schemaBuilder = (Schema.Builder<ObjectSchema>) schemaLoader.load();
 
-        final Map<String, Object> definitions = (Map<String, Object>) schemaMap.get("definitions");
+        final ObjectSchema objectSchema = schemaBuilder.build();
 
-        definitions
-                .keySet()
-                .stream()
-                .filter(this::isPropertyName)
-                .map(propertyName -> {
-                    JsonPropertyGenerator propertyGenerator =propertyGeneratorSelector.createGenerator(propertyName, definitions.get(propertyName));
-                    DefinitionsProvider.addPropertyGenerator(propertyName,propertyGenerator);
-                    return propertyGenerator;
-                })
-                .collect(toList());
+        final Map<String, Schema> properties =    objectSchema.getPropertySchemas();
 
         final List<JsonPropertyGenerator> jsonPropertyGenerators = properties
                 .keySet()
