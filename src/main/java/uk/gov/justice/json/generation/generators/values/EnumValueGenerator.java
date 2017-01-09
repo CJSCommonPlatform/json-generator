@@ -2,15 +2,23 @@ package uk.gov.justice.json.generation.generators.values;
 
 import static uk.gov.justice.json.generation.Constants.DOUBLE_QUOTE;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import com.google.common.annotations.VisibleForTesting;
+import org.everit.json.schema.EnumSchema;
+import org.everit.json.schema.Schema;
 
 public class EnumValueGenerator implements JsonValueGenerator {
 
     private final RandomListItemSelector randomListItemSelector;
 
     private final List<Object> enums;
+
+    public EnumValueGenerator(final Set<Object> enums) {
+        this(new ArrayList(enums), new RandomListItemSelector());
+    }
 
     public EnumValueGenerator(final List<Object> enums) {
         this(enums, new RandomListItemSelector());

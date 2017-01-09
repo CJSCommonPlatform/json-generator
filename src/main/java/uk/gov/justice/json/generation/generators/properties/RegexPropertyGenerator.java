@@ -3,21 +3,24 @@ package uk.gov.justice.json.generation.generators.properties;
 import uk.gov.justice.json.generation.formatting.JsonPropertyFormatter;
 import uk.gov.justice.json.generation.generators.values.RegexValueGenerator;
 
+import java.util.regex.Pattern;
+
 public class RegexPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;
-    private final String pattern;
+    private final Pattern pattern;
+
     private final RegexValueGenerator regexValueGenerator;
 
     private final JsonPropertyFormatter jsonPropertyFormatter;
 
-    public RegexPropertyGenerator(final String name, final String pattern) {
+    public RegexPropertyGenerator(final String name, final Pattern pattern) {
         this(name, pattern, new RegexValueGenerator(pattern), new JsonPropertyFormatter());
     }
 
     public RegexPropertyGenerator(
             final String name,
-            final String pattern,
+            final Pattern pattern,
             final RegexValueGenerator regexValueGenerator,
             final JsonPropertyFormatter jsonPropertyFormatter) {
         this.name = name;
@@ -31,7 +34,7 @@ public class RegexPropertyGenerator implements JsonPropertyGenerator {
         return name;
     }
 
-    public String getPattern() {
+    public Pattern getPattern() {
         return pattern;
     }
 

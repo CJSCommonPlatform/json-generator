@@ -46,4 +46,5 @@ public class ArrayPropertyGenerator implements JsonPropertyGenerator {
 
         return stringBuilder.append(jsonValueGenerator.nextValue());
     }
+
 }

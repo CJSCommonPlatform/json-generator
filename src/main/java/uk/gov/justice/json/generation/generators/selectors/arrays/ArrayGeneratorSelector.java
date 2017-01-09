@@ -2,6 +2,9 @@ package uk.gov.justice.json.generation.generators.selectors.arrays;
 
 import static java.lang.String.format;
 
+import org.everit.json.schema.ArraySchema;
+import org.everit.json.schema.EnumSchema;
+import org.everit.json.schema.Schema;
 import uk.gov.justice.json.generation.generators.properties.JsonPropertyGenerator;
 import uk.gov.justice.json.generation.generators.selectors.SelectorFactory;
 
@@ -13,12 +16,14 @@ public class ArrayGeneratorSelector {
     private SelectorFactory selectorFactory = new SelectorFactory();
 
     @SuppressWarnings("unchecked")
-    public JsonPropertyGenerator getArrayGenerator(final String propertyName, final Map<String, Object> propertyDefinitions) {
+    public JsonPropertyGenerator getArrayGenerator(final String propertyName, final  ArraySchema propertyDefinitions) {
 
-        final Object items = propertyDefinitions.get("items");
+        final Object items = propertyDefinitions.getItemSchemas();
 
         // unspecifiedArrayProperty
-        if (items == null) {
+        if (items == null ) {
+           // return selectorFactory.createNewBoundedArrayGeneratorSelector().createGenerator(propertyName, propertyDefinitions.getMinItems(),propertyDefinitions.getMaxItems());
+
             return selectorFactory
                     .createNewUnspecifiedArrayGeneratorSelector()
                     .createGenerator(propertyName);
@@ -26,7 +31,7 @@ public class ArrayGeneratorSelector {
 
         // tupleArrayProperty
         if (items instanceof List) {
-            final List<Map<String, Object>> itemsList = (List<Map<String, Object>>) items;
+            final List< Schema> itemsList = (List<Schema>) items;
             return selectorFactory
                     .createNewTupleArrayGeneratorSelector()
                     .createGenerator(propertyName, itemsList);
@@ -34,7 +39,7 @@ public class ArrayGeneratorSelector {
 
         // listArrayProperty
         if (items instanceof Map) {
-            final Map<String, Object> itemsMap = (Map<String, Object>) items;
+            final Map<String, EnumSchema> itemsMap = (Map<String, EnumSchema>) items;
             return selectorFactory
                     .createNewListArrayGeneratorSelector()
                     .createGenerator(propertyName, itemsMap);

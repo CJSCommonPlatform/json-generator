@@ -1,9 +1,14 @@
 package uk.gov.justice.json.generation.generators.properties;
 
+import org.everit.json.schema.EnumSchema;
+import org.everit.json.schema.Schema;
 import uk.gov.justice.json.generation.formatting.JsonPropertyFormatter;
 import uk.gov.justice.json.generation.generators.values.EnumValueGenerator;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 public class EnumPropertyGenerator implements JsonPropertyGenerator {
 
@@ -14,9 +19,9 @@ public class EnumPropertyGenerator implements JsonPropertyGenerator {
 
     public EnumPropertyGenerator(
             final String name,
-            final List<Object> enums) {
+            final Set<Object> enums) {
         this.name = name;
-        this.enums = enums;
+        this.enums = new ArrayList(enums);
     }
 
     @Override
