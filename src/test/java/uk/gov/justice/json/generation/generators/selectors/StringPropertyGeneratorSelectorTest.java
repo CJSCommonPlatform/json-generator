@@ -1,5 +1,15 @@
 package uk.gov.justice.json.generation.generators.selectors;
 
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
+import uk.gov.justice.json.generation.generators.properties.EmailPropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.IsoDateTimePropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.JsonPropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.RegexPropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.StringPropertyGenerator;
+
 import org.everit.json.schema.StringSchema;
 import org.everit.json.schema.internal.DateTimeFormatValidator;
 import org.everit.json.schema.internal.EmailFormatValidator;
@@ -7,11 +17,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.runners.MockitoJUnitRunner;
-import uk.gov.justice.json.generation.generators.properties.*;
-
-import static org.hamcrest.CoreMatchers.instanceOf;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 
 
 @RunWith(MockitoJUnitRunner.class)

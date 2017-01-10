@@ -9,9 +9,9 @@ import static uk.gov.justice.json.generation.Constants.DOUBLE_QUOTE;
 import uk.gov.justice.json.generation.formatting.JsonPropertyFormatter;
 import uk.gov.justice.json.generation.generators.values.RegexValueGenerator;
 
-import org.junit.Test;
-
 import java.util.regex.Pattern;
+
+import org.junit.Test;
 
 public class RegexPropertyGeneratorTest {
 
