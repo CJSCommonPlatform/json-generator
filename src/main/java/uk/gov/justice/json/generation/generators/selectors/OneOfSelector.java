@@ -10,6 +10,7 @@ import uk.gov.justice.json.generation.generators.values.RandomListItemSelector;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 public class OneOfSelector {
@@ -18,12 +19,11 @@ public class OneOfSelector {
     private final SelectorFactory selectorFactory = new SelectorFactory();
     @SuppressWarnings("unchecked")
     public JsonPropertyGenerator getOneOf(final String propertyName, final CombinedSchema schemas) {
-
-        final ObjectSchema objectSchema =  randomListItemSelector.selectRandomlyFrom(schemas);
-        final Map<String,Schema> propertySchemas =objectSchema.getPropertySchemas();
         final List<JsonPropertyGenerator> jsonPropertyGenerators = new ArrayList<>();
         final PropertyGeneratorSelector propertyGeneratorSelector = selectorFactory.createNewPropertyGeneratorSelector();
-        propertySchemas.forEach((name, value) -> jsonPropertyGenerators.add(propertyGeneratorSelector.createGenerator(name, value)));
-        return jsonPropertyGenerators.get(0);
+        schemas.getSubschemas().forEach((schema) -> {
+            jsonPropertyGenerators.add(propertyGeneratorSelector.createGenerator(schema.getTitle(), schema ));
+        });
+        return jsonPropertyGenerators.get(new Random().nextInt(jsonPropertyGenerators.size()));
     }
 }

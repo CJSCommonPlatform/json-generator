@@ -1,57 +1,56 @@
 package uk.gov.justice.json.generation.generators.selectors;
 
-import com.google.common.collect.ImmutableMap;
-import org.everit.json.schema.*;
+import static org.hamcrest.CoreMatchers.either;
+import static org.hamcrest.CoreMatchers.instanceOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
+
+import uk.gov.justice.json.generation.JsonGenerationException;
+import uk.gov.justice.json.generation.generators.properties.ArrayPropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.BooleanPropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.EmailPropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.EnumPropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.IntegerPropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.IsoDateTimePropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.JsonPropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.ObjectPropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.RegexPropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.StringPropertyGenerator;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.everit.json.schema.ArraySchema;
+import org.everit.json.schema.BooleanSchema;
+import org.everit.json.schema.CombinedSchema;
+import org.everit.json.schema.EnumSchema;
+import org.everit.json.schema.NumberSchema;
+import org.everit.json.schema.ObjectSchema;
+import org.everit.json.schema.ReferenceSchema;
+import org.everit.json.schema.Schema;
+import org.everit.json.schema.StringSchema;
 import org.everit.json.schema.internal.DateTimeFormatValidator;
 import org.everit.json.schema.internal.EmailFormatValidator;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import uk.gov.justice.json.generation.generators.properties.*;
-import uk.gov.justice.json.generation.generators.selectors.arrays.ArrayGeneratorSelector;
-import uk.gov.justice.json.generation.generators.values.RandomListItemSelector;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.junit.Assert.assertThat;
-import static org.junit.Assert.fail;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PropertyGeneratorSelectorTest {
 
-    @Mock
-    private SelectorFactory selectorFactory;
-
-    @Mock
-    private ObjectGeneratorSelector objectGeneratorSelector;
-
-    @Mock
-    private StringPropertyGeneratorSelector stringPropertyGeneratorSelector;
-
-    @Mock
-    private ArrayGeneratorSelector arrayGeneratorSelector;
-
-    //@InjectMocks
     private PropertyGeneratorSelector propertyGeneratorSelector = new PropertyGeneratorSelector();
 
     @Test
     public void shouldCreateAReferencePropertyGeneratorIfTheReferenceTypeIsString() throws Exception {
         final String propertyName = "referenceProperty";
-        final String definitionName = "uuid";
-
-        final StringPropertyGenerator stringPropertyGeneratorExpected =new StringPropertyGenerator(propertyName);
-
-//        propertyDefinitions.put("$ref","#/definitions/"+ definitionName);
-//
-//           JsonPropertyGenerator stringPropertyGeneratorActual = propertyGeneratorSelector.createGenerator(propertyName, propertyDefinitions);
-//        assertThat(stringPropertyGeneratorActual, is(stringPropertyGeneratorExpected));
+        final String refValue = "#/definitions/uuid";
+        final String pattern = "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$";
+        final StringSchema schema =StringSchema.builder().pattern(pattern).build();
+        final ReferenceSchema referenceSchema =  new ReferenceSchema(ReferenceSchema.builder().refValue(refValue));
+        referenceSchema.setReferredSchema(schema);
+        JsonPropertyGenerator stringPropertyGenerator = propertyGeneratorSelector.createGenerator(propertyName,referenceSchema);
+        assertThat(stringPropertyGenerator,is(instanceOf(RegexPropertyGenerator.class)));
     }
 
     @Test
@@ -62,34 +61,6 @@ public class PropertyGeneratorSelectorTest {
         enumsValues.add("three");
         enumsValues.add("four");
         assertThat(propertyGeneratorSelector.createGenerator("enumProperty", EnumSchema.builder().possibleValue(enumsValues).build()), is(instanceOf(EnumPropertyGenerator.class)));
-    }
-
-
-    @Test
-    public void shouldCreateAOneOfPropertyGeneratorIfTheReferenceTypeIsOneOf() throws Exception {
-        final Map<String, Object> propertyDefinitions = new HashMap<>();
-
-        final String propertyName = "oneOfProperty";
-        final List<Object> objects = new ArrayList<>();
-        final RandomListItemSelector randomListItemSelector = mock(RandomListItemSelector.class);
-        final Map<String, Object> objectDefinitions = new ImmutableMap.Builder<String, Object>()
-                .put("properties", new ImmutableMap.Builder<String, Object>()
-                        .put("stringProperty", new ImmutableMap.Builder<String, Object>()
-                                .put("type", "string")
-                                .build())
-                        .build())
-                .build();
-        when(randomListItemSelector.selectRandomlyFrom(objects)).thenReturn(objectDefinitions);
-
-        //final StringSchema stringSchema = StringSchema.builder().
-//      final ObjectPropertyGenerator objectPropertyGenerator = (ObjectPropertyGenerator) propertyGeneratorSelector.createGenerator(propertyName, CombinedSchema.builder().subschemas(subschemas));
-//        assertThat(objectPropertyGenerator, is(instanceOf(ObjectPropertyGenerator.class)));
-//
-//       assertThat(objectPropertyGenerator.getName(), is(propertyName));
-//        assertThat(objectPropertyGenerator.getJsonPropertyGenerators().size(), is(1));
-//       assertThat(objectPropertyGenerator.getJsonPropertyGenerators().get(0), is(instanceOf(StringPropertyGenerator.class)));
-//        assertThat(objectPropertyGenerator.getJsonPropertyGenerators().get(0).getName(), is("stringProperty"));
-//    }
     }
 
     @Test
@@ -118,7 +89,6 @@ public class PropertyGeneratorSelectorTest {
         assertThat(propertyGenerator.getName(), is(propertyName));
     }
 
-
     @Test
     public void shouldCreateAStringPropertyGeneratorIfTheTypeIsString() throws Exception {
         final String propertyName = "stringProperty";
@@ -126,6 +96,7 @@ public class PropertyGeneratorSelectorTest {
         assertThat(propertyGenerator,is(instanceOf(StringPropertyGenerator.class)));
         assertThat(propertyGenerator.getName(), is(propertyName));
     }
+
 
     @Test
     public void shouldCreateAnIntegerPropertyGeneratorIfTheTypeIsInteger() throws Exception {
@@ -157,23 +128,61 @@ public class PropertyGeneratorSelectorTest {
     public void shouldCreateAnObjectGeneratorIfTheTypeIsObject() throws Exception {
 
         final String propertyName = "objectProperty";
-        final Map<String, Object> properties = new HashMap<>();
         final JsonPropertyGenerator propertyGenerator = propertyGeneratorSelector.createGenerator(propertyName, ObjectSchema.builder().build());
         assertThat(propertyGenerator,is(instanceOf(ObjectPropertyGenerator.class)));
         assertThat(propertyGenerator.getName(), is(propertyName));
     }
 
     @Test
+    public void shouldCreateAOneOfPropertyGeneratorIfTheReferenceTypeIsOneOf() throws Exception {
+        final String propertyName = "oneOfProperty";
+
+        final StringSchema.Builder stringSchemaBuilder = new StringSchema.Builder();
+        stringSchemaBuilder.title("stringProperty");
+
+        final BooleanSchema.Builder booleanSchemaBuilder = new BooleanSchema.Builder();
+        booleanSchemaBuilder.title("booleanProperty");
+
+        final CombinedSchema.Builder combinedSchemaBuilder = CombinedSchema.builder();
+        combinedSchemaBuilder.criterion(new CombinedSchema.ValidationCriterion() {
+            @Override
+            public void validate(int matchingCount, int schemaCount) {
+
+            }
+        });
+
+        final List<Schema> subschemas =new ArrayList<>();
+        subschemas.add(booleanSchemaBuilder.build());
+        subschemas.add(stringSchemaBuilder.build());
+        combinedSchemaBuilder.subschemas(subschemas).build();
+
+        final JsonPropertyGenerator propertyGenerator = propertyGeneratorSelector.createGenerator(propertyName, combinedSchemaBuilder.build());
+
+        assertThat(propertyGenerator,either(is(instanceOf(BooleanPropertyGenerator.class))).or(is(instanceOf(StringPropertyGenerator.class))));
+        assertThat(propertyGenerator.getName(),either(is("booleanProperty")).or(is("stringProperty")));
+    }
+
+    @Test
     public void shouldThrowAJsonGenerationExceptionIfTheTypeIsUnknown() throws Exception {
         final String propertyName = "unknowProperty";
-        final Map<String, Object> propertyDefinitions =  new HashMap<>();
-        propertyDefinitions.put("type", "something-silly");
-
-//        try {
-//            propertyGeneratorSelector.createGenerator(propertyName, propertyDefinitions);
-////            fail();
-////        } catch (JsonGenerationException expected) {
-////            assertThat(expected.getMessage(), is("Unknown property type 'something-silly'"));
-////        }
+        try {
+            propertyGeneratorSelector.createGenerator(propertyName, new UnknownSchema(StringSchema.builder()) );
+            fail();
+       } catch (JsonGenerationException expected) {
+            assertThat(expected.getMessage(), is("Unknown property type 'UnknownSchema'"));
+        }
     }
+
+    class UnknownSchema extends Schema{
+
+        public UnknownSchema(StringSchema.Builder builder){
+            super(builder);
+
+        }
+        @Override
+        public void validate(Object o) {
+
+        }
+    }
+
 }

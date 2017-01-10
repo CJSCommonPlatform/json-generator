@@ -18,7 +18,7 @@ public class PropertyGeneratorSelector {
 
         switch (schema.getClass().getSimpleName()) {
             case "ObjectSchema":
-        //       return new ObjectPropertyGenerator(propertyName,schema);
+              return new ObjectPropertyGenerator(propertyName,schema,this);
             case "ReferenceSchema":
                 return createGenerator(propertyName, ((ReferenceSchema) schema).getReferredSchema());
             case "StringSchema":
