@@ -20,6 +20,6 @@ public class ObjectGeneratorSelector {
 
         properties.forEach((name,        value) -> jsonPropertyGenerators.add(propertyGeneratorSelector.createGenerator(name, value)));
 
-        return new ObjectPropertyGenerator(propertyName, jsonPropertyGenerators);
+        return null;//new ObjectPropertyGenerator(propertyName, jsonPropertyGenerators);
     }
 }
