@@ -13,8 +13,6 @@ import static uk.gov.justice.json.generation.Constants.DOUBLE_QUOTE;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
-import org.junit.Test;
-
 public class RegexValueGeneratorTest {
 
 

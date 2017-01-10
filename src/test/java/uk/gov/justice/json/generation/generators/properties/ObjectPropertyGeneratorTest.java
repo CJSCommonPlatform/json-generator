@@ -1,8 +1,6 @@
 package uk.gov.justice.json.generation.generators.properties;
 
 import static java.lang.String.format;
-import static java.util.Arrays.asList;
-import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;

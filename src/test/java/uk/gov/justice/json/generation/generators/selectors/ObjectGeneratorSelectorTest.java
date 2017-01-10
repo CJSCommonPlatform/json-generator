@@ -1,13 +1,9 @@
 package uk.gov.justice.json.generation.generators.selectors;
 
-import static org.hamcrest.CoreMatchers.hasItem;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import uk.gov.justice.json.generation.generators.properties.JsonPropertyGenerator;
-import uk.gov.justice.json.generation.generators.properties.ObjectPropertyGenerator;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,11 +1,9 @@
 package uk.gov.justice.json.generation.generators.properties;
 
 import static java.util.Collections.singleton;
-import static java.util.Collections.singletonList;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Test;

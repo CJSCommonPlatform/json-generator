@@ -1,20 +1,16 @@
 package uk.gov.justice.json.generation.generators.values;
 
 import static java.util.Arrays.asList;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
-import org.junit.Test;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-import static org.mockito.Mockito.*;
 
 import uk.gov.justice.json.generation.generators.properties.IntegerPropertyGenerator;
 import uk.gov.justice.json.generation.generators.properties.ObjectPropertyGenerator;
 import uk.gov.justice.json.generation.generators.properties.StringPropertyGenerator;
+
+import org.junit.Test;
 
 public class ArrayValueGeneratorTest {
 
