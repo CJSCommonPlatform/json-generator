@@ -14,12 +14,10 @@ import org.everit.json.schema.NumberSchema;
 
 public class JsonNumberGenerator implements JsonValueGenerator<JsonNumber>{
 
-    private final String propertyName;
     private NumberGenerator numberGenerator;
     private boolean isInteger;
 
-    public JsonNumberGenerator(final String propertyName,final NumberSchema numberSchema) {
-        this.propertyName =propertyName;
+    public JsonNumberGenerator(final NumberSchema numberSchema) {
         if (numberSchema.requiresInteger()){
             numberGenerator = new IntegerGenerator();
             this.isInteger=true;
@@ -35,9 +33,9 @@ public class JsonNumberGenerator implements JsonValueGenerator<JsonNumber>{
 
     private JsonNumber constructJsonNumber(final Number number) {
         if (isInteger) {
-            return createObjectBuilder().add(propertyName, (int) number).build().getJsonNumber(propertyName);
+            return createObjectBuilder().add(PROPERTY_NAME, (int) number).build().getJsonNumber(PROPERTY_NAME);
         }else{
-            return createObjectBuilder().add(propertyName, (BigDecimal) number).build().getJsonNumber(propertyName);
+            return createObjectBuilder().add(PROPERTY_NAME, (BigDecimal) number).build().getJsonNumber(PROPERTY_NAME);
         }
     }
 }
