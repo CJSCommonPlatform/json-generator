@@ -11,7 +11,7 @@ public class EmailGenerator implements StringGenerator{
     }
 
     @Override
-    public String nextValue() {
+    public String next() {
         return emailAddressGenerator.next();
     }
 }

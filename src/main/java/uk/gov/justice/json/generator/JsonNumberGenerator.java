@@ -2,13 +2,13 @@ package uk.gov.justice.json.generator;
 
 import static javax.json.Json.createObjectBuilder;
 
+import uk.gov.justice.json.generator.value.BigDecimalGenerator;
 import uk.gov.justice.json.generator.value.IntegerGenerator;
 import uk.gov.justice.json.generator.value.NumberGenerator;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 import javax.json.JsonNumber;
-import javax.json.JsonValue;
 
 import org.everit.json.schema.NumberSchema;
 
@@ -16,18 +16,28 @@ public class JsonNumberGenerator implements JsonValueGenerator<JsonNumber>{
 
     private final String propertyName;
     private NumberGenerator numberGenerator;
+    private boolean isInteger;
 
     public JsonNumberGenerator(final String propertyName,final NumberSchema numberSchema) {
         this.propertyName =propertyName;
-        numberGenerator = new IntegerGenerator();
+        if (numberSchema.requiresInteger()){
+            numberGenerator = new IntegerGenerator();
+            this.isInteger=true;
+        }else {
+            numberGenerator = new BigDecimalGenerator();
+        }
     }
 
     @Override
-    public JsonNumber nextValue() {
-        return constructJsonNumber(numberGenerator.nextValue());
+    public JsonNumber next() {
+        return constructJsonNumber(numberGenerator.next());
     }
 
     private JsonNumber constructJsonNumber(final Number number) {
-        return createObjectBuilder().add(propertyName,(int)number).build().getJsonNumber(propertyName);
+        if (isInteger) {
+            return createObjectBuilder().add(propertyName, (int) number).build().getJsonNumber(propertyName);
+        }else{
+            return createObjectBuilder().add(propertyName, (BigDecimal) number).build().getJsonNumber(propertyName);
+        }
     }
 }

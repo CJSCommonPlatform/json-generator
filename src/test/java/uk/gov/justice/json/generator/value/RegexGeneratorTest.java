@@ -19,15 +19,15 @@ public class RegexGeneratorTest {
     private final RegexGenerator regexGenerator = new RegexGenerator(Pattern.compile(UUID_PATTERN));
 
     @Test
-    public void shouldGenerateAStringFromARegularExpression() throws Exception {
+    public void shouldGenerateARandomStringFromARegularExpression() throws Exception {
 
-        final String randomString = regexGenerator.nextValue();
+        final String randomString = regexGenerator.next();
 
         final UUID uuid = fromString(randomString);
 
         assertThat(uuid, is(notNullValue()));
 
-        assertThat(regexGenerator.nextValue(), is(not(equalTo(randomString))));
+        assertThat(regexGenerator.next(), is(not(equalTo(randomString))));
     }
 
 }

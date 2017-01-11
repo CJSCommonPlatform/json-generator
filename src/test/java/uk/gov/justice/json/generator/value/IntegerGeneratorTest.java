@@ -8,8 +8,8 @@ import org.junit.Test;
 public class IntegerGeneratorTest {
 
     @Test
-    public void shouldGenerateIntegerNextValue(){
+    public void shouldGenerateARandomInteger(){
 
-        assertThat(new IntegerGenerator().nextValue(),isA(Integer.class));
+        assertThat(new IntegerGenerator().next(),isA(Integer.class));
     }
 }

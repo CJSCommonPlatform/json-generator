@@ -20,7 +20,7 @@ public class IsoDateTimeGenerator implements StringGenerator {
     private final Random random = new Random();
 
     @Override
-    public String nextValue() {
+    public String next() {
 
         final int daysShift = random.nextInt(30) - 15;
         final int hoursShift = random.nextInt(24);

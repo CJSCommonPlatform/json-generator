@@ -10,7 +10,7 @@ public class BooleanGeneratorTest {
     private final BooleanGenerator booleanGenerator= new BooleanGenerator();
 
     @Test
-    public void shouldGeneratorNextValue(){
-        assertThat(booleanGenerator.nextValue(),isA(Boolean.class));
+    public void shouldGeneratorARandomBoolean(){
+        assertThat(booleanGenerator.next(),isA(Boolean.class));
     }
 }

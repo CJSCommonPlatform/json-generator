@@ -38,7 +38,7 @@ public class JsonObjectGenerator implements JsonValueGenerator {
     }
 
     @Override
-    public JsonObject nextValue() {
+    public JsonObject next() {
 
         final Set<String> properties = generators.keySet();
         final JsonObjectBuilder builder = createObjectBuilder();
@@ -47,12 +47,12 @@ public class JsonObjectGenerator implements JsonValueGenerator {
             JsonValue jsonValue;
 
             if(requiredProperties.contains(property)) {
-                jsonValue = generators.get(property).nextValue();
+                jsonValue = generators.get(property).next();
                 builder.add(property, jsonValue);
             } else {
                 Random rn = new Random();
                 if(rn.nextBoolean()) {
-                    jsonValue = generators.get(property).nextValue();
+                    jsonValue = generators.get(property).next();
                     builder.add(property, jsonValue);
                 }
             }
@@ -68,7 +68,7 @@ public class JsonObjectGenerator implements JsonValueGenerator {
 //            case "ReferenceSchema":
 //                return createGenerator(propertyName, ((ReferenceSchema) schema).getReferredSchema());
             case "StringSchema":
-                return new JsonStringGenerator(propertyName,(StringSchema) schema);
+                return new JsonStringGenerator((StringSchema) schema);
 //           case "IntegerSchema":
 //                return new IntegerPropertyGenerator(propertyName);
 //            case "BooleanSchema":

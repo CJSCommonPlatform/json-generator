@@ -7,7 +7,7 @@ import javax.json.JsonArray;
 public class JsonArrayGenerator implements JsonValueGenerator<JsonArray> {
 
     @Override
-    public JsonArray nextValue() {
+    public JsonArray next() {
         return null;
     }
 }

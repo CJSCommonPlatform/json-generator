@@ -25,7 +25,7 @@ public class IntegerGenerator implements NumberGenerator<Integer> {
             this.max = max;
         }
 
-    public Integer nextValue(){
+    public Integer next(){
         return random.ints(min, max).limit(1).findFirst().getAsInt();
     }
 }
