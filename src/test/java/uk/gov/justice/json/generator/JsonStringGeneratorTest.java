@@ -14,7 +14,6 @@ public class JsonStringGeneratorTest {
 
     @Test
     public void shouldGenerateAValidJsonStringForASimpleStringSchemaProperty() {
-        final String propertyName = "stringProperty";
         final StringSchema schema = new StringSchema();
         final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(schema);
         final JsonString jsonString = jsonStringGenerator.next();
@@ -24,7 +23,6 @@ public class JsonStringGeneratorTest {
     @Test
     public void shouldGetAValidJsonStringWithEmailForEmailSchemaProperty() throws Exception {
 
-        final String propertyName = "emailProperty";
         final StringSchema stringSchema = new StringSchema().builder().formatValidator(new EmailFormatValidator()).build();
         final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(stringSchema);
         final JsonString jsonString = jsonStringGenerator.next();
@@ -35,7 +33,6 @@ public class JsonStringGeneratorTest {
     @Test
     public void shouldGetAValidJsonStringWithDateTimeForDateTimeSchemaProperty() throws Exception {
 
-        final String propertyName = "dateTimeProperty";
         final StringSchema stringSchema = new StringSchema().builder().formatValidator(new DateTimeFormatValidator()).build();
         final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(stringSchema);
         final JsonString jsonString = jsonStringGenerator.next();
@@ -45,7 +42,6 @@ public class JsonStringGeneratorTest {
     @Test
     public void shouldGetAValidJsonStringWithRegexPatternForRegexSchemaProperty() throws Exception {
 
-        final String propertyName = "regexProperty";
         final String pattern = "$.my|regex[1].^";
         final StringSchema stringSchema = new StringSchema().builder().pattern(pattern).build();
         final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(stringSchema);

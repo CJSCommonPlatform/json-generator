@@ -5,6 +5,7 @@ import static java.lang.String.format;
 
 import java.util.Random;
 
+//TODO
 public class IntegerGenerator implements NumberGenerator<Integer> {
 
       private final Random random = new Random();

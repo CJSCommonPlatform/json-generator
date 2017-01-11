@@ -18,17 +18,15 @@ public class JsonNumberGeneratorTest {
 
     @Test
     public void shouldGenerateAValidJsonNumberForAIntegerSchemaProperty(){
-        final String propertyName = "integerProperty";
         final NumberSchema.Builder builder = NumberSchema.builder().requiresInteger(true);
-        final JsonNumberGenerator jsonNumberGenerator = new JsonNumberGenerator(propertyName,builder.build());
+        final JsonNumberGenerator jsonNumberGenerator = new JsonNumberGenerator(builder.build());
         final JsonNumber jsonString =jsonNumberGenerator.next();
         assertThat(jsonString,isA(JsonNumber.class));
     }
     @Test
     public void shouldGenerateAValidJsonNumberForANumberSchemaProperty(){
-        final String propertyName = "integerProperty";
         final NumberSchema.Builder builder = NumberSchema.builder().requiresInteger(true);
-        final JsonNumberGenerator jsonNumberGenerator = new JsonNumberGenerator(propertyName,builder.build());
+        final JsonNumberGenerator jsonNumberGenerator = new JsonNumberGenerator(builder.build());
         final JsonNumber jsonString =jsonNumberGenerator.next();
         assertThat(jsonString,isA(JsonNumber.class));
     }

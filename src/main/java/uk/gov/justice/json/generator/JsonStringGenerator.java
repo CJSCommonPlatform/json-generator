@@ -46,6 +46,6 @@ public class JsonStringGenerator implements JsonValueGenerator<JsonString> {
     }
 
     private JsonString constructJsonString(final String string) {
-        return createObjectBuilder().add("tmp", string).build().getJsonString("tmp");
+        return createObjectBuilder().add(PROPERTY_NAME, string).build().getJsonString(PROPERTY_NAME);
     }
 }
