@@ -3,8 +3,6 @@ package uk.gov.justice.json.generation.generators.properties;
 import uk.gov.justice.json.generation.formatting.JsonPropertyFormatter;
 import uk.gov.justice.json.generation.generators.values.IntegerValueGenerator;
 
-import javax.json.JsonValue;
-
 import com.google.common.annotations.VisibleForTesting;
 
 public class IntegerPropertyGenerator implements JsonPropertyGenerator {
@@ -39,3 +37,4 @@ public class IntegerPropertyGenerator implements JsonPropertyGenerator {
                 integerValueGenerator.nextValue());
     }
 }
+

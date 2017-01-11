@@ -4,7 +4,6 @@ import uk.gov.justice.json.generation.formatting.JsonPropertyFormatter;
 import uk.gov.justice.json.generation.generators.values.EmailValueGenerator;
 
 import com.google.common.annotations.VisibleForTesting;
-import uk.gov.justice.json.generation.generators.values.JsonValueGenerator;
 
 public class EmailPropertyGenerator implements JsonPropertyGenerator {
 

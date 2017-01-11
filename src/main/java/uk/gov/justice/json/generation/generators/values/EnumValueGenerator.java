@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.common.annotations.VisibleForTesting;
-import org.everit.json.schema.EnumSchema;
-import org.everit.json.schema.Schema;
 
 public class EnumValueGenerator implements JsonValueGenerator {
 
@@ -35,7 +33,7 @@ public class EnumValueGenerator implements JsonValueGenerator {
 
         final Object value = randomListItemSelector.selectRandomlyFrom(enums);
 
-        if(value instanceof String) {
+        if (value instanceof String) {
             return DOUBLE_QUOTE + value + DOUBLE_QUOTE;
         }
 

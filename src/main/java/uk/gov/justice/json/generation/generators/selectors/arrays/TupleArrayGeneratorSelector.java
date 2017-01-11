@@ -2,8 +2,6 @@ package uk.gov.justice.json.generation.generators.selectors.arrays;
 
 import static java.util.stream.Collectors.toList;
 
-import org.everit.json.schema.EnumSchema;
-import org.everit.json.schema.Schema;
 import uk.gov.justice.json.generation.JsonGenerationException;
 import uk.gov.justice.json.generation.generators.properties.ArrayPropertyGenerator;
 import uk.gov.justice.json.generation.generators.properties.JsonPropertyGenerator;
@@ -14,7 +12,9 @@ import uk.gov.justice.json.generation.generators.values.JsonValueGenerator;
 import uk.gov.justice.json.generation.generators.values.StringValueGenerator;
 
 import java.util.List;
-import java.util.Map;
+
+import org.everit.json.schema.EnumSchema;
+import org.everit.json.schema.Schema;
 
 public class TupleArrayGeneratorSelector {
 
@@ -40,7 +40,7 @@ public class TupleArrayGeneratorSelector {
             case "NumberSchema":
                 return new IntegerValueGenerator();
             case "EnumSchema":
-                return new EnumValueGenerator(((EnumSchema)schema).getPossibleValues());
+                return new EnumValueGenerator(((EnumSchema) schema).getPossibleValues());
         }
 
         throw new JsonGenerationException("oh dear");

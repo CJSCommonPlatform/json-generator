@@ -5,16 +5,15 @@ import static javax.json.Json.createObjectBuilder;
 import uk.gov.justice.json.generator.value.EmailGenerator;
 import uk.gov.justice.json.generator.value.IsoDateTimeGenerator;
 import uk.gov.justice.json.generator.value.RegexGenerator;
+import uk.gov.justice.json.generator.value.SimpleStringGenerator;
 import uk.gov.justice.json.generator.value.StringGenerator;
-import uk.gov.justice.json.generator.value.StringValueGenerator;
 
-import javax.json.Json;
 import javax.json.JsonString;
 
 import org.everit.json.schema.FormatValidator;
 import org.everit.json.schema.StringSchema;
 
-public class JsonStringGenerator implements JsonValueGenerator {
+public class JsonStringGenerator implements JsonValueGenerator<JsonString> {
 
     private static final String UNNAMED_FORMAT = "unnamed-format";
 
@@ -22,7 +21,7 @@ public class JsonStringGenerator implements JsonValueGenerator {
 
     public JsonStringGenerator(final StringSchema stringSchema) {
 
-        stringGenerator = new StringValueGenerator();
+        this.stringGenerator = new SimpleStringGenerator();
 
         final FormatValidator formatValidator = stringSchema.getFormatValidator();
         final String formatName = formatValidator.formatName();
@@ -42,11 +41,11 @@ public class JsonStringGenerator implements JsonValueGenerator {
     }
 
     @Override
-    public JsonString nextValue() {
-        return constructJsonString(stringGenerator.nextValue());
+    public JsonString next() {
+        return constructJsonString(stringGenerator.next());
     }
 
     private JsonString constructJsonString(final String string) {
-        return createObjectBuilder().add("tmp", string).build().getJsonString("tmp");
+        return createObjectBuilder().add(PROPERTY_NAME, string).build().getJsonString(PROPERTY_NAME);
     }
 }

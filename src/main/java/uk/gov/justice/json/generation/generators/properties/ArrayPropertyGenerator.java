@@ -9,8 +9,6 @@ import uk.gov.justice.json.generation.generators.values.JsonValueGenerator;
 
 import java.util.List;
 
-import javax.json.JsonValue;
-
 public class ArrayPropertyGenerator implements JsonPropertyGenerator {
 
     private final String name;

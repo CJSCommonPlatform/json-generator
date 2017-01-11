@@ -8,8 +8,8 @@ import org.junit.Test;
 public class StringValueGeneratorTest {
 
     @Test
-    public void shouldGenerateARandomStringInQuotes() throws Exception {
-        StringValueGenerator stringValueGenerator = new StringValueGenerator();
-        assertThat(stringValueGenerator.nextValue(), isA(String.class));
+    public void shouldGenerateARandomString() throws Exception {
+        SimpleStringGenerator stringValueGenerator = new SimpleStringGenerator();
+        assertThat(stringValueGenerator.next(), isA(String.class));
     }
 }

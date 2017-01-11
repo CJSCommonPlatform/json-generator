@@ -16,12 +16,6 @@ public class Validator {
 
     private final String schemaDraft4 = loadSchemaDraft4("/json-schema-draft-04.json");
 
-    public void validate(final String jsonSchema) {
-        final JSONObject rawSchema = new JSONObject(new JSONTokener(schemaDraft4));
-        final Schema schema = SchemaLoader.load(rawSchema);
-        schema.validate(new JSONObject(jsonSchema));
-    }
-
     private static String loadSchemaDraft4(final String name) {
         try {
             final File file = new File(Validator.class.getResource(name).toURI());
@@ -30,5 +24,11 @@ public class Validator {
         } catch (URISyntaxException | IOException e) {
             throw new JsonGenerationException("Failed to read schema draft 4 file " + name + " from classpath");
         }
+    }
+
+    public void validate(final String jsonSchema) {
+        final JSONObject rawSchema = new JSONObject(new JSONTokener(schemaDraft4));
+        final Schema schema = SchemaLoader.load(rawSchema);
+        schema.validate(new JSONObject(jsonSchema));
     }
 }

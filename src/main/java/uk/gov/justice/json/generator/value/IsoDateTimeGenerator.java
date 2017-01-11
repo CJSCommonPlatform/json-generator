@@ -3,13 +3,6 @@ package uk.gov.justice.json.generator.value;
 import static java.time.ZoneOffset.UTC;
 import static java.time.ZonedDateTime.now;
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-
-import java.time.ZonedDateTime;
-import java.util.Random;
-
-import static java.time.ZoneOffset.UTC;
-import static java.time.ZonedDateTime.now;
-import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 import static uk.gov.justice.json.generation.Constants.DOUBLE_QUOTE;
 
 import java.time.ZonedDateTime;
@@ -20,7 +13,7 @@ public class IsoDateTimeGenerator implements StringGenerator {
     private final Random random = new Random();
 
     @Override
-    public String nextValue() {
+    public String next() {
 
         final int daysShift = random.nextInt(30) - 15;
         final int hoursShift = random.nextInt(24);

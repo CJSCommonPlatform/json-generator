@@ -1,16 +1,13 @@
 package uk.gov.justice.json.generator;
 
 import static org.apache.commons.io.FileUtils.readFileToString;
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.isA;
 
 import uk.gov.justice.json.generation.schema.JsonParser;
-import uk.gov.justice.json.generation.schema.JsonSchemaParser;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-
 
 import javax.json.JsonObject;
 
@@ -37,7 +34,7 @@ public class JsonObjectGeneratorTest {
 
         JsonObjectGenerator jsonObjectGenerator = new JsonObjectGenerator((ObjectSchema) schema);
 
-        final JsonObject jsonObject = jsonObjectGenerator.nextValue();
+        final JsonObject jsonObject = jsonObjectGenerator.next();
 
         JsonAssert.with(jsonObject.toString())
                 .assertThat("$." + "streetAddress", isA(String.class))

@@ -2,7 +2,6 @@ package uk.gov.justice.json.generation.generators.selectors.arrays;
 
 import static java.util.Arrays.asList;
 
-import org.everit.json.schema.EnumSchema;
 import uk.gov.justice.json.generation.JsonGenerationException;
 import uk.gov.justice.json.generation.generators.properties.ArrayPropertyGenerator;
 import uk.gov.justice.json.generation.generators.properties.JsonPropertyGenerator;
@@ -13,6 +12,8 @@ import uk.gov.justice.json.generation.generators.values.StringValueGenerator;
 
 import java.util.List;
 import java.util.Map;
+
+import org.everit.json.schema.EnumSchema;
 
 public class BoundedArrayGeneratorSelector {
 
