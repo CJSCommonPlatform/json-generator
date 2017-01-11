@@ -9,7 +9,7 @@ public class StringValueGeneratorTest {
 
     @Test
     public void shouldGenerateARandomStringInQuotes() throws Exception {
-        StringValueGenerator stringValueGenerator = new StringValueGenerator();
+        SimpleStringGenerator stringValueGenerator = new SimpleStringGenerator();
         assertThat(stringValueGenerator.nextValue(), isA(String.class));
     }
 }

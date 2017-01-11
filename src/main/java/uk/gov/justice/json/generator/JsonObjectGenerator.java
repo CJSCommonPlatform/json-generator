@@ -33,7 +33,7 @@ public class JsonObjectGenerator implements JsonValueGenerator {
         generators = new HashMap<>();
         Map<String, Schema> propertySchemas = schema.getPropertySchemas();
         for(String property : propertySchemas.keySet()) {
-            generators.put(property, generatorFor(propertySchemas.get(property)));
+            generators.put(property, generatorFor(property,propertySchemas.get(property)));
         }
     }
 
@@ -61,15 +61,15 @@ public class JsonObjectGenerator implements JsonValueGenerator {
         return builder.build();
     }
 
-    private JsonValueGenerator generatorFor(final Schema schema) {
+    private JsonValueGenerator generatorFor(final String propertyName,final Schema schema) {
         switch (schema.getClass().getSimpleName()) {
             case "ObjectSchema":
                 return new JsonObjectGenerator((ObjectSchema) schema);
 //            case "ReferenceSchema":
 //                return createGenerator(propertyName, ((ReferenceSchema) schema).getReferredSchema());
             case "StringSchema":
-                return new JsonStringGenerator((StringSchema) schema);
-//            case "IntegerSchema":
+                return new JsonStringGenerator(propertyName,(StringSchema) schema);
+//           case "IntegerSchema":
 //                return new IntegerPropertyGenerator(propertyName);
 //            case "BooleanSchema":
 //                return new BooleanPropertyGenerator(propertyName);

@@ -2,7 +2,7 @@ package uk.gov.justice.json.generator;
 
 import javax.json.JsonValue;
 
-public interface JsonValueGenerator {
+public interface JsonValueGenerator<T extends JsonValue>{
 
-    JsonValue nextValue();
+    T  nextValue();
 }
