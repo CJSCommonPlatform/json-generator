@@ -11,6 +11,6 @@ public class StringValueGenerator implements JsonValueGenerator {
 
     @Override
     public String nextValue() {
-        return DOUBLE_QUOTE + stringGenerator.next() + DOUBLE_QUOTE;
+        return stringGenerator.next();
     }
 }
