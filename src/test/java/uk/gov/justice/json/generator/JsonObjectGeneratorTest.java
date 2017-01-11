@@ -37,7 +37,7 @@ public class JsonObjectGeneratorTest {
 
         JsonObjectGenerator jsonObjectGenerator = new JsonObjectGenerator((ObjectSchema) schema);
 
-        final JsonObject jsonObject = jsonObjectGenerator.nextValue();
+        final JsonObject jsonObject = jsonObjectGenerator.next();
 
         JsonAssert.with(jsonObject.toString())
                 .assertThat("$." + "streetAddress", isA(String.class))

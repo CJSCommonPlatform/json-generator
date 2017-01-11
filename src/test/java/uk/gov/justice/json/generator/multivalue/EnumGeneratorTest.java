@@ -29,7 +29,7 @@ public class EnumGeneratorTest {
 
         when(randomListItemSelector.selectRandomlyFrom(enums)).thenReturn(stringValue);
 
-        assertThat(enumGenerator.nextValue(), is(  stringValue ));
+        assertThat(enumGenerator.next(), is(  stringValue ));
     }
 
     @Test
@@ -44,7 +44,7 @@ public class EnumGeneratorTest {
 
         when(randomListItemSelector.selectRandomlyFrom(enums)).thenReturn(booleanValue);
 
-        assertThat(enumValueGenerator.nextValue(), is(booleanValue.toString()));
+        assertThat(enumValueGenerator.next(), is(booleanValue.toString()));
     }
 
     @Test
@@ -59,7 +59,7 @@ public class EnumGeneratorTest {
 
         when(randomListItemSelector.selectRandomlyFrom(enums)).thenReturn(integerValue);
 
-        assertThat(enumValueGenerator.nextValue(), is(integerValue.toString()));
+        assertThat(enumValueGenerator.next(), is(integerValue.toString()));
     }
 
     @Test
@@ -74,6 +74,6 @@ public class EnumGeneratorTest {
 
         when(randomListItemSelector.selectRandomlyFrom(enums)).thenReturn(doubleValue);
 
-        assertThat(enumValueGenerator.nextValue(), is(doubleValue.toString()));
+        assertThat(enumValueGenerator.next(), is(doubleValue.toString()));
     }
 }

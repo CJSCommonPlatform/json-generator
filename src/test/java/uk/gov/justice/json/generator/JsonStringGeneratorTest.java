@@ -13,13 +13,12 @@ import org.junit.Test;
 public class JsonStringGeneratorTest {
 
     @Test
-    public void shouldGenerateAValidJsonStringForASimpleStringSchemaProperty(){
+    public void shouldGenerateAValidJsonStringForASimpleStringSchemaProperty() {
         final String propertyName = "stringProperty";
         final StringSchema schema = new StringSchema();
-        final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(propertyName,schema);
-        final JsonString jsonString =jsonStringGenerator.nextValue();
-        assertThat(jsonString,isA(JsonString.class));
-        //assertThat(jsonString, is (Matchers.contains(propertyName)));
+        final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(schema);
+        final JsonString jsonString = jsonStringGenerator.next();
+        assertThat(jsonString, isA(JsonString.class));
     }
 
     @Test
@@ -27,10 +26,9 @@ public class JsonStringGeneratorTest {
 
         final String propertyName = "emailProperty";
         final StringSchema stringSchema = new StringSchema().builder().formatValidator(new EmailFormatValidator()).build();
-        final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(propertyName,stringSchema);
-        final JsonString jsonString =jsonStringGenerator.nextValue();
-        assertThat(jsonString,isA(JsonString.class));
-      //  assertThat(jsonString, is (Matchers.contains(propertyName)));
+        final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(stringSchema);
+        final JsonString jsonString = jsonStringGenerator.next();
+        assertThat(jsonString, isA(JsonString.class));
     }
 
 
@@ -39,10 +37,9 @@ public class JsonStringGeneratorTest {
 
         final String propertyName = "dateTimeProperty";
         final StringSchema stringSchema = new StringSchema().builder().formatValidator(new DateTimeFormatValidator()).build();
-        final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(propertyName,stringSchema);
-        final JsonString jsonString = jsonStringGenerator.nextValue();
+        final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(stringSchema);
+        final JsonString jsonString = jsonStringGenerator.next();
         assertThat(jsonString, isA(JsonString.class));
-        //assertThat(jsonStringGenerator, is(propertyName));
     }
 
     @Test
@@ -51,10 +48,8 @@ public class JsonStringGeneratorTest {
         final String propertyName = "regexProperty";
         final String pattern = "$.my|regex[1].^";
         final StringSchema stringSchema = new StringSchema().builder().pattern(pattern).build();
-        final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(propertyName, stringSchema);
-        final JsonString jsonString = jsonStringGenerator.nextValue();
+        final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(stringSchema);
+        final JsonString jsonString = jsonStringGenerator.next();
         assertThat(jsonString, isA(JsonString.class));
-      //  assertThat(jsonStringGenerator.getName(), is(propertyName));
-        // assertThat(((RegexPropertyGenerator) jsonPropertyGenerator).getPattern().pattern(), is(pattern));
     }
 }

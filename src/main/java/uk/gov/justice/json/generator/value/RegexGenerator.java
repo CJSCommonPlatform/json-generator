@@ -15,7 +15,7 @@ public class RegexGenerator implements StringGenerator {
     }
 
     @Override
-    public String nextValue() {
+    public String next() {
         return new Generex(pattern.toString()).random();
     }
 }

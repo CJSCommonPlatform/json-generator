@@ -30,7 +30,7 @@ public class EnumGenerator implements PrimitiveGenerator<Enum> {
     }
 
     @Override
-    public Enum nextValue() {
+    public Enum next() {
         return (Enum) randomListItemSelector.selectRandomlyFrom(enums);
     }
 }

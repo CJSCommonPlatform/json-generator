@@ -17,12 +17,10 @@ public class JsonStringGenerator implements JsonValueGenerator<JsonString> {
 
     private static final String UNNAMED_FORMAT = "unnamed-format";
 
-    private final String propertyName;
     private StringGenerator stringGenerator;
 
-    public JsonStringGenerator(final String propertyName ,final StringSchema stringSchema) {
+    public JsonStringGenerator(final StringSchema stringSchema) {
 
-        this.propertyName = propertyName;
         this.stringGenerator = new SimpleStringGenerator();
 
         final FormatValidator formatValidator = stringSchema.getFormatValidator();
@@ -43,11 +41,11 @@ public class JsonStringGenerator implements JsonValueGenerator<JsonString> {
     }
 
     @Override
-    public JsonString nextValue() {
-        return constructJsonString(stringGenerator.nextValue());
+    public JsonString next() {
+        return constructJsonString(stringGenerator.next());
     }
 
     private JsonString constructJsonString(final String string) {
-        return createObjectBuilder().add(propertyName, string).build().getJsonString(propertyName);
+        return createObjectBuilder().add("tmp", string).build().getJsonString("tmp");
     }
 }
