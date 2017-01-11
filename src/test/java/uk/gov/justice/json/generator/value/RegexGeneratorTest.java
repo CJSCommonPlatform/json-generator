@@ -14,7 +14,7 @@ import org.junit.Test;
 
 public class RegexGeneratorTest {
 
-    private static final String UUID_PATTERN = "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$";
+    private static final String UUID_PATTERN = "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}";
 
     private final RegexGenerator regexGenerator = new RegexGenerator(Pattern.compile(UUID_PATTERN));
 

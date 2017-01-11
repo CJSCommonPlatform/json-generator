@@ -1,28 +1,30 @@
 package uk.gov.justice.json.generator;
 
+import static javax.json.Json.createObjectBuilder;
+
 import uk.gov.justice.json.generation.JsonGenerationException;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
 
 import org.everit.json.schema.ObjectSchema;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.StringSchema;
 
-/**
- * Created by david on 10/01/17.
- */
 public class JsonObjectGenerator implements JsonValueGenerator {
 
     private Map<String, JsonValueGenerator> generators;
     private Set<String> properties;
     private Set<String> requiredProperties;
+
 
     public JsonObjectGenerator(final ObjectSchema schema) {
         properties = schema.getPropertySchemas().keySet();
@@ -35,14 +37,27 @@ public class JsonObjectGenerator implements JsonValueGenerator {
         }
     }
 
-    // TODO: Randomise non-mandatory fields
     @Override
     public JsonObject nextValue() {
-        Set<String> properties = generators.keySet();
-        JsonObjectBuilder builder = Json.createObjectBuilder();
+
+        final Set<String> properties = generators.keySet();
+        final JsonObjectBuilder builder = createObjectBuilder();
+
         for(String property : properties) {
-            builder = builder.add(property, generators.get(property).nextValue());
+            JsonValue jsonValue;
+
+            if(requiredProperties.contains(property)) {
+                jsonValue = generators.get(property).nextValue();
+                builder.add(property, jsonValue);
+            } else {
+                Random rn = new Random();
+                if(rn.nextBoolean()) {
+                    jsonValue = generators.get(property).nextValue();
+                    builder.add(property, jsonValue);
+                }
+            }
         }
+
         return builder.build();
     }
 

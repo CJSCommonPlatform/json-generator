@@ -9,11 +9,11 @@ import com.google.common.annotations.VisibleForTesting;
 
 public class StringPropertyGenerator implements JsonPropertyGenerator {
 
-    private final String name;
+    private final String name; //name not required, each should only know how to generate its value
     private final StringGenerator randomStringGenerator;
     private final JsonPropertyFormatter jsonPropertyFormatter;
 
-    public StringPropertyGenerator(final String name) {
+    public StringPropertyGenerator(final String name) { //limits on string
         this(name, new StringGenerator(), new JsonPropertyFormatter());
     }
 
