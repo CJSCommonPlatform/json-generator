@@ -1,14 +1,11 @@
 package uk.gov.justice.json.generation.generators.values;
 
-import org.everit.json.schema.CombinedSchema;
-import org.everit.json.schema.EnumSchema;
-import org.everit.json.schema.ObjectSchema;
-import org.everit.json.schema.Schema;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Set;
+
+import org.everit.json.schema.CombinedSchema;
+import org.everit.json.schema.ObjectSchema;
+import org.everit.json.schema.Schema;
 
 public class RandomListItemSelector {
 
