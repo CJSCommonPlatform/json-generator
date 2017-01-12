@@ -22,7 +22,7 @@ public class JsonNumberGenerator implements JsonValueGenerator<JsonNumber>{
             numberGenerator =  IntegerGenerator.builder().build();
             this.isInteger=true;
         }else {
-            numberGenerator = new BigDecimalGenerator();
+            numberGenerator = BigDecimalGenerator.builder().build();
         }
     }
 
