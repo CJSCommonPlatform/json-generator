@@ -7,7 +7,7 @@ public class IntegerGenerator implements NumberGenerator<Integer> {
     private static final int DEFAULT_MAX = Integer.MAX_VALUE;
     private Integer minimum;
     private Integer maximum;
-    private Integer multipleOf;
+    private int multipleOf;
     private final boolean exclusiveMinimum;
     private final boolean exclusiveMaximum;
 
