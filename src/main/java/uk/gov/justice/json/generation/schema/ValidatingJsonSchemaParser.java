@@ -11,10 +11,10 @@ public class ValidatingJsonSchemaParser {
     public ValidatingJsonSchemaParser(final JsonSchemaParser jsonSchemaParser,
                                       final Validator validator) {
         this.jsonSchemaParser = jsonSchemaParser;
-        this.validator =validator;
+        this.validator = validator;
     }
 
-    public void validateAndParse(final String schema){
+    public void validateAndParse(final String schema) {
         validator.validate(schema);
         jsonSchemaParser.parse(schema);
     }

@@ -1,11 +1,21 @@
 package uk.gov.justice.json.generation.generators.selectors;
 
-import org.everit.json.schema.*;
 import uk.gov.justice.json.generation.JsonGenerationException;
-import uk.gov.justice.json.generation.generators.properties.*;
+import uk.gov.justice.json.generation.generators.properties.BooleanPropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.EnumPropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.IntegerPropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.JsonPropertyGenerator;
+import uk.gov.justice.json.generation.generators.properties.ObjectPropertyGenerator;
 import uk.gov.justice.json.generation.generators.selectors.arrays.ArrayGeneratorSelector;
 
 import java.util.Set;
+
+import org.everit.json.schema.ArraySchema;
+import org.everit.json.schema.CombinedSchema;
+import org.everit.json.schema.EnumSchema;
+import org.everit.json.schema.ReferenceSchema;
+import org.everit.json.schema.Schema;
+import org.everit.json.schema.StringSchema;
 
 @SuppressWarnings("unchecked")
 public class PropertyGeneratorSelector {
@@ -18,7 +28,7 @@ public class PropertyGeneratorSelector {
 
         switch (schema.getClass().getSimpleName()) {
             case "ObjectSchema":
-              return new ObjectPropertyGenerator(propertyName,schema,this);
+                return new ObjectPropertyGenerator(propertyName, schema, this);
             case "ReferenceSchema":
                 return createGenerator(propertyName, ((ReferenceSchema) schema).getReferredSchema());
             case "StringSchema":

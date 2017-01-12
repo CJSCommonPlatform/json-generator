@@ -3,13 +3,6 @@ package uk.gov.justice.json.generator.value;
 import static java.time.ZoneOffset.UTC;
 import static java.time.ZonedDateTime.now;
 import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
-
-import java.time.ZonedDateTime;
-import java.util.Random;
-
-import static java.time.ZoneOffset.UTC;
-import static java.time.ZonedDateTime.now;
-import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 import static uk.gov.justice.json.generation.Constants.DOUBLE_QUOTE;
 
 import java.time.ZonedDateTime;

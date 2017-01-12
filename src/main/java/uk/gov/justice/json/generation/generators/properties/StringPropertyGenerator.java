@@ -3,8 +3,6 @@ package uk.gov.justice.json.generation.generators.properties;
 import uk.gov.justice.json.generation.formatting.JsonPropertyFormatter;
 import uk.gov.justice.services.test.utils.core.random.StringGenerator;
 
-import javax.json.JsonValue;
-
 import com.google.common.annotations.VisibleForTesting;
 
 public class StringPropertyGenerator implements JsonPropertyGenerator {

@@ -92,6 +92,7 @@ public class BigDecimalGeneratorTest {
         final BigDecimalGenerator bigDecimalGenerator =  builder.build();
         final BigDecimal value = bigDecimalGenerator.next();
         assertThat(value,isA(BigDecimal.class));
-     //   assertThat(value.remainder(multiple),is(0));
+        assertThat(value.remainder(multiple),is(new BigDecimal(0.0).setScale(1)));
+
     }
 }
