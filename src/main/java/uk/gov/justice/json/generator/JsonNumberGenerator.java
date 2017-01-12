@@ -19,7 +19,7 @@ public class JsonNumberGenerator implements JsonValueGenerator<JsonNumber>{
 
     public JsonNumberGenerator(final NumberSchema numberSchema) {
         if (numberSchema.requiresInteger()){
-            numberGenerator = new IntegerGenerator();
+            numberGenerator =  IntegerGenerator.builder().build();
             this.isInteger=true;
         }else {
             numberGenerator = new BigDecimalGenerator();

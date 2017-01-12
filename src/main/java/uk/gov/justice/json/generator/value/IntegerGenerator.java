@@ -10,8 +10,6 @@ import java.util.Random;
 import org.everit.json.schema.NumberSchema;
 import org.everit.json.schema.ValidationException;
 
-//TODO: range(minimum, exclusive minimum, maximum, exclusive maximum)
-//TODO: multipleOf
 public class IntegerGenerator implements NumberGenerator<Integer> {
     private static final double DEFAULT_MIN = Integer.MIN_VALUE;
     private static final double DEFAULT_MAX = Integer.MAX_VALUE;
