@@ -1,27 +1,15 @@
 package uk.gov.justice.json.generator.value;
 
-import static java.lang.Integer.MAX_VALUE;
-import static java.lang.Integer.MIN_VALUE;
-import static java.lang.Integer.max;
-import static java.lang.String.format;
-
-import java.math.BigDecimal;
 import java.util.Random;
-import org.everit.json.schema.NumberSchema;
-import org.everit.json.schema.ValidationException;
 
 public class IntegerGenerator implements NumberGenerator<Integer> {
-    private static final double DEFAULT_MIN = Integer.MIN_VALUE;
-    private static final double DEFAULT_MAX = Integer.MAX_VALUE;
-    private final Integer minimum;
-    private final Integer maximum;
-    private final Integer multipleOf;
+    private static final int DEFAULT_MIN = Integer.MIN_VALUE;
+    private static final int DEFAULT_MAX = Integer.MAX_VALUE;
+    private Integer minimum;
+    private Integer maximum;
+    private Integer multipleOf;
     private final boolean exclusiveMinimum;
     private final boolean exclusiveMaximum;
-
-    private IntegerGenerator() {
-        this(builder());
-    }
 
     public static IntegerGenerator.Builder builder() {
         return new IntegerGenerator.Builder();
@@ -35,75 +23,19 @@ public class IntegerGenerator implements NumberGenerator<Integer> {
         this.multipleOf = builder.multipleOf;
     }
 
-
-    private void checkMinAndMaxValues(){
-        if (minimum >= maximum) {
-            throw new IllegalArgumentException(
-                    format("Min value cannot be greater than or equal to Max value, got Min: %s and Max: %s", minimum, maximum));
-        }
-    }
-
-    private void checkDefaultMinValue(){
-        if (minimum < DEFAULT_MIN) {
-            throw new IllegalArgumentException(
-                    format("Min value cannot be less than what is allowed for the type Integer, got Min: %s ", minimum));
-        }
-    }
-
-    private void checkDefaultMaxValue(){
-        if (minimum > DEFAULT_MAX) {
-            throw new IllegalArgumentException(
-                    format("Max value cannot be less than what is allowed for the type Integer, got Max: %s ", maximum));
-        }
-    }
-    private void checkMaximum(int subject) {
-        if(this.maximum != null) {
-            if(this.exclusiveMaximum && this.maximum.intValue() <= subject) {
-                throw new IllegalArgumentException(
-                        format( subject + " is not lower than " + this.maximum, "exclusiveMaximum"));
-            }
-
-            if(this.maximum.doubleValue() < subject) {
-                throw new IllegalArgumentException(
-                        format(subject + " is not lower or equal to " + this.maximum, "maximum"));
-            }
-        }
-
-    }
-
-    private void checkMinimum(int subject) {
-        if(this.minimum != null) {
-            if(this.exclusiveMinimum && subject <= this.minimum.doubleValue()) {
-                throw new IllegalArgumentException(
-                        format( subject + " is not higher than " + this.minimum, "exclusiveMinimum"));
-            }
-
-            if(subject < this.minimum.doubleValue()) {
-                throw new IllegalArgumentException(
-                        format(subject + " is not higher or equal to " + this.minimum, "minimum"));
-            }
-        }
-
-    }
-
-    private void checkMultipleOf(double subject) {
-        if(this.multipleOf != null) {
-            BigDecimal remainder = BigDecimal.valueOf(subject).remainder(BigDecimal.valueOf(this.multipleOf.intValue()));
-            if(remainder.compareTo(BigDecimal.ZERO) != 0) {
-                throw new IllegalArgumentException(
-                        format(subject + " is not a multiple of " + this.multipleOf, "multipleOf"));
-            }
-        }
-
-    }
-
-
     private final Random random = new Random();
 
     public Integer next(){
-        return random.ints(minimum, maximum).limit(1).findFirst().getAsInt();
-    }
 
+        if (exclusiveMinimum){
+            this.minimum  = minimum+1;
+        }
+        if (exclusiveMaximum){
+            this.maximum =maximum-1;
+        }
+        int value = (random.ints(minimum,maximum).findFirst().getAsInt()/multipleOf) * multipleOf;
+        return  value ;
+    }
 
     public static class Builder {
         private int minimum;
@@ -113,6 +45,9 @@ public class IntegerGenerator implements NumberGenerator<Integer> {
         private boolean exclusiveMaximum = false;
 
         public Builder() {
+            this.minimum = DEFAULT_MIN;
+            this.maximum = DEFAULT_MAX;
+            this.multipleOf = 1;
         }
 
         public IntegerGenerator build() {
