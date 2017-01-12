@@ -38,7 +38,7 @@ public class EnumGenerator implements JsonValueGenerator {
 
         final Object value = randomlyGet(schema.getPossibleValues());
 
-        if(value instanceof String) {
+        if (value instanceof String) {
             return new JsonStringGenerator((StringSchema) value).next();
         }
 

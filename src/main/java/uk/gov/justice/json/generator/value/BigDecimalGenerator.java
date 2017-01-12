@@ -1,12 +1,9 @@
 package uk.gov.justice.json.generator.value;
 
-import static java.lang.String.format;
-
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.Random;
 
-public class BigDecimalGenerator implements NumberGenerator<BigDecimal>{
+public class BigDecimalGenerator implements NumberGenerator<BigDecimal> {
 
     private static final long DEFAULT_MIN = -1000000000L;
     private static final long DEFAULT_MAX = 1000000000L;
@@ -16,31 +13,7 @@ public class BigDecimalGenerator implements NumberGenerator<BigDecimal>{
     private final boolean exclusiveMinimum;
     private final boolean exclusiveMaximum;
     private final int scale;
-
-    public static BigDecimalGenerator.Builder builder() {
-        return new BigDecimalGenerator.Builder();
-    }
-
     private final Random random = new Random();
-
-    @Override
-    public BigDecimal next(){
-
-        if (exclusiveMinimum){
-            this.minimum.add(BigDecimal.ONE);
-        }
-        if (exclusiveMaximum){
-            this.maximum.subtract(BigDecimal.ONE);
-        }
-        return (generateRandomBigDecimalForRange(minimum,maximum,scale)
-               // .divide(multipleOf,scale, RoundingMode.DOWN))
-                .multiply(multipleOf));
-    }
-
-    private BigDecimal generateRandomBigDecimalForRange(final BigDecimal min, final BigDecimal max,final int scale) {
-        BigDecimal randomBigDecimal = min.add(new BigDecimal(Math.random()).multiply(max.subtract(min)));
-        return randomBigDecimal.setScale(scale,BigDecimal.ROUND_HALF_UP);
-    }
 
     private BigDecimalGenerator(BigDecimalGenerator.Builder builder) {
         this.minimum = builder.minimum;
@@ -49,6 +22,31 @@ public class BigDecimalGenerator implements NumberGenerator<BigDecimal>{
         this.exclusiveMaximum = builder.exclusiveMaximum;
         this.multipleOf = builder.multipleOf;
         this.scale = builder.scale;
+    }
+
+    public static BigDecimalGenerator.Builder builder() {
+        return new BigDecimalGenerator.Builder();
+    }
+
+    @Override
+    public BigDecimal next() {
+
+        if (exclusiveMinimum) {
+            this.minimum.add(BigDecimal.ONE);
+        }
+        if (exclusiveMaximum) {
+            this.maximum.subtract(BigDecimal.ONE);
+        }
+        final BigDecimal minimumReduced = minimum.divide(multipleOf);
+        final BigDecimal maximumReduced = maximum.divide(multipleOf);
+
+        final BigDecimal randomBigDecimal = minimumReduced
+                .add(new BigDecimal(Math.random())
+                        .multiply(maximumReduced
+                                .subtract(minimumReduced)))
+                .setScale(0, BigDecimal.ROUND_HALF_UP)
+                .multiply(multipleOf).setScale(scale);
+        return randomBigDecimal;
     }
 
     public static class Builder {

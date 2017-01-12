@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ObjectValueGenerator implements JsonValueGenerator {
 
-    private final List<JsonPropertyGenerator>  jsonPropertyGenerators;
+    private final List<JsonPropertyGenerator> jsonPropertyGenerators;
 
     public ObjectValueGenerator(final List<JsonPropertyGenerator> jsonPropertyGenerators) {
         this.jsonPropertyGenerators = jsonPropertyGenerators;

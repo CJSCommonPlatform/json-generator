@@ -2,14 +2,15 @@ package uk.gov.justice.json.generation.schema;
 
 import static java.util.stream.Collectors.toList;
 
-import org.everit.json.schema.ObjectSchema;
-import org.everit.json.schema.Schema;
-import org.everit.json.schema.loader.SchemaLoader;
 import uk.gov.justice.json.generation.generators.properties.JsonPropertyGenerator;
 import uk.gov.justice.json.generation.generators.selectors.PropertyGeneratorSelector;
 
 import java.util.List;
 import java.util.Map;
+
+import org.everit.json.schema.ObjectSchema;
+import org.everit.json.schema.Schema;
+import org.everit.json.schema.loader.SchemaLoader;
 
 public class JsonSchemaParser {
 
@@ -27,7 +28,7 @@ public class JsonSchemaParser {
 
         final ObjectSchema objectSchema = schemaBuilder.build();
 
-        final Map<String, Schema> properties =    objectSchema.getPropertySchemas();
+        final Map<String, Schema> properties = objectSchema.getPropertySchemas();
 
         final List<JsonPropertyGenerator> jsonPropertyGenerators = properties
                 .keySet()
@@ -41,6 +42,6 @@ public class JsonSchemaParser {
     }
 
     private boolean isPropertyName(final String couldBeAPropertyName) {
-        return ! (couldBeAPropertyName.equals("additionalProperties") || couldBeAPropertyName.equals("required"));
+        return !(couldBeAPropertyName.equals("additionalProperties") || couldBeAPropertyName.equals("required"));
     }
 }

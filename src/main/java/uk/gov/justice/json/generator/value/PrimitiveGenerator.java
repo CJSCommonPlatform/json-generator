@@ -1,6 +1,6 @@
 package uk.gov.justice.json.generator.value;
 
 
-public interface PrimitiveGenerator<T>{
+public interface PrimitiveGenerator<T> {
     T next();
 }

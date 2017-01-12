@@ -3,7 +3,6 @@ package uk.gov.justice.json.generation.schema;
 import java.util.Map;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONObject;
 import org.json.JSONTokener;

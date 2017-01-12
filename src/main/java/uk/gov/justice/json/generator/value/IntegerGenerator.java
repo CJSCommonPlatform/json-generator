@@ -5,15 +5,12 @@ import java.util.Random;
 public class IntegerGenerator implements NumberGenerator<Integer> {
     private static final int DEFAULT_MIN = Integer.MIN_VALUE;
     private static final int DEFAULT_MAX = Integer.MAX_VALUE;
+    private final boolean exclusiveMinimum;
+    private final boolean exclusiveMaximum;
+    private final Random random = new Random();
     private Integer minimum;
     private Integer maximum;
     private int multipleOf;
-    private final boolean exclusiveMinimum;
-    private final boolean exclusiveMaximum;
-
-    public static IntegerGenerator.Builder builder() {
-        return new IntegerGenerator.Builder();
-    }
 
     private IntegerGenerator(IntegerGenerator.Builder builder) {
         this.minimum = builder.minimum;
@@ -23,18 +20,20 @@ public class IntegerGenerator implements NumberGenerator<Integer> {
         this.multipleOf = builder.multipleOf;
     }
 
-    private final Random random = new Random();
+    public static IntegerGenerator.Builder builder() {
+        return new IntegerGenerator.Builder();
+    }
 
-    public Integer next(){
+    public Integer next() {
 
-        if (exclusiveMinimum){
-            this.minimum  = minimum+1;
+        if (exclusiveMinimum) {
+            this.minimum = minimum + 1;
         }
-        if (exclusiveMaximum){
-            this.maximum =maximum-1;
+        if (exclusiveMaximum) {
+            this.maximum = maximum - 1;
         }
-        int value = (random.ints(minimum,maximum).findFirst().getAsInt()/multipleOf) * multipleOf;
-        return  value ;
+        int value = (random.ints(minimum, maximum).findFirst().getAsInt() / multipleOf) * multipleOf;
+        return value;
     }
 
     public static class Builder {

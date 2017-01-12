@@ -1,12 +1,9 @@
 package uk.gov.justice.json.generation.generators.properties;
 
-import org.everit.json.schema.EnumSchema;
-import org.everit.json.schema.Schema;
 import uk.gov.justice.json.generation.formatting.JsonPropertyFormatter;
 import uk.gov.justice.json.generation.generators.values.EnumValueGenerator;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
