@@ -22,7 +22,7 @@ import org.everit.json.schema.ObjectSchema;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.StringSchema;
 
-public class EnumGenerator implements JsonValueGenerator {
+public class EnumGenerator extends JsonValueGenerator {
 
 
     private EnumSchema schema;
