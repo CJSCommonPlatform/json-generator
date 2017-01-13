@@ -6,7 +6,6 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import uk.gov.justice.json.generation.generators.values.EnumValueGenerator;
 import uk.gov.justice.json.generation.generators.values.RandomListItemSelector;
 
 import java.util.List;

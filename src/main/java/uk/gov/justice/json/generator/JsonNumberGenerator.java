@@ -7,6 +7,7 @@ import uk.gov.justice.json.generator.value.IntegerGenerator;
 import uk.gov.justice.json.generator.value.NumberGenerator;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 import javax.json.JsonNumber;
 
@@ -32,13 +33,13 @@ public class JsonNumberGenerator extends JsonValueGenerator<JsonNumber> {
     private IntegerGenerator integerGenerator(final NumberSchema numberSchema) {
         IntegerGenerator.Builder builder = IntegerGenerator.builder();
         if (numberSchema.getMinimum() != null) {
-            builder.minimum(numberSchema.getMinimum().intValue());
+            builder.minimum(Optional.of(numberSchema.getMinimum().intValue()));
         }
         if (numberSchema.getMaximum() != null) {
-            builder.maximum(numberSchema.getMaximum().intValue());
+            builder.maximum(Optional.of(numberSchema.getMaximum().intValue()));
         }
         if (numberSchema.getMultipleOf() != null) {
-            builder.maximum(numberSchema.getMaximum().intValue());
+            builder.maximum(Optional.of(numberSchema.getMaximum().intValue()));
         }
         if (numberSchema.isExclusiveMaximum()) {
             builder.exclusiveMaximum(true);
@@ -52,13 +53,13 @@ public class JsonNumberGenerator extends JsonValueGenerator<JsonNumber> {
     private BigDecimalGenerator bigDecimalGenerator(final NumberSchema numberSchema) {
         BigDecimalGenerator.Builder builder = BigDecimalGenerator.builder();
         if (numberSchema.getMinimum() != null) {
-            builder.minimum(new BigDecimal(numberSchema.getMinimum().toString()));
+            builder.minimum(Optional.of(new BigDecimal(numberSchema.getMinimum().toString())));
         }
         if (numberSchema.getMaximum() != null) {
-            builder.maximum(new BigDecimal(numberSchema.getMaximum().toString()));
+            builder.maximum(Optional.of(new BigDecimal(numberSchema.getMaximum().toString())));
         }
         if (numberSchema.getMultipleOf() != null) {
-            builder.maximum(new BigDecimal(numberSchema.getMultipleOf().toString()));
+            builder.maximum(Optional.of(new BigDecimal(numberSchema.getMultipleOf().toString())));
         }
         if (numberSchema.isExclusiveMaximum()) {
             builder.exclusiveMaximum(true);

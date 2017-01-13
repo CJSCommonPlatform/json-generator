@@ -1,23 +1,39 @@
 package uk.gov.justice.json.generator.value;
 
+import java.util.Optional;
 import java.util.Random;
 
 public class IntegerGenerator implements NumberGenerator<Integer> {
-    private static final int DEFAULT_MIN = Integer.MIN_VALUE;
-    private static final int DEFAULT_MAX = Integer.MAX_VALUE;
-    private final boolean exclusiveMinimum;
-    private final boolean exclusiveMaximum;
+    private static final Integer DEFAULT_MIN = Integer.MIN_VALUE;
+    private static final Integer DEFAULT_MAX = Integer.MAX_VALUE;
     private final Random random = new Random();
-    private Integer minimum;
-    private Integer maximum;
-    private int multipleOf;
+    private boolean exclusiveMinimum;
+    private boolean exclusiveMaximum;
+    private Optional<Integer> minimum;
+    private Optional<Integer> maximum;
+    private Optional<Integer> multipleOf;
 
     private IntegerGenerator(IntegerGenerator.Builder builder) {
-        this.minimum = builder.minimum;
-        this.maximum = builder.maximum;
-        this.exclusiveMinimum = builder.exclusiveMinimum;
-        this.exclusiveMaximum = builder.exclusiveMaximum;
-        this.multipleOf = builder.multipleOf;
+        this.minimum = java.util.Optional.of(DEFAULT_MIN);
+        this.maximum = Optional.of(DEFAULT_MAX);
+        this.multipleOf =Optional.empty();
+        if (builder.minimum.isPresent()) {
+            this.minimum = Optional.of(builder.minimum.get());
+        }
+        if (builder.maximum.isPresent()) {
+            this.maximum = Optional.of(builder.maximum.get());
+        }
+        if (builder.multipleOf.isPresent()) {
+            this.multipleOf =  Optional.of(builder.multipleOf.get());
+        }
+        if (builder.exclusiveMinimum) {
+            this.minimum = Optional.of(builder.minimum.get() + 1);
+            this.exclusiveMinimum = builder.exclusiveMinimum;
+        }
+        if (builder.exclusiveMaximum) {
+            this.maximum = Optional.of(builder.maximum.get() - 1);
+            this.exclusiveMaximum = builder.exclusiveMaximum;
+        }
     }
 
     public static IntegerGenerator.Builder builder() {
@@ -25,28 +41,23 @@ public class IntegerGenerator implements NumberGenerator<Integer> {
     }
 
     public Integer next() {
-
-        if (exclusiveMinimum) {
-            this.minimum = minimum + 1;
+        int minimum = this.minimum.get();
+        int maximum = this.maximum.get();
+        if (this.multipleOf.isPresent()) {
+            return ((random.ints(minimum, maximum).findFirst().getAsInt()) / multipleOf.get()) * multipleOf.get();
+        }else{
+            return random.ints(minimum, maximum).findFirst().getAsInt();
         }
-        if (exclusiveMaximum) {
-            this.maximum = maximum - 1;
-        }
-        int value = (random.ints(minimum, maximum).findFirst().getAsInt() / multipleOf) * multipleOf;
-        return value;
     }
 
     public static class Builder {
-        private int minimum;
-        private int maximum;
-        private int multipleOf;
+        private Optional<Integer> minimum = Optional.empty();
+        private Optional<Integer> maximum = Optional.empty();
+        private Optional<Integer> multipleOf=Optional.empty();
         private boolean exclusiveMinimum = false;
         private boolean exclusiveMaximum = false;
 
         public Builder() {
-            this.minimum = DEFAULT_MIN;
-            this.maximum = DEFAULT_MAX;
-            this.multipleOf = 1;
         }
 
         public IntegerGenerator build() {
@@ -63,20 +74,19 @@ public class IntegerGenerator implements NumberGenerator<Integer> {
             return this;
         }
 
-        public IntegerGenerator.Builder maximum(int maximum) {
+        public IntegerGenerator.Builder maximum(Optional<Integer> maximum) {
             this.maximum = maximum;
             return this;
         }
 
-        public IntegerGenerator.Builder minimum(int minimum) {
+        public IntegerGenerator.Builder minimum(Optional<Integer> minimum) {
             this.minimum = minimum;
             return this;
         }
 
-        public IntegerGenerator.Builder multipleOf(int multipleOf) {
+        public IntegerGenerator.Builder multipleOf(Optional<Integer> multipleOf) {
             this.multipleOf = multipleOf;
             return this;
         }
     }
-
 }
