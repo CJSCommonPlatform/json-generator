@@ -1,6 +1,6 @@
 package uk.gov.justice.json.generator;
 
-import static javax.json.Json.createObjectBuilder;
+import static uk.gov.justice.json.generator.JsonValueGenerators.buildJsonString;
 
 import uk.gov.justice.json.generator.value.EmailGenerator;
 import uk.gov.justice.json.generator.value.IsoDateTimeGenerator;
@@ -13,7 +13,7 @@ import javax.json.JsonString;
 import org.everit.json.schema.FormatValidator;
 import org.everit.json.schema.StringSchema;
 
-public class JsonStringGenerator implements JsonValueGenerator<JsonString> {
+public class JsonStringGenerator extends JsonValueGenerator<JsonString> {
 
     private static final String UNNAMED_FORMAT = "unnamed-format";
 
@@ -42,10 +42,6 @@ public class JsonStringGenerator implements JsonValueGenerator<JsonString> {
 
     @Override
     public JsonString next() {
-        return constructJsonString(stringGenerator.next());
-    }
-
-    private JsonString constructJsonString(final String string) {
-        return createObjectBuilder().add(PROPERTY_NAME, string).build().getJsonString(PROPERTY_NAME);
+        return buildJsonString(stringGenerator.next());
     }
 }
