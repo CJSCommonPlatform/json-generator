@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import org.apache.commons.io.IOUtils;
 import org.everit.json.schema.ArraySchema;
+import org.everit.json.schema.EnumSchema;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONObject;

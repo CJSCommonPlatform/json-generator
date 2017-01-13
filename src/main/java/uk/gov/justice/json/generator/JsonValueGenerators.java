@@ -3,6 +3,7 @@ package uk.gov.justice.json.generator;
 import static javax.json.Json.createObjectBuilder;
 
 import uk.gov.justice.json.generation.JsonGenerationException;
+import uk.gov.justice.json.generator.value.JsonEnumGenerator;
 
 import java.math.BigDecimal;
 
@@ -10,6 +11,7 @@ import javax.json.JsonNumber;
 import javax.json.JsonString;
 
 import org.everit.json.schema.ArraySchema;
+import org.everit.json.schema.EnumSchema;
 import org.everit.json.schema.NumberSchema;
 import org.everit.json.schema.ObjectSchema;
 import org.everit.json.schema.Schema;
@@ -43,8 +45,8 @@ public final class JsonValueGenerators {
 //                return new BooleanPropertyGenerator(propertyName);
             case "ArraySchema":
                 return new JsonArrayGenerator((ArraySchema) schema);
-//            case "EnumSchema":
-//                return new EnumGenerator((EnumSchema) schema);
+            case "EnumSchema":
+                return new JsonEnumGenerator((EnumSchema) schema);
 //            case "CombinedSchema":
 //                return new OneOfSelector().getOneOf(propertyName, (CombinedSchema) schema);
             default:
