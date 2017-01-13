@@ -1,9 +1,10 @@
 package uk.gov.justice.json.generator;
 
+import uk.gov.justice.services.test.utils.core.random.Generator;
+
 import javax.json.JsonValue;
 
-public interface JsonValueGenerator<T extends JsonValue> {
-    static final String PROPERTY_NAME = "PROPERTY_NAME";
+public abstract class JsonValueGenerator<T extends JsonValue> extends Generator<T> {
 
-    T next();
+    public abstract T next();
 }
