@@ -3,8 +3,6 @@ package uk.gov.justice.json.generator.value;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
-import uk.gov.justice.json.generation.generators.values.DateTimeValueGenerator;
-
 import org.apache.commons.validator.routines.RegexValidator;
 import org.junit.Test;
 

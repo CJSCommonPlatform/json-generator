@@ -24,6 +24,6 @@ public class IsoDateTimeGenerator implements StringGenerator {
                 .plusHours(hoursShift)
                 .plusMinutes(minutesShift);
 
-        return DOUBLE_QUOTE + now.format(ISO_LOCAL_DATE_TIME) + DOUBLE_QUOTE;
+        return now.format(ISO_LOCAL_DATE_TIME);
     }
 }
