@@ -3,12 +3,13 @@ package uk.gov.justice.json.generator;
 import static uk.gov.justice.json.generator.JsonValueGenerators.buildJsonString;
 
 import uk.gov.justice.json.generator.value.EmailGenerator;
+import uk.gov.justice.json.generator.value.HostNameGenerator;
+import uk.gov.justice.json.generator.value.Ipv6Generator;
 import uk.gov.justice.json.generator.value.IsoDateTimeGenerator;
 import uk.gov.justice.json.generator.value.RegexGenerator;
 import uk.gov.justice.json.generator.value.SimpleStringGenerator;
 import uk.gov.justice.json.generator.value.StringGenerator;
-
-import java.util.Optional;
+import uk.gov.justice.json.generator.value.UriGenerator;
 
 import javax.json.JsonString;
 
@@ -40,20 +41,17 @@ public class JsonStringGenerator extends JsonValueGenerator<JsonString> {
             stringGenerator = new IsoDateTimeGenerator();
         }
         if (formatValidator instanceof HostnameFormatValidator) {
-            stringGenerator = new EmailGenerator();
+            stringGenerator = new HostNameGenerator();
         }
-        if (formatValidator instanceof URIFormatValidator) {
-            stringGenerator = new IsoDateTimeGenerator();
-        }
-        if (formatValidator instanceof HostnameFormatValidator) {
-            stringGenerator = new EmailGenerator();
-        }
-        if (formatValidator instanceof IPV4Validator) {
-            stringGenerator = new IsoDateTimeGenerator();
-        }
-        if (formatValidator instanceof IPV6Validator) {
-            stringGenerator = new EmailGenerator();
-        }
+//        if (formatValidator instanceof URIFormatValidator) {
+//            stringGenerator = new UriGenerator();
+//        }
+//        if (formatValidator instanceof IPV4Validator) {
+//            stringGenerator = new Ipv6Generator();
+//        }
+//        if (formatValidator instanceof IPV6Validator) {
+//            stringGenerator = new EmailGenerator();
+//        }
 
      if (stringSchema.getPattern() != null) {
             stringGenerator = new RegexGenerator(stringSchema.getPattern());
