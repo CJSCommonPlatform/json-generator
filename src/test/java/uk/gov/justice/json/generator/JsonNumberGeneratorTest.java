@@ -1,17 +1,11 @@
 package uk.gov.justice.json.generator;
 
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertThat;
 
 import javax.json.JsonNumber;
-import javax.json.JsonString;
 
 import org.everit.json.schema.NumberSchema;
-import org.everit.json.schema.StringSchema;
-import org.everit.json.schema.internal.DateTimeFormatValidator;
-import org.everit.json.schema.internal.EmailFormatValidator;
-import org.hamcrest.Matchers;
 import org.junit.Test;
 
 public class JsonNumberGeneratorTest {

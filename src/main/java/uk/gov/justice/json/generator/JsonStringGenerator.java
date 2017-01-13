@@ -8,10 +8,18 @@ import uk.gov.justice.json.generator.value.RegexGenerator;
 import uk.gov.justice.json.generator.value.SimpleStringGenerator;
 import uk.gov.justice.json.generator.value.StringGenerator;
 
+import java.util.Optional;
+
 import javax.json.JsonString;
 
 import org.everit.json.schema.FormatValidator;
 import org.everit.json.schema.StringSchema;
+import org.everit.json.schema.internal.DateTimeFormatValidator;
+import org.everit.json.schema.internal.EmailFormatValidator;
+import org.everit.json.schema.internal.HostnameFormatValidator;
+import org.everit.json.schema.internal.IPV4Validator;
+import org.everit.json.schema.internal.IPV6Validator;
+import org.everit.json.schema.internal.URIFormatValidator;
 
 public class JsonStringGenerator extends JsonValueGenerator<JsonString> {
 
@@ -24,20 +32,32 @@ public class JsonStringGenerator extends JsonValueGenerator<JsonString> {
         this.stringGenerator = new SimpleStringGenerator();
 
         final FormatValidator formatValidator = stringSchema.getFormatValidator();
-        final String formatName = formatValidator.formatName();
 
-        if (formatName != null && formatName != UNNAMED_FORMAT) {
-            if ("email".equals(formatName)) {
-                stringGenerator = new EmailGenerator();
-            }
-            if ("date-time".equals(formatName)) {
-                stringGenerator = new IsoDateTimeGenerator();
-            }
+        if (formatValidator instanceof EmailFormatValidator) {
+            stringGenerator = new EmailGenerator();
+        }
+        if (formatValidator instanceof DateTimeFormatValidator) {
+            stringGenerator = new IsoDateTimeGenerator();
+        }
+        if (formatValidator instanceof HostnameFormatValidator) {
+            stringGenerator = new EmailGenerator();
+        }
+        if (formatValidator instanceof URIFormatValidator) {
+            stringGenerator = new IsoDateTimeGenerator();
+        }
+        if (formatValidator instanceof HostnameFormatValidator) {
+            stringGenerator = new EmailGenerator();
+        }
+        if (formatValidator instanceof IPV4Validator) {
+            stringGenerator = new IsoDateTimeGenerator();
+        }
+        if (formatValidator instanceof IPV6Validator) {
+            stringGenerator = new EmailGenerator();
         }
 
-        if (stringSchema.getPattern() != null) {
+     if (stringSchema.getPattern() != null) {
             stringGenerator = new RegexGenerator(stringSchema.getPattern());
-        }
+     }
     }
 
     @Override
