@@ -17,8 +17,8 @@ public class RegexValueGenerator implements JsonValueGenerator {
     @Override
     public String nextValue() {
 
-        //TODO fix the pattern properly
-        // final String fixedPattern = pattern.replace('^', ' ').replace('$', ' ').trim();
+        //TODO fix the PATTERN properly
+        // final String fixedPattern = PATTERN.replace('^', ' ').replace('$', ' ').trim();
         return DOUBLE_QUOTE + new Generex(pattern.toString()).random() + DOUBLE_QUOTE;
     }
 }

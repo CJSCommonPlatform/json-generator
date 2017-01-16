@@ -4,6 +4,8 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertThat;
 
+import uk.gov.justice.json.generator.value.number.BigDecimalGenerator;
+
 import java.math.BigDecimal;
 import java.util.Optional;
 

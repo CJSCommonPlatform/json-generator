@@ -1,9 +1,11 @@
-package uk.gov.justice.json.generator.value;
+package uk.gov.justice.json.generator.value.number;
+
+import uk.gov.justice.services.test.utils.core.random.Generator;
 
 import java.util.Optional;
 import java.util.Random;
 
-public class IntegerGenerator implements NumberGenerator<Integer> {
+public class IntegerGenerator extends Generator<Integer> {
     private static final Integer DEFAULT_MIN = Integer.MIN_VALUE;
     private static final Integer DEFAULT_MAX = Integer.MAX_VALUE;
     private final Random random = new Random();

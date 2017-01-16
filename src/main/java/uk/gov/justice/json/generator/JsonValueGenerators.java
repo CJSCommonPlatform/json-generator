@@ -37,10 +37,8 @@ public final class JsonValueGenerators {
 
 //            case "ReferenceSchema":
 //                return createGenerator(propertyName, ((ReferenceSchema) schema).getReferredSchema());
-//           case "IntegerSchema":
-//                return new IntegerPropertyGenerator(propertyName);
-//            case "BooleanSchema":
-//                return new BooleanPropertyGenerator(propertyName);
+            case "BooleanSchema":
+                return new JsonBooleanGenerator();
             case "ArraySchema":
                 return new JsonArrayGenerator((ArraySchema) schema);
 //            case "EnumSchema":

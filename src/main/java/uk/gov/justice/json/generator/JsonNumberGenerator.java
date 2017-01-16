@@ -2,9 +2,9 @@ package uk.gov.justice.json.generator;
 
 import static uk.gov.justice.json.generator.JsonValueGenerators.buildJsonNumber;
 
-import uk.gov.justice.json.generator.value.BigDecimalGenerator;
-import uk.gov.justice.json.generator.value.IntegerGenerator;
-import uk.gov.justice.json.generator.value.NumberGenerator;
+import uk.gov.justice.json.generator.value.number.BigDecimalGenerator;
+import uk.gov.justice.json.generator.value.number.IntegerGenerator;
+import uk.gov.justice.services.test.utils.core.random.Generator;
 
 import java.math.BigDecimal;
 import java.util.Optional;
@@ -15,7 +15,7 @@ import org.everit.json.schema.NumberSchema;
 
 public class JsonNumberGenerator extends JsonValueGenerator<JsonNumber> {
 
-    protected NumberGenerator numberGenerator;
+    private Generator<? extends Number> numberGenerator;
 
     private boolean requiresInteger;
 
@@ -30,7 +30,7 @@ public class JsonNumberGenerator extends JsonValueGenerator<JsonNumber> {
         }
     }
 
-    private IntegerGenerator integerGenerator(final NumberSchema numberSchema) {
+    private Generator<Integer> integerGenerator(final NumberSchema numberSchema) {
         IntegerGenerator.Builder builder = IntegerGenerator.builder();
         if (numberSchema.getMinimum() != null) {
             builder.minimum(Optional.of(numberSchema.getMinimum().intValue()));
@@ -50,7 +50,7 @@ public class JsonNumberGenerator extends JsonValueGenerator<JsonNumber> {
         return builder.build();
     }
 
-    private BigDecimalGenerator bigDecimalGenerator(final NumberSchema numberSchema) {
+    private Generator<BigDecimal> bigDecimalGenerator(final NumberSchema numberSchema) {
         BigDecimalGenerator.Builder builder = BigDecimalGenerator.builder();
         if (numberSchema.getMinimum() != null) {
             builder.minimum(Optional.of(new BigDecimal(numberSchema.getMinimum().toString())));
@@ -70,6 +70,7 @@ public class JsonNumberGenerator extends JsonValueGenerator<JsonNumber> {
         return builder.build();
     }
 
+    @Override
     public JsonNumber next() {
         final Number number = numberGenerator.next();
         if (requiresInteger) {

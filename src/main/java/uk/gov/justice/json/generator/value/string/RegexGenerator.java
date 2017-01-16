@@ -1,10 +1,12 @@
-package uk.gov.justice.json.generator.value;
+package uk.gov.justice.json.generator.value.string;
+
+import uk.gov.justice.services.test.utils.core.random.Generator;
 
 import java.util.regex.Pattern;
 
 import com.mifmif.common.regex.Generex;
 
-public class RegexGenerator implements StringGenerator {
+public class RegexGenerator extends Generator<String> {
 
     private final Pattern pattern;
 

@@ -3,6 +3,7 @@ package uk.gov.justice.json.generator.value;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
+import uk.gov.justice.json.generator.value.string.EmailGenerator;
 import uk.gov.justice.services.test.utils.core.random.EmailAddressGenerator;
 
 import org.apache.commons.validator.routines.EmailValidator;
