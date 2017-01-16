@@ -2,9 +2,6 @@ package uk.gov.justice.json.generator;
 
 import static javax.json.Json.createObjectBuilder;
 
-import uk.gov.justice.json.generation.JsonGenerationException;
-import uk.gov.justice.json.generator.value.JsonEnumGenerator;
-
 import java.math.BigDecimal;
 
 import javax.json.JsonNumber;
@@ -36,9 +33,6 @@ public final class JsonValueGenerators {
                 return new JsonStringGenerator((StringSchema) schema);
             case "NumberSchema":
                 return new JsonNumberGenerator((NumberSchema) schema);
-
-//            case "ReferenceSchema":
-//                return createGenerator(propertyName, ((ReferenceSchema) schema).getReferredSchema());
             case "BooleanSchema":
                 return new JsonBooleanGenerator();
             case "ArraySchema":

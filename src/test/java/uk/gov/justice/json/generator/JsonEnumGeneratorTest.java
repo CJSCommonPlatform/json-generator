@@ -1,4 +1,4 @@
-package uk.gov.justice.json.generator.value;
+package uk.gov.justice.json.generator;
 
 import static javax.json.Json.createObjectBuilder;
 import static uk.gov.justice.services.test.utils.core.helper.TypeCheck.Times.times;

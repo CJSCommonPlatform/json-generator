@@ -1,16 +1,9 @@
 package uk.gov.justice.json;
 
-import static java.lang.String.format;
-import static java.nio.charset.Charset.defaultCharset;
-
-import java.io.IOException;
-import java.io.InputStream;
-
 import javax.inject.Inject;
 
-import org.apache.commons.io.IOUtils;
+
 import org.everit.json.schema.ArraySchema;
-import org.everit.json.schema.EnumSchema;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.loader.SchemaLoader;
 import org.json.JSONObject;
