@@ -7,6 +7,8 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import uk.gov.justice.json.generator.value.string.RegexGenerator;
+
 import java.util.UUID;
 import java.util.regex.Pattern;
 

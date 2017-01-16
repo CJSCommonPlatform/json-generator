@@ -1,10 +1,11 @@
-package uk.gov.justice.json.generator.value;
+package uk.gov.justice.json.generator.value.number;
+
+import uk.gov.justice.services.test.utils.core.random.Generator;
 
 import java.math.BigDecimal;
 import java.util.Optional;
-import java.util.Random;
 
-public class BigDecimalGenerator implements NumberGenerator<BigDecimal> {
+public class BigDecimalGenerator extends Generator<BigDecimal> {
 
     private static final long DEFAULT_MIN = -1000000000L;
     private static final long DEFAULT_MAX = 1000000000L;
@@ -13,8 +14,7 @@ public class BigDecimalGenerator implements NumberGenerator<BigDecimal> {
     private Optional<BigDecimal> multipleOf;
     private boolean exclusiveMinimum;
     private boolean exclusiveMaximum;
-    private int scale =1;
-    private final Random random = new Random();
+    private int scale = 1;
 
     private BigDecimalGenerator(BigDecimalGenerator.Builder builder) {
         this.multipleOf = Optional.empty();
