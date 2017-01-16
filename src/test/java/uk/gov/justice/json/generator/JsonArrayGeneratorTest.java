@@ -9,7 +9,6 @@ import static uk.gov.justice.services.test.utils.core.helper.TypeCheck.typeCheck
 
 import uk.gov.justice.json.JsonSchemaLoader;
 
-import javax.json.JsonArray;
 import javax.json.JsonValue;
 
 import org.everit.json.schema.ArraySchema;
@@ -23,12 +22,27 @@ public class JsonArrayGeneratorTest {
     private static final int NUMBER_OF_TIMES = 1000;
 
     @Test
+    public void shouldGenerateUnspecifiedArrays() {
+        final ArraySchema schema = JsonSchemaLoader.loadArraySchema("src/test/resources/schemas/array/unspecified-schema.json");
+        final JsonArrayGenerator generator = new JsonArrayGenerator(schema);
+
+        typeCheck(generator, array -> true)
+                .verify(times(NUMBER_OF_TIMES));
+    }
+
+    @Test
     public void shouldGenerateStringsArrays() {
         final ArraySchema schema = JsonSchemaLoader.loadArraySchema("src/test/resources/schemas/array/strings-schema.json");
         final JsonArrayGenerator generator = new JsonArrayGenerator(schema);
 
-        typeCheck(generator, this::isAllStrings)
-                .verify(times(NUMBER_OF_TIMES));
+        typeCheck(generator, array -> {
+            for(JsonValue value : array.getValuesAs(JsonValue.class)) {
+                if (!STRING.equals(value.getValueType())) {
+                    return false;
+                }
+            }
+            return true;
+        }).verify(times(NUMBER_OF_TIMES));
     }
 
     @Test
@@ -48,6 +62,33 @@ public class JsonArrayGeneratorTest {
     }
 
     @Test
+    public void shouldGenerateTupleArraysWithAdditionalItems() {
+        final ArraySchema schema = JsonSchemaLoader.loadArraySchema("src/test/resources/schemas/array/tuple-with-additional-items-schema.json");
+        final JsonArrayGenerator generator = new JsonArrayGenerator(schema);
+
+        typeCheck(generator, array -> {
+            if (array.size() > 0 && !STRING.equals(array.get(0).getValueType())) {
+                return false;
+            }
+            for (int i = 1; i < array.size(); i++) {
+                if (!NUMBER.equals(array.get(i).getValueType())) {
+                    return false;
+                }
+            }
+            return true;
+        }).verify(times(NUMBER_OF_TIMES));
+    }
+
+    @Test
+    public void shouldGenerateBoundedTupleArraysWithAdditionalItems() {
+        final ArraySchema schema = JsonSchemaLoader.loadArraySchema("src/test/resources/schemas/array/tuple-with-additional-items-schema.json");
+        final JsonArrayGenerator generator = new JsonArrayGenerator(schema);
+
+        typeCheck(generator, array -> array.size() <= 7)
+                .verify(times(NUMBER_OF_TIMES));
+    }
+
+    @Test
     public void shouldGenerateUnboundedArrays() {
         final ArraySchema schema = JsonSchemaLoader.loadArraySchema("src/test/resources/schemas/array/strings-schema.json");
         final JsonArrayGenerator generator = new JsonArrayGenerator(schema);
@@ -63,14 +104,5 @@ public class JsonArrayGeneratorTest {
 
         typeCheck(generator, array -> array.size() >= 3 && array.size() <= 7)
                 .verify(times(NUMBER_OF_TIMES));
-    }
-
-    private boolean isAllStrings(JsonArray array) {
-        for(JsonValue value : array.getValuesAs(JsonValue.class)) {
-            if (!STRING.equals(value.getValueType())) {
-                return false;
-            }
-        }
-        return true;
     }
 }
