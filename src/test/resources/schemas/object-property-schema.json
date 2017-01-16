@@ -1,6 +1,5 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "/",
   "type": "object",
   "properties": {
     "objectProperty": {
@@ -10,14 +9,7 @@
           "type": "string"
         }
       }
-    },
-    "additionalProperties": false,
-    "required": [
-      "stringProperty"
-    ]
-  },
-  "additionalProperties": false,
-  "required": [
-    "objectProperty"
-  ]
+    }
+
+  }
 }

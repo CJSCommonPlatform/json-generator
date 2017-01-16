@@ -38,8 +38,5 @@
       "maxItems": 3
     }
   },
-  "additionalProperties": false,
-  "required": [
-    "simpleArrayProperty"
-  ]
+  "additionalProperties": false
 }
