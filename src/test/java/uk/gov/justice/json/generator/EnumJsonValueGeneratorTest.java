@@ -5,6 +5,7 @@ import static uk.gov.justice.services.test.utils.core.helper.TypeCheck.Times.tim
 import static uk.gov.justice.services.test.utils.core.helper.TypeCheck.typeCheck;
 
 import uk.gov.justice.json.JsonSchemaLoader;
+import uk.gov.justice.json.generator.jsonvalue.EnumJsonValueGenerator;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -18,7 +19,7 @@ import org.everit.json.schema.Schema;
 import org.junit.Test;
 
 
-public class JsonEnumGeneratorTest {
+public class EnumJsonValueGeneratorTest {
 
     private static final int NUMBER_OF_TIMES = 1000;
 
@@ -27,7 +28,7 @@ public class JsonEnumGeneratorTest {
 
         final Schema schema = JsonSchemaLoader.loadSchema("src/test/resources/schemas/enums/simple.enum.json-schema.json");
 
-        JsonEnumGenerator jsonEnumGenerator = new JsonEnumGenerator((EnumSchema) schema);
+        EnumJsonValueGenerator jsonEnumGenerator = new EnumJsonValueGenerator((EnumSchema) schema);
 
         typeCheck(jsonEnumGenerator, jsonValue -> jsonValue.equals(constructJsonString("green"))|| jsonValue.equals(constructJsonString("amber")))
                 .verify(times(NUMBER_OF_TIMES));
@@ -39,7 +40,7 @@ public class JsonEnumGeneratorTest {
 
         final Schema schema = JsonSchemaLoader.loadSchema("src/test/resources/schemas/enums/null.enum.json-schema.json");
 
-        JsonEnumGenerator jsonEnumGenerator = new JsonEnumGenerator((EnumSchema) schema);
+        EnumJsonValueGenerator jsonEnumGenerator = new EnumJsonValueGenerator((EnumSchema) schema);
 
         typeCheck(jsonEnumGenerator, jsonValue -> jsonValue.equals(JsonValue.NULL)
                 || jsonValue.equals(constructJsonNumber(3))
@@ -53,7 +54,7 @@ public class JsonEnumGeneratorTest {
 
         final Schema schema = JsonSchemaLoader.loadSchema("src/test/resources/schemas/enums/integer.enum.json-schema.json");
 
-        JsonEnumGenerator jsonEnumGenerator = new JsonEnumGenerator((EnumSchema) schema);
+        EnumJsonValueGenerator jsonEnumGenerator = new EnumJsonValueGenerator((EnumSchema) schema);
 
         typeCheck(jsonEnumGenerator, jsonValue -> jsonValue.equals(constructJsonNumber(1))
                 || jsonValue.equals(constructJsonNumber(2))
@@ -66,7 +67,7 @@ public class JsonEnumGeneratorTest {
 
         final Schema schema = JsonSchemaLoader.loadSchema("src/test/resources/schemas/enums/number.enum.json-schema.json");
 
-        JsonEnumGenerator jsonEnumGenerator = new JsonEnumGenerator((EnumSchema) schema);
+        EnumJsonValueGenerator jsonEnumGenerator = new EnumJsonValueGenerator((EnumSchema) schema);
 
         typeCheck(jsonEnumGenerator, jsonValue -> jsonValue.equals(constructJsonNumber(1.0662))
                 || jsonValue.equals(constructJsonNumber(20000000))
@@ -79,7 +80,7 @@ public class JsonEnumGeneratorTest {
 
         final Schema schema = JsonSchemaLoader.loadSchema("src/test/resources/schemas/enums/mixed.enum.json-schema.json");
 
-        JsonEnumGenerator jsonEnumGenerator = new JsonEnumGenerator((EnumSchema) schema);
+        EnumJsonValueGenerator jsonEnumGenerator = new EnumJsonValueGenerator((EnumSchema) schema);
 
         typeCheck(jsonEnumGenerator, jsonValue -> jsonValue.equals(constructJsonNumber(1.0662))
                 || jsonValue.equals(constructJsonString("string"))

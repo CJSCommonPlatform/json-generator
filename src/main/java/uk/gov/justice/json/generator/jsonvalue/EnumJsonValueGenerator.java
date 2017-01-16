@@ -1,8 +1,10 @@
-package uk.gov.justice.json.generator;
-
+package uk.gov.justice.json.generator.jsonvalue;
 
 import static java.lang.String.format;
 import static javax.json.Json.createObjectBuilder;
+
+import uk.gov.justice.json.generator.JsonGenerationException;
+import uk.gov.justice.services.test.utils.core.random.Generator;
 
 import java.util.Random;
 import java.util.Set;
@@ -13,15 +15,12 @@ import javax.json.JsonValue;
 import org.everit.json.schema.EnumSchema;
 import org.json.JSONObject;
 
-public class JsonEnumGenerator extends JsonValueGenerator {
+public class EnumJsonValueGenerator extends Generator<JsonValue> {
 
+    private final Set<Object> possibleValues;
 
-    final Set<Object> possibleValues;
-
-    public JsonEnumGenerator(EnumSchema schema) {
-
+    public EnumJsonValueGenerator(EnumSchema schema) {
         possibleValues = schema.getPossibleValues();
-
     }
 
     @Override
