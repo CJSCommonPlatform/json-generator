@@ -1,4 +1,4 @@
-package uk.gov.justice.json.generation;
+package uk.gov.justice.json.generator;
 
 public class JsonGenerationException extends RuntimeException {
 

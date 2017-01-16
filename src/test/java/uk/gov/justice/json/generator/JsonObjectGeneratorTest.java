@@ -1,8 +1,8 @@
 package uk.gov.justice.json.generator;
 
-import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.hamcrest.CoreMatchers.isA;
-import static uk.gov.justice.json.generator.JsonFileHelper.getInstance;
+
+import uk.gov.justice.json.JsonSchemaLoader;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -17,19 +17,11 @@ import org.junit.Test;
 
 public class JsonObjectGeneratorTest {
 
-
-    @Before
-    public void init() {
-
-
-    }
-
     @Test
     public void shouldGenerateFromASimpleSchema() throws IOException, URISyntaxException {
+        final Schema schema = JsonSchemaLoader.loadSchema("src/test/resources/schemas/simple.object.json-schema.json");
 
-        Schema schema = getInstance().getFileAsSchema("/simple.json-schema.json");
-
-        JsonObjectGenerator jsonObjectGenerator = new JsonObjectGenerator((ObjectSchema) schema);
+        final JsonObjectGenerator jsonObjectGenerator = new JsonObjectGenerator((ObjectSchema) schema);
 
         final JsonObject jsonObject = jsonObjectGenerator.next();
 

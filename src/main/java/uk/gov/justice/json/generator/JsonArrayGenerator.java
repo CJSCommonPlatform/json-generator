@@ -3,7 +3,6 @@ package uk.gov.justice.json.generator;
 import static javax.json.Json.createArrayBuilder;
 import static uk.gov.justice.json.generator.JsonValueGenerators.generatorFor;
 
-import uk.gov.justice.json.generation.JsonGenerationException;
 import uk.gov.justice.json.generator.value.UnspecifiedJsonValueGenerator;
 
 import java.util.ArrayList;

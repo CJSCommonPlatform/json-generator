@@ -1,27 +1,16 @@
-package uk.gov.justice.json.generator.value;
+package uk.gov.justice.json.generator;
 
 
 import static java.lang.String.format;
 import static javax.json.Json.createObjectBuilder;
 
-import uk.gov.justice.json.generation.JsonGenerationException;
-import uk.gov.justice.json.generator.JsonObjectGenerator;
-import uk.gov.justice.json.generator.JsonValueGenerator;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.DoubleSummaryStatistics;
 import java.util.Random;
 import java.util.Set;
 
-import javax.json.JsonNumber;
 import javax.json.JsonString;
 import javax.json.JsonValue;
 
-import com.google.gson.JsonObject;
 import org.everit.json.schema.EnumSchema;
-import org.everit.json.schema.ObjectSchema;
-import org.everit.json.schema.Schema;
 import org.json.JSONObject;
 
 public class JsonEnumGenerator extends JsonValueGenerator {
