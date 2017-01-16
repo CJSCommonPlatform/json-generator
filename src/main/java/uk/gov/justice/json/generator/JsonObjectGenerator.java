@@ -3,6 +3,8 @@ package uk.gov.justice.json.generator;
 import static javax.json.Json.createObjectBuilder;
 import static uk.gov.justice.json.generator.JsonValueGenerators.generatorFor;
 
+import uk.gov.justice.services.test.utils.core.random.Generator;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -10,13 +12,14 @@ import java.util.Set;
 
 import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonValue;
 
 import org.everit.json.schema.ObjectSchema;
 import org.everit.json.schema.Schema;
 
-public class JsonObjectGenerator extends JsonValueGenerator<JsonObject> {
+public class JsonObjectGenerator extends Generator<JsonValue> {
 
-    private Map<String, JsonValueGenerator> generators;
+    private Map<String, Generator<? extends JsonValue>> generators;
     private Set<String> properties;
     private Set<String> requiredProperties;
 

@@ -1,10 +1,23 @@
 package uk.gov.justice.json.generator;
 
+import static uk.gov.justice.json.generator.JsonValueGenerators.generatorFor;
+
 import uk.gov.justice.services.test.utils.core.random.Generator;
 
 import javax.json.JsonValue;
 
-public abstract class JsonValueGenerator<T extends JsonValue> extends Generator<T> {
+import org.everit.json.schema.Schema;
 
-    public abstract T next();
+public class JsonValueGenerator extends Generator<JsonValue> {
+
+    private Generator<? extends JsonValue> generator;
+
+    public JsonValueGenerator(final Schema schema) {
+        generator = generatorFor(schema);
+    }
+
+    @Override
+    public JsonValue next() {
+        return generator.next();
+    }
 }
