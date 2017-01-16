@@ -1,10 +1,12 @@
-package uk.gov.justice.json.generator.value;
+package uk.gov.justice.json.generator.value.string;
+
+import uk.gov.justice.services.test.utils.core.random.Generator;
 
 import java.util.regex.Pattern;
 
-public class Ipv6Generator implements uk.gov.justice.json.generator.value.StringGenerator {
+public class Ipv6Generator extends Generator<String> {
 
-    public static final String pattern ="(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|" +
+    public static final String PATTERN ="(([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|" +
             "([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|\\(" +
             "[0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}" +
             "(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|" +
@@ -14,7 +16,7 @@ public class Ipv6Generator implements uk.gov.justice.json.generator.value.String
 
 
     @Override
-    public java.lang.String next() {
-        return new RegexGenerator(Pattern.compile(pattern)).next();
+    public String next() {
+        return new RegexGenerator(Pattern.compile(PATTERN)).next();
     }
 }

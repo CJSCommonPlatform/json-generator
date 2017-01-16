@@ -3,6 +3,8 @@ package uk.gov.justice.json.generator.value;
 import static org.hamcrest.CoreMatchers.isA;
 import static org.junit.Assert.assertThat;
 
+import uk.gov.justice.json.generator.value.string.SimpleStringGenerator;
+
 import org.junit.Test;
 
 public class StringValueGeneratorTest {

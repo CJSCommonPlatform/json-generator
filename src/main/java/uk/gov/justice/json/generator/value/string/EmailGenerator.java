@@ -1,8 +1,9 @@
-package uk.gov.justice.json.generator.value;
+package uk.gov.justice.json.generator.value.string;
 
 import uk.gov.justice.services.test.utils.core.random.EmailAddressGenerator;
+import uk.gov.justice.services.test.utils.core.random.Generator;
 
-public class EmailGenerator implements StringGenerator {
+public class EmailGenerator extends Generator<String> {
 
     private EmailAddressGenerator emailAddressGenerator;
 

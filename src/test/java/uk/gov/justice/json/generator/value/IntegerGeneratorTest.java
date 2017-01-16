@@ -4,6 +4,8 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertThat;
 
+import uk.gov.justice.json.generator.value.number.IntegerGenerator;
+
 import java.util.Optional;
 
 import org.junit.Test;
