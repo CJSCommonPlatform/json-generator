@@ -1,9 +1,8 @@
 package uk.gov.justice.json.generator;
 
 import static javax.json.Json.createArrayBuilder;
-import static uk.gov.justice.json.generator.JsonValueGenerators.generatorFor;
 
-import uk.gov.justice.json.generator.value.UnspecifiedJsonValueGenerator;
+import uk.gov.justice.services.test.utils.core.random.Generator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,18 +14,19 @@ import javax.json.JsonArrayBuilder;
 import javax.json.JsonValue;
 
 import org.everit.json.schema.ArraySchema;
+import org.everit.json.schema.EmptySchema;
 import org.everit.json.schema.Schema;
 
 /**
  * Random generator for JSON arrays.
  */
-public class JsonArrayGenerator extends JsonValueGenerator<JsonArray> {
+public class JsonArrayGenerator extends Generator<JsonArray> {
 
     public static final int DEFAULT_MIN_ITEMS = 0;
     public static final int DEFAULT_MAX_ITEMS = 10;
 
-    private List<JsonValueGenerator<?>> itemGenerators;
-    private JsonValueGenerator<?> itemGenerator;
+    private List<Generator<JsonValue>> itemGenerators;
+    private Generator<JsonValue> itemGenerator;
 
     private int minItems;
     private int maxItems;
@@ -60,7 +60,7 @@ public class JsonArrayGenerator extends JsonValueGenerator<JsonArray> {
      * @param itemSchema the schema for all array items
      */
     private void initialiseForListArrays(final Schema itemSchema) {
-        itemGenerator = generatorFor(itemSchema);
+        itemGenerator = new JsonValueGenerator(itemSchema);
     }
 
     /**
@@ -76,20 +76,20 @@ public class JsonArrayGenerator extends JsonValueGenerator<JsonArray> {
 
         itemGenerators = new ArrayList<>();
         for (Schema itemSchema : itemSchemas) {
-            itemGenerators.add(generatorFor(itemSchema));
+            itemGenerators.add(new JsonValueGenerator(itemSchema));
         }
 
         if (permitAdditionalItems) {
             itemGenerator = additionalItemSchema
-                    .map(JsonValueGenerators::generatorFor)
-                    .orElseGet(UnspecifiedJsonValueGenerator::new);
+                    .map(JsonValueGenerator::new)
+                    .orElseGet(() -> new JsonValueGenerator(EmptySchema.INSTANCE));
         } else if (itemSchemas.size() < minItems) {
             throw new JsonGenerationException("Not enough item schemas for min items, and additional items are not allowed!");
         }
     }
 
     private void initialiseForUnspecifiedArrays() {
-        itemGenerator = new UnspecifiedJsonValueGenerator();
+        itemGenerator = new JsonValueGenerator(EmptySchema.INSTANCE);
     }
 
     @Override

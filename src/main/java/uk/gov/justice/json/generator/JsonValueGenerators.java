@@ -2,10 +2,17 @@ package uk.gov.justice.json.generator;
 
 import static javax.json.Json.createObjectBuilder;
 
+import uk.gov.justice.json.generator.jsonvalue.AnyJsonValueGenerator;
+import uk.gov.justice.json.generator.jsonvalue.BooleanJsonValueGenerator;
+import uk.gov.justice.json.generator.jsonvalue.EnumJsonValueGenerator;
+import uk.gov.justice.json.generator.jsonvalue.NullJsonValueGenerator;
+import uk.gov.justice.services.test.utils.core.random.Generator;
+
 import java.math.BigDecimal;
 
 import javax.json.JsonNumber;
 import javax.json.JsonString;
+import javax.json.JsonValue;
 
 import org.everit.json.schema.ArraySchema;
 import org.everit.json.schema.EnumSchema;
@@ -25,22 +32,30 @@ public final class JsonValueGenerators {
     private JsonValueGenerators() {
     }
 
-    public static JsonValueGenerator generatorFor(final Schema schema) {
+    public static Generator<? extends JsonValue> generatorFor(final Schema schema) {
         switch (schema.getClass().getSimpleName()) {
+            case "ArraySchema":
+                return new JsonArrayGenerator((ArraySchema) schema);
+            case "BooleanSchema":
+                return new BooleanJsonValueGenerator();
+//            case "CombinedSchema":
+//                return new CombinedJsonValueGenerator();
+            case "EmptySchema":
+                return new AnyJsonValueGenerator();
+            case "EnumSchema":
+                return new EnumJsonValueGenerator((EnumSchema) schema);
             case "ObjectSchema":
                 return new JsonObjectGenerator((ObjectSchema) schema);
             case "StringSchema":
                 return new JsonStringGenerator((StringSchema) schema);
+//            case "NotSchema":
+//                return new NotJsonValueGenerator((NotSchema) schema);
+            case "NullSchema":
+                return new NullJsonValueGenerator();
             case "NumberSchema":
                 return new JsonNumberGenerator((NumberSchema) schema);
-            case "BooleanSchema":
-                return new JsonBooleanGenerator();
-            case "ArraySchema":
-                return new JsonArrayGenerator((ArraySchema) schema);
-            case "EnumSchema":
-                return new JsonEnumGenerator((EnumSchema) schema);
-//            case "CombinedSchema":
-//                return new OneOfSelector().getOneOf(propertyName, (CombinedSchema) schema);
+//            case "ReferenceSchema":
+//                return new XXXChangeMe((NotSchema) schema);
             default:
                 throw new JsonGenerationException("Unknown schema type '" + schema.getClass().getSimpleName() + "'");
         }

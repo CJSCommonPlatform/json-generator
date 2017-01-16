@@ -10,10 +10,11 @@ import java.math.BigDecimal;
 import java.util.Optional;
 
 import javax.json.JsonNumber;
+import javax.json.JsonValue;
 
 import org.everit.json.schema.NumberSchema;
 
-public class JsonNumberGenerator extends JsonValueGenerator<JsonNumber> {
+public class JsonNumberGenerator extends Generator<JsonValue> {
 
     private Generator<? extends Number> numberGenerator;
 

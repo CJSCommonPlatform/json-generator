@@ -13,6 +13,7 @@ import uk.gov.justice.json.generator.value.string.UriGenerator;
 import uk.gov.justice.services.test.utils.core.random.Generator;
 
 import javax.json.JsonString;
+import javax.json.JsonValue;
 
 import org.everit.json.schema.FormatValidator;
 import org.everit.json.schema.StringSchema;
@@ -23,7 +24,7 @@ import org.everit.json.schema.internal.IPV4Validator;
 import org.everit.json.schema.internal.IPV6Validator;
 import org.everit.json.schema.internal.URIFormatValidator;
 
-public class JsonStringGenerator extends JsonValueGenerator<JsonString> {
+public class JsonStringGenerator extends Generator<JsonValue> {
 
     private final Generator<String> stringGenerator;
 
