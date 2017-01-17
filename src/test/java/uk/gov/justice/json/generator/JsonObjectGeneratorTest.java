@@ -54,7 +54,9 @@ public class JsonObjectGeneratorTest {
 
         final JsonObjectGenerator jsonObjectGenerator = new JsonObjectGenerator((ObjectSchema) schema);
 
-        TypeCheck.typeCheck(jsonObjectGenerator, jsonValue -> JsonObjectGeneratorTest.this.validateJsonObject(schema, jsonValue)).verify(TypeCheck.Times.times(NUMBER_OF_TIMES));
+        TypeCheck.typeCheck(jsonObjectGenerator, jsonValue -> JsonObjectGeneratorTest
+                .this.validateJsonObject(schema, jsonValue))
+                .verify(TypeCheck.Times.times(NUMBER_OF_TIMES));
     }
 
     private Boolean validateJsonObject(Schema schema, JsonValue jsonValue) {
