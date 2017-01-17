@@ -18,6 +18,7 @@ import org.everit.json.schema.ArraySchema;
 import org.everit.json.schema.EnumSchema;
 import org.everit.json.schema.NumberSchema;
 import org.everit.json.schema.ObjectSchema;
+import org.everit.json.schema.ReferenceSchema;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.StringSchema;
 
@@ -54,8 +55,8 @@ public final class JsonValueGenerators {
                 return new NullJsonValueGenerator();
             case "NumberSchema":
                 return new JsonNumberGenerator((NumberSchema) schema);
-//            case "ReferenceSchema":
-//                return new XXXChangeMe((NotSchema) schema);
+            case "ReferenceSchema":
+                return new JsonReferenceGenerator((ReferenceSchema)schema);
             default:
                 throw new JsonGenerationException("Unknown schema type '" + schema.getClass().getSimpleName() + "'");
         }
