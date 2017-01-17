@@ -9,6 +9,7 @@ import uk.gov.justice.services.test.utils.core.random.Generator;
 import java.util.Random;
 import java.util.Set;
 
+import javax.json.Json;
 import javax.json.JsonString;
 import javax.json.JsonValue;
 
@@ -44,6 +45,12 @@ public class EnumJsonValueGenerator extends Generator<JsonValue> {
             return createObjectBuilder().add("tmp", (Double)value).build().getJsonNumber("tmp");
         }
 
+        if (value instanceof Boolean) {
+            if (value.equals(Boolean.TRUE)) {
+                return JsonValue.TRUE;
+            }
+            return JsonValue.FALSE;
+        }
          throw new JsonGenerationException(format("Unsupported Type: %s",value ));
 
     }

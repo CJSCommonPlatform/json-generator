@@ -24,14 +24,5 @@
     "booleanProperty": {
       "type": "boolean"
     }
-  },
-  "additionalProperties": false,
-  "required": [
-    "stringProperty",
-    "emailProperty",
-    "dateProperty",
-    "integerProperty",
-    "regExProperty",
-    "booleanProperty"
-  ]
+  }
 }

@@ -12,7 +12,7 @@ public class UriGeneratorTest {
     @Test
     public void shouldGenerateUri(){
         final String uriAddress = new UriGenerator().next();
-//        final RegexValidator regexValidator = new RegexValidator(UriGenerator.PATTERN, true);
+//        final RegexValidator regexValidator = new RegexValidator(UriGenerator.EMAIL_PATTERN_REGEX, true);
 //        assertThat(true, is(regexValidator.isValid(uriAddress)));
     }
 
