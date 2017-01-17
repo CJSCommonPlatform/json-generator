@@ -12,7 +12,7 @@ import org.junit.Test;
 public class Ipv4GeneratorTest {
 
     @Test
-    public void shouldGenerateIpv4(){
+    public void shouldGenerateIpv4() {
         final Ipv4Generator ipv4Generator = new Ipv4Generator();
         final String ipAddress = ipv4Generator.next();
         final RegexValidator regexValidator = new RegexValidator(Ipv4Generator.PATTERN, true);

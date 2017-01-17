@@ -1,18 +1,17 @@
 package uk.gov.justice.json.generator.value.string;
 
-import uk.gov.justice.services.test.utils.core.random.EmailAddressGenerator;
 import uk.gov.justice.services.test.utils.core.random.Generator;
+
+import java.util.regex.Pattern;
 
 public class EmailGenerator extends Generator<String> {
 
-    private EmailAddressGenerator emailAddressGenerator;
+    private static final String  REGEX ="[a-z]{5,25}+\\@xyz\\.com";
 
-    public EmailGenerator() {
-        emailAddressGenerator = new EmailAddressGenerator();
-    }
+    public static final Pattern EMAIL_PATTERN_REGEX = Pattern.compile(REGEX);
 
     @Override
-    public String next() {
-        return emailAddressGenerator.next();
+    public String next(){
+        return new RegexGenerator(EMAIL_PATTERN_REGEX).next();
     }
 }
