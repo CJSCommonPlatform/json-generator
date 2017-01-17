@@ -1,8 +1,5 @@
 package uk.gov.justice.json.generator.value;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
-
 import uk.gov.justice.json.generator.value.string.UriGenerator;
 
 import org.junit.Test;

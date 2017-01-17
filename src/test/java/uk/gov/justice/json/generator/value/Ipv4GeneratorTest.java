@@ -1,21 +1,23 @@
 package uk.gov.justice.json.generator.value;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.fail;
 
 import uk.gov.justice.json.generator.value.string.Ipv4Generator;
 
-import org.apache.commons.validator.routines.RegexValidator;
+import com.google.common.net.InetAddresses;
 import org.junit.Test;
 
 
 public class Ipv4GeneratorTest {
 
     @Test
-    public void shouldGenerateIpv4() {
+    public void shouldGenerateIpv4()  {
         final Ipv4Generator ipv4Generator = new Ipv4Generator();
         final String ipAddress = ipv4Generator.next();
-        final RegexValidator regexValidator = new RegexValidator(Ipv4Generator.PATTERN, true);
-        assertThat(true, is(regexValidator.isValid(ipAddress)));
+        try{
+            InetAddresses.forString(ipAddress);
+        }catch (Exception e){
+            fail();
+        }
     }
 }
