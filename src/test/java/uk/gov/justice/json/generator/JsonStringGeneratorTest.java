@@ -1,7 +1,11 @@
 package uk.gov.justice.json.generator;
 
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.isA;
+import static org.hamcrest.Matchers.lessThan;
+import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertThat;
 import static uk.gov.justice.services.test.utils.core.helper.TypeCheck.Times.times;
 import static uk.gov.justice.services.test.utils.core.helper.TypeCheck.typeCheck;
@@ -9,8 +13,10 @@ import static uk.gov.justice.services.test.utils.core.helper.TypeCheck.typeCheck
 import java.util.Optional;
 
 import javax.json.JsonString;
+import javax.json.JsonValue;
 
 import org.apache.commons.validator.routines.RegexValidator;
+import org.everit.json.schema.FormatValidator;
 import org.everit.json.schema.StringSchema;
 import org.everit.json.schema.internal.DateTimeFormatValidator;
 import org.everit.json.schema.internal.EmailFormatValidator;
@@ -26,20 +32,48 @@ public class JsonStringGeneratorTest {
 
     @Test
     public void shouldGenerateAValidJsonStringForASimpleStringSchemaProperty() {
-        final StringSchema schema = new StringSchema();
-        final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(schema);
+
+        final StringSchema stringSchema = new StringSchema().builder().build();
+        final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(stringSchema);
         final JsonString jsonString = jsonStringGenerator.next();
+
         assertThat(jsonString, isA(JsonString.class));
+    }
+
+    @Test
+    public void shouldGenerateAValidJsonStringForASimpleStringSchemaWithMinAndMaxProperty() {
+
+        final StringSchema stringSchema = new StringSchema().builder().minLength(6).maxLength(10).build();
+
+        typeCheck(new JsonStringGenerator(stringSchema), jsonValue->  ((JsonString)jsonValue).getString().length() >=6
+                && ((JsonString)jsonValue).getString().length() <10 )
+                .verify(times(NUMBER_OF_TIMES));
+    }
+
+    @Test
+    public void shouldGenerateAValidJsonStringForASimpleStringSchemaContainingSameMinAndNoMaxProperty() {
+
+        final StringSchema stringSchema = new StringSchema().builder().minLength(6).maxLength(6).build();
+
+        typeCheck(new JsonStringGenerator(stringSchema), jsonValue->  ((JsonString)jsonValue).getString().length() ==6)
+                .verify(times(NUMBER_OF_TIMES));
+    }
+
+    @Test
+    public void shouldGenerateAValidJsonStringForASimpleStringSchemaWithNoMinAndContainingMaxProperty() {
+
+        final StringSchema stringSchema = new StringSchema().builder().maxLength(7).build();
+
+        typeCheck(new JsonStringGenerator(stringSchema), jsonValue->  ((JsonString)jsonValue).getString().length() <=7)
+             .verify(times(NUMBER_OF_TIMES));
     }
 
     @Test
     public void shouldGetAValidJsonStringWithEmailForEmailSchemaProperty() throws Exception {
 
         final StringSchema stringSchema = new StringSchema().builder().formatValidator(new EmailFormatValidator()).build();
-        final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(stringSchema);
 
-        typeCheck(jsonStringGenerator, jsonString -> new EmailFormatValidator().validate(((JsonString)jsonString).getString())
-                .equals(Optional.empty()))
+        typeCheck(new JsonStringGenerator(stringSchema), jsonValue -> validate(new EmailFormatValidator(),jsonValue).equals(Optional.empty()))
                 .verify(times(NUMBER_OF_TIMES));
     }
 
@@ -107,4 +141,10 @@ public class JsonStringGeneratorTest {
                 .equals(Optional.empty()))
                 .verify(times(NUMBER_OF_TIMES));;
     }
+
+    private Optional<String> validate(FormatValidator validator,JsonValue jsonValue){
+        final String valueString = ((JsonString)jsonValue).getString();
+        return validator.validate(valueString);
+    }
+
 }

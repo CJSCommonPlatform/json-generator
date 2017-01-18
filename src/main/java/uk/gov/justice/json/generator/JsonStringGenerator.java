@@ -47,7 +47,15 @@ public class JsonStringGenerator extends Generator<JsonValue> {
         } else if (stringSchema.getPattern() != null) {
             stringGenerator = new RegexGenerator(stringSchema.getPattern());
         } else {
-            stringGenerator = new SimpleStringGenerator();
+            int min =0;
+            int max =0;
+            if (stringSchema.getMinLength()!=null) {
+                 min = stringSchema.getMinLength();
+            }
+            if (stringSchema.getMaxLength()!=null) {
+                max = stringSchema.getMaxLength();
+            }
+            stringGenerator = new SimpleStringGenerator(min, max);
         }
     }
 
