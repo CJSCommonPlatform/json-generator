@@ -14,11 +14,12 @@ public class Ipv6Generator extends Generator<String> {
     public java.lang.String next() {
         final int IPV6_BYTES = 16;
         final byte[] tmp2 = new byte[IPV6_BYTES];
+        RANDOM.nextBytes(tmp2);
         try {
             return Inet6Address.getByAddress(tmp2).getHostAddress();
         } catch (UnknownHostException e) {
             throw new IllegalArgumentException(String.format(
-                    "Host address '%s' is not a valid IPv4 address.", Arrays.toString(tmp2)), e);
+                    "Host address '%s' is not a valid IPv6 address.", Arrays.toString(tmp2)), e);
         }
     }
 }

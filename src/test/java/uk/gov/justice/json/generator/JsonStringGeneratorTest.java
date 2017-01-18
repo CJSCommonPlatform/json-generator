@@ -3,8 +3,10 @@ package uk.gov.justice.json.generator;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.isA;
 import static org.junit.Assert.assertThat;
+import static uk.gov.justice.services.test.utils.core.helper.TypeCheck.Times.times;
+import static uk.gov.justice.services.test.utils.core.helper.TypeCheck.typeCheck;
 
-import uk.gov.justice.json.generator.value.string.Ipv6Generator;
+import java.util.Optional;
 
 import javax.json.JsonString;
 
@@ -20,6 +22,8 @@ import org.junit.Test;
 
 public class JsonStringGeneratorTest {
 
+    private static final int NUMBER_OF_TIMES =1000;
+
     @Test
     public void shouldGenerateAValidJsonStringForASimpleStringSchemaProperty() {
         final StringSchema schema = new StringSchema();
@@ -33,8 +37,10 @@ public class JsonStringGeneratorTest {
 
         final StringSchema stringSchema = new StringSchema().builder().formatValidator(new EmailFormatValidator()).build();
         final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(stringSchema);
-        final JsonString jsonString = jsonStringGenerator.next();
-        assertThat(jsonString, isA(JsonString.class));
+
+        typeCheck(jsonStringGenerator, jsonString -> new EmailFormatValidator().validate(((JsonString)jsonString).getString())
+                .equals(Optional.empty()))
+                .verify(times(NUMBER_OF_TIMES));
     }
 
     @Test
@@ -42,8 +48,10 @@ public class JsonStringGeneratorTest {
 
         final StringSchema stringSchema = new StringSchema().builder().formatValidator(new DateTimeFormatValidator()).build();
         final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(stringSchema);
-        final JsonString jsonString = jsonStringGenerator.next();
-        assertThat(jsonString, isA(JsonString.class));
+
+        typeCheck(jsonStringGenerator, jsonString -> new DateTimeFormatValidator().validate(((JsonString)jsonString).getString())
+                .equals(Optional.empty()))
+                .verify(times(NUMBER_OF_TIMES));
     }
 
     @Test
@@ -52,8 +60,8 @@ public class JsonStringGeneratorTest {
         final String pattern = "$.my|regex[1].^";
         final StringSchema stringSchema = new StringSchema().builder().pattern(pattern).build();
         final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(stringSchema);
-        final JsonString jsonString = jsonStringGenerator.next();
-        assertThat(jsonString, isA(JsonString.class));
+        typeCheck(jsonStringGenerator, jsonString -> new RegexValidator(pattern).validate(jsonStringGenerator.toString())==null)
+                .verify(times(NUMBER_OF_TIMES));
     }
 
     @Test
@@ -61,8 +69,10 @@ public class JsonStringGeneratorTest {
 
         final StringSchema stringSchema = new StringSchema().builder().formatValidator(new HostnameFormatValidator()).build();
         final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(stringSchema);
-        final JsonString jsonString = jsonStringGenerator.next();
-        assertThat(jsonString, isA(JsonString.class));
+
+        typeCheck(jsonStringGenerator, jsonString -> new HostnameFormatValidator().validate(((JsonString)jsonString).getString())
+                .equals(Optional.empty()))
+                .verify(times(NUMBER_OF_TIMES));
     }
 
     @Test
@@ -70,8 +80,10 @@ public class JsonStringGeneratorTest {
 
         final StringSchema stringSchema = new StringSchema().builder().formatValidator(new URIFormatValidator()).build();
         final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(stringSchema);
-        final JsonString jsonString = jsonStringGenerator.next();
-        assertThat(jsonString, isA(JsonString.class));
+
+        typeCheck(jsonStringGenerator, jsonString -> new URIFormatValidator().validate(((JsonString)jsonString).getString())
+                .equals(Optional.empty()))
+                .verify(times(NUMBER_OF_TIMES));;
     }
 
     @Test
@@ -79,8 +91,10 @@ public class JsonStringGeneratorTest {
 
         final StringSchema stringSchema = new StringSchema().builder().formatValidator(new IPV4Validator()).build();
         final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(stringSchema);
-        final JsonString jsonString = jsonStringGenerator.next();
-        assertThat(jsonString, isA(JsonString.class));
+
+        typeCheck(jsonStringGenerator, jsonString -> new IPV4Validator().validate(((JsonString)jsonString).getString())
+                .equals(Optional.empty()))
+                .verify(times(NUMBER_OF_TIMES));;
     }
 
     @Test
@@ -88,9 +102,9 @@ public class JsonStringGeneratorTest {
 
         final StringSchema stringSchema = new StringSchema().builder().formatValidator(new IPV6Validator()).build();
         final JsonStringGenerator jsonStringGenerator = new JsonStringGenerator(stringSchema);
-        final JsonString jsonString = jsonStringGenerator.next();
-       // assertThat(true, is(new RegexValidator(Ipv6Generator.PATTERN).isValid(jsonString.toString())));
-        assertThat(jsonString, isA(JsonString.class));
-    }
 
+        typeCheck(jsonStringGenerator, jsonString -> new IPV6Validator().validate(((JsonString)jsonString).getString())
+                .equals(Optional.empty()))
+                .verify(times(NUMBER_OF_TIMES));;
+    }
 }
