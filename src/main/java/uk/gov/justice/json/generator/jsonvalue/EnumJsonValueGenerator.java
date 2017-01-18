@@ -4,16 +4,16 @@ import static java.lang.String.format;
 import static javax.json.Json.createObjectBuilder;
 
 import uk.gov.justice.json.generator.JsonGenerationException;
+import uk.gov.justice.json.generator.ValueGenerator;
 import uk.gov.justice.services.test.utils.core.random.Generator;
 
-import java.util.Random;
 import java.util.Set;
 
-import javax.json.Json;
 import javax.json.JsonString;
 import javax.json.JsonValue;
 
 import org.everit.json.schema.EnumSchema;
+import org.everit.json.schema.Schema;
 import org.json.JSONObject;
 
 public class EnumJsonValueGenerator extends Generator<JsonValue> {
@@ -56,11 +56,8 @@ public class EnumJsonValueGenerator extends Generator<JsonValue> {
     }
 
     private Object randomlyGet(Set<Object> possibleValues) {
-        final int size = possibleValues.size();
-        Random random = new Random();
-        final int value =random.nextInt(size-1 - 0 + 1) + 0 ;
-        final Object[] possibleValuesList = possibleValues.toArray();
-        return possibleValuesList[value];
+        final Generator<Schema> generator = new ValueGenerator(possibleValues);
+        return generator.next();
     }
 
     private JsonString constructJsonString(final String string) {

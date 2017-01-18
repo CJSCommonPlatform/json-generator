@@ -1,0 +1,4 @@
+{
+  "not":
+    { "type": "number", "minimum": 0 }
+}

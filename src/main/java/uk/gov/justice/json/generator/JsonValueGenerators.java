@@ -15,7 +15,9 @@ import javax.json.JsonString;
 import javax.json.JsonValue;
 
 import org.everit.json.schema.ArraySchema;
+import org.everit.json.schema.CombinedSchema;
 import org.everit.json.schema.EnumSchema;
+import org.everit.json.schema.NotSchema;
 import org.everit.json.schema.NumberSchema;
 import org.everit.json.schema.ObjectSchema;
 import org.everit.json.schema.ReferenceSchema;
@@ -39,8 +41,8 @@ public final class JsonValueGenerators {
                 return new JsonArrayGenerator((ArraySchema) schema);
             case "BooleanSchema":
                 return new BooleanJsonValueGenerator();
-//            case "CombinedSchema":
-//                return new CombinedJsonValueGenerator();
+            case "CombinedSchema":
+                return new JsonCombinedSchemaGenerator((CombinedSchema) schema);
             case "EmptySchema":
                 return new AnyJsonValueGenerator();
             case "EnumSchema":
@@ -49,8 +51,8 @@ public final class JsonValueGenerators {
                 return new JsonObjectGenerator((ObjectSchema) schema);
             case "StringSchema":
                 return new JsonStringGenerator((StringSchema) schema);
-//            case "NotSchema":
-//                return new NotJsonValueGenerator((NotSchema) schema);
+            case "NotSchema":
+                return new JsonNotSchemaGenerator((NotSchema) schema);
             case "NullSchema":
                 return new NullJsonValueGenerator();
             case "NumberSchema":
