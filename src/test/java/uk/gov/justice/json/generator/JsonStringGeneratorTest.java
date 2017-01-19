@@ -1,11 +1,6 @@
 package uk.gov.justice.json.generator;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.greaterThanOrEqualTo;
 import static org.hamcrest.Matchers.isA;
-import static org.hamcrest.Matchers.lessThan;
-import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.junit.Assert.assertThat;
 import static uk.gov.justice.services.test.utils.core.helper.TypeCheck.Times.times;
 import static uk.gov.justice.services.test.utils.core.helper.TypeCheck.typeCheck;
@@ -146,5 +141,4 @@ public class JsonStringGeneratorTest {
         final String valueString = ((JsonString)jsonValue).getString();
         return validator.validate(valueString);
     }
-
 }

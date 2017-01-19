@@ -2,7 +2,6 @@ package uk.gov.justice.json;
 
 import javax.inject.Inject;
 
-
 import org.everit.json.schema.ArraySchema;
 import org.everit.json.schema.Schema;
 import org.everit.json.schema.loader.SchemaLoader;

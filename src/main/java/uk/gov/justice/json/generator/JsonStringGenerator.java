@@ -47,8 +47,7 @@ public class JsonStringGenerator extends Generator<JsonValue> {
         } else if (stringSchema.getPattern() != null) {
             stringGenerator = new RegexGenerator(stringSchema.getPattern());
         } else {
-            int min =0;
-            int max =0;
+            int min=0,max =0;
             if (stringSchema.getMinLength()!=null) {
                  min = stringSchema.getMinLength();
             }

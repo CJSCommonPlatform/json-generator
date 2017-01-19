@@ -1,9 +1,7 @@
 package uk.gov.justice.json.generator.value;
 
 import static org.hamcrest.CoreMatchers.isA;
-import static org.hamcrest.Matchers.greaterThan;
 import static org.hamcrest.Matchers.greaterThanOrEqualTo;
-import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import uk.gov.justice.json.generator.value.string.SimpleStringGenerator;
