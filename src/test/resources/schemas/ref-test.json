@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+    "uuid": {
+      "$ref": "#/definitions/uuid"
+    },
+    "numberDefinition": {
+      "$ref": "#/definitions/numberDefinition"
+    },
+  "arrayDefinition": {
+    "$ref": "#/definitions/numberDefinition"
+  },
+  "booleanDefinition": {
+    "$ref": "#/definitions/numberDefinition"
+  },
+  "enumDefinition": {
+    "$ref": "#/definitions/numberDefinition"
+  },
+  "definitions": {
+    "uuid": {
+      "type": "string",
+      "pattern": "[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}"
+    },
+    "numberDefinition": {
+      "type": "number"
+    },
+    "arrayDefinition": {
+      "type": "integer"
+    },
+    "booleanDefinition": {
+      "type": "boolean"
+    },
+    "enumDefinition": {
+      "enum" : [
+        "amber",
+        "green"
+      ]
+    }
+  }
+}

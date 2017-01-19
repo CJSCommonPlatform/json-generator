@@ -1,0 +1,6 @@
+{
+  "oneOf": [
+    { "type": "string", "maxLength": 500 },
+    { "type": "number", "minimum": 0 }
+  ]
+}
