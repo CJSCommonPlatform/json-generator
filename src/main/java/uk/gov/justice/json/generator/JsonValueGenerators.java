@@ -38,7 +38,7 @@ public final class JsonValueGenerators {
     public static Generator<? extends JsonValue> generatorFor(final Schema schema) {
         switch (schema.getClass().getSimpleName()) {
             case "ArraySchema":
-                return new JsonArrayGenerator((ArraySchema) schema);
+                return JsonArrayGenerator.fromSchema((ArraySchema) schema);
             case "BooleanSchema":
                 return new BooleanJsonValueGenerator();
             case "CombinedSchema":

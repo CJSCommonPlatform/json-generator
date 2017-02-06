@@ -24,7 +24,7 @@ public class JsonArrayGeneratorTest {
     @Test
     public void shouldGenerateUnspecifiedArrays() {
         final ArraySchema schema = JsonSchemaLoader.loadArraySchema("src/test/resources/schemas/array/unspecified-schema.json");
-        final JsonArrayGenerator generator = new JsonArrayGenerator(schema);
+        final JsonArrayGenerator generator = JsonArrayGenerator.fromSchema(schema);
 
         typeCheck(generator, array -> true)
                 .verify(times(NUMBER_OF_TIMES));
@@ -33,7 +33,7 @@ public class JsonArrayGeneratorTest {
     @Test
     public void shouldGenerateStringsArrays() {
         final ArraySchema schema = JsonSchemaLoader.loadArraySchema("src/test/resources/schemas/array/strings-schema.json");
-        final JsonArrayGenerator generator = new JsonArrayGenerator(schema);
+        final JsonArrayGenerator generator = JsonArrayGenerator.fromSchema(schema);
 
         typeCheck(generator, array -> {
             for(JsonValue value : array.getValuesAs(JsonValue.class)) {
@@ -48,7 +48,7 @@ public class JsonArrayGeneratorTest {
     @Test
     public void shouldGenerateTupleArrays() {
         final ArraySchema schema = JsonSchemaLoader.loadArraySchema("src/test/resources/schemas/array/tuple-schema.json");
-        final JsonArrayGenerator generator = new JsonArrayGenerator(schema);
+        final JsonArrayGenerator generator = JsonArrayGenerator.fromSchema(schema);
 
         typeCheck(generator, array -> {
             if (array.size() > 0 && !NUMBER.equals(array.get(0).getValueType())) {
@@ -64,7 +64,7 @@ public class JsonArrayGeneratorTest {
     @Test
     public void shouldGenerateTupleArraysWithAdditionalItems() {
         final ArraySchema schema = JsonSchemaLoader.loadArraySchema("src/test/resources/schemas/array/tuple-with-additional-items-schema.json");
-        final JsonArrayGenerator generator = new JsonArrayGenerator(schema);
+        final JsonArrayGenerator generator = JsonArrayGenerator.fromSchema(schema);
 
         typeCheck(generator, array -> {
             if (array.size() > 0 && !STRING.equals(array.get(0).getValueType())) {
@@ -82,7 +82,7 @@ public class JsonArrayGeneratorTest {
     @Test
     public void shouldGenerateBoundedTupleArraysWithAdditionalItems() {
         final ArraySchema schema = JsonSchemaLoader.loadArraySchema("src/test/resources/schemas/array/tuple-with-additional-items-schema.json");
-        final JsonArrayGenerator generator = new JsonArrayGenerator(schema);
+        final JsonArrayGenerator generator = JsonArrayGenerator.fromSchema(schema);
 
         typeCheck(generator, array -> array.size() <= 7)
                 .verify(times(NUMBER_OF_TIMES));
@@ -91,7 +91,7 @@ public class JsonArrayGeneratorTest {
     @Test
     public void shouldGenerateUnboundedArrays() {
         final ArraySchema schema = JsonSchemaLoader.loadArraySchema("src/test/resources/schemas/array/strings-schema.json");
-        final JsonArrayGenerator generator = new JsonArrayGenerator(schema);
+        final JsonArrayGenerator generator = JsonArrayGenerator.fromSchema(schema);
 
         typeCheck(generator, array -> array.size() >= DEFAULT_MIN_ITEMS && array.size() <= DEFAULT_MAX_ITEMS)
                 .verify(times(NUMBER_OF_TIMES));
@@ -100,7 +100,7 @@ public class JsonArrayGeneratorTest {
     @Test
     public void shouldGenerateBoundedArrays() {
         final ArraySchema schema = JsonSchemaLoader.loadArraySchema("src/test/resources/schemas/array/bounded-strings-schema.json");
-        final JsonArrayGenerator generator = new JsonArrayGenerator(schema);
+        final JsonArrayGenerator generator = JsonArrayGenerator.fromSchema(schema);
 
         typeCheck(generator, array -> array.size() >= 3 && array.size() <= 7)
                 .verify(times(NUMBER_OF_TIMES));
