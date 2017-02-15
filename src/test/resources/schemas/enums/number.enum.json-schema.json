@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "number",
+  "enum": [
+    1.0662,
+    20000000,
+    0.124
+  ]
+}

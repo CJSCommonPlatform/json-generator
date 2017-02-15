@@ -10,11 +10,14 @@
         <artifactId>maven-parent-pom</artifactId>
         <version>1.2.0</version>
     </parent>
+
     <artifactId>json-generator</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <properties>
-        <common-bom.version>1.3.0</common-bom.version>
+        <common-bom.version>1.5.1</common-bom.version>
     </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -26,6 +29,7 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -44,6 +48,7 @@
         <dependency>
             <groupId>org.everit.json</groupId>
             <artifactId>org.everit.json.schema</artifactId>
+            <version>1.4.1.MoJ.Fork</version>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -52,6 +57,10 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.json</groupId>
+            <artifactId>javax.json-api</artifactId>
         </dependency>
 
         <dependency>
@@ -84,19 +93,7 @@
         <dependency>
             <groupId>uk.gov.justice.services</groupId>
             <artifactId>test-utils-core</artifactId>
-            <version>0.36.0-SNAPSHOT</version>
+            <version>1.4.1</version>
         </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>
