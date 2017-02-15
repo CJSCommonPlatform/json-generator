@@ -1,10 +1,11 @@
 package uk.gov.justice.json.generator;
 
-import static uk.gov.justice.json.MatcherBasedTypeCheck.typeCheck;
 import static uk.gov.justice.json.generator.matcher.JsonValueSchemaMatcher.isValidForSchema;
+import static uk.gov.justice.services.test.utils.core.helper.TypeCheck.Times.times;
+import static uk.gov.justice.services.test.utils.core.helper.TypeCheck.typeCheck;
 
 import uk.gov.justice.json.JsonSchemaLoader;
-import uk.gov.justice.json.MatcherBasedTypeCheck;
+import uk.gov.justice.services.test.utils.core.helper.TypeCheck;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -23,7 +24,7 @@ public class JsonObjectGeneratorTest {
                 .loadSchema("src/test/resources/schemas/simple-property-schema.json");
         final JsonObjectGenerator jsonCombinedSchemaGenerator = new JsonObjectGenerator(schema);
         typeCheck(jsonCombinedSchemaGenerator, isValidForSchema(schema))
-                .verify(MatcherBasedTypeCheck.Times.times(NUMBER_OF_TIMES));
+                .verify(times(NUMBER_OF_TIMES));
     }
 
     @Test
@@ -32,7 +33,7 @@ public class JsonObjectGeneratorTest {
                 .loadSchema("src/test/resources/schemas/enum-property-schema.json");
         final JsonObjectGenerator jsonCombinedSchemaGenerator = new JsonObjectGenerator(schema);
         typeCheck(jsonCombinedSchemaGenerator, isValidForSchema(schema))
-                .verify(MatcherBasedTypeCheck.Times.times(NUMBER_OF_TIMES));
+                .verify(times(NUMBER_OF_TIMES));
     }
 
     @Test
@@ -41,7 +42,7 @@ public class JsonObjectGeneratorTest {
                 .loadSchema("src/test/resources/schemas/array-property-schema.json");
         final JsonObjectGenerator jsonCombinedSchemaGenerator = new JsonObjectGenerator(schema);
         typeCheck(jsonCombinedSchemaGenerator, isValidForSchema(schema))
-                .verify(MatcherBasedTypeCheck.Times.times(NUMBER_OF_TIMES));
+                .verify(times(NUMBER_OF_TIMES));
     }
 
     @Test
@@ -50,7 +51,7 @@ public class JsonObjectGeneratorTest {
                 .loadSchema("src/test/resources/schemas/anyOf-property-schema.json");
         final JsonObjectGenerator jsonCombinedSchemaGenerator = new JsonObjectGenerator(schema);
         typeCheck(jsonCombinedSchemaGenerator, isValidForSchema(schema))
-                .verify(MatcherBasedTypeCheck.Times.times(NUMBER_OF_TIMES));
+                .verify(times(NUMBER_OF_TIMES));
     }
 
     @Test
@@ -59,6 +60,6 @@ public class JsonObjectGeneratorTest {
                 .loadSchema("src/test/resources/schemas/ref.json");
         final JsonObjectGenerator jsonCombinedSchemaGenerator = new JsonObjectGenerator(schema);
         typeCheck(jsonCombinedSchemaGenerator, isValidForSchema(schema))
-                .verify(MatcherBasedTypeCheck.Times.times(NUMBER_OF_TIMES));
+                .verify(times(NUMBER_OF_TIMES));
     }
 }

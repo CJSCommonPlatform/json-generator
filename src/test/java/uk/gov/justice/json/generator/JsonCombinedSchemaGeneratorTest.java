@@ -1,14 +1,13 @@
 package uk.gov.justice.json.generator;
 
-import static uk.gov.justice.json.MatcherBasedTypeCheck.typeCheck;
 import static uk.gov.justice.json.generator.matcher.JsonValueSchemaMatcher.isValidForSchema;
+import static uk.gov.justice.services.test.utils.core.helper.TypeCheck.Times.times;
+import static uk.gov.justice.services.test.utils.core.helper.TypeCheck.typeCheck;
 
 import uk.gov.justice.json.JsonSchemaLoader;
-import uk.gov.justice.json.MatcherBasedTypeCheck;
 
 import org.everit.json.schema.CombinedSchema;
 import org.junit.Test;
-
 
 public class JsonCombinedSchemaGeneratorTest {
 
@@ -27,7 +26,7 @@ public class JsonCombinedSchemaGeneratorTest {
                 .loadSchema("src/test/resources/schemas/combined/any-of-schema.json");
         final JsonCombinedSchemaGenerator jsonCombinedSchemaGenerator = new JsonCombinedSchemaGenerator(schema);
         typeCheck(jsonCombinedSchemaGenerator, isValidForSchema(schema))
-                .verify(MatcherBasedTypeCheck.Times.times(NUMBER_OF_TIMES));
+                .verify(times(NUMBER_OF_TIMES));
 
     }
 

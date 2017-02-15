@@ -1,5 +1,6 @@
 package uk.gov.justice.json.generator;
 
+import static java.util.stream.Collectors.toMap;
 import static javax.json.Json.createObjectBuilder;
 import static uk.gov.justice.json.generator.JsonValueGenerators.generatorFor;
 
@@ -8,6 +9,7 @@ import uk.gov.justice.services.test.utils.core.random.Generator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.json.JsonObject;
@@ -19,20 +21,18 @@ import org.everit.json.schema.Schema;
 
 public class JsonObjectGenerator extends Generator<JsonValue> {
 
-    private Map<String, Generator<? extends JsonValue>> generators;
-    private Set<String> properties;
-    private Set<String> requiredProperties;
+    private final Map<String, Generator<? extends JsonValue>> generators;
+    private final Set<String> properties;
+    private final Set<String> requiredProperties;
 
     public JsonObjectGenerator(final ObjectSchema schema) {
-        properties = schema.getPropertySchemas().keySet();
+        final Map<String, Schema> propertySchemas = schema.getPropertySchemas();
+
+        properties = propertySchemas.keySet();
         requiredProperties = new HashSet<>(schema.getRequiredProperties());
 
-        generators = new HashMap<>();
-        Map<String, Schema> propertySchemas = schema.getPropertySchemas();
-
-        for(final String property : propertySchemas.keySet()) {
-            generators.put(property, generatorFor(propertySchemas.get(property)));
-        }
+        generators = propertySchemas.entrySet().stream()
+                .collect(toMap(Entry::getKey, entry -> generatorFor(entry.getValue())));
     }
 
     @Override

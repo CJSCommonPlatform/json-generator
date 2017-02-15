@@ -32,7 +32,7 @@ public class JsonNumberGenerator extends Generator<JsonValue> {
     }
 
     private Generator<Integer> integerGenerator(final NumberSchema numberSchema) {
-        IntegerGenerator.Builder builder = IntegerGenerator.builder();
+        final IntegerGenerator.Builder builder = IntegerGenerator.builder();
         if (numberSchema.getMinimum() != null) {
             builder.minimum(Optional.of(numberSchema.getMinimum().intValue()));
         }
@@ -52,7 +52,7 @@ public class JsonNumberGenerator extends Generator<JsonValue> {
     }
 
     private Generator<BigDecimal> bigDecimalGenerator(final NumberSchema numberSchema) {
-        BigDecimalGenerator.Builder builder = BigDecimalGenerator.builder();
+        final BigDecimalGenerator.Builder builder = BigDecimalGenerator.builder();
         if (numberSchema.getMinimum() != null) {
             builder.minimum(Optional.of(new BigDecimal(numberSchema.getMinimum().toString())));
         }

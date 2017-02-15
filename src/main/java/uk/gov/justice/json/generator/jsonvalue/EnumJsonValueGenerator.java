@@ -1,48 +1,50 @@
 package uk.gov.justice.json.generator.jsonvalue;
 
 import static java.lang.String.format;
-import static javax.json.Json.createObjectBuilder;
+import static uk.gov.justice.json.generator.JsonValueGenerators.buildJsonNumber;
+import static uk.gov.justice.json.generator.JsonValueGenerators.buildJsonString;
 
 import uk.gov.justice.json.generator.JsonGenerationException;
-import uk.gov.justice.json.generator.ValueGenerator;
 import uk.gov.justice.services.test.utils.core.random.Generator;
 
-import java.util.Set;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.json.JsonString;
 import javax.json.JsonValue;
 
 import org.everit.json.schema.EnumSchema;
-import org.everit.json.schema.Schema;
 import org.json.JSONObject;
 
 public class EnumJsonValueGenerator extends Generator<JsonValue> {
 
-    private final Set<Object> possibleValues;
+    private final List<Object> possibleValues;
 
-    public EnumJsonValueGenerator(EnumSchema schema) {
-        possibleValues = schema.getPossibleValues();
+    public EnumJsonValueGenerator(final EnumSchema schema) {
+        possibleValues = new ArrayList<>(schema.getPossibleValues());
     }
 
     @Override
     public JsonValue next() {
 
-        final Object value = randomlyGet(possibleValues);
+        final int index = RANDOM.nextInt(possibleValues.size());
+
+        final Object value = possibleValues.get(index);
 
         if (value.equals(JSONObject.NULL)) {
             return JsonValue.NULL;
         }
 
         if (value instanceof String) {
-            return constructJsonString((String) value);
+            return buildJsonString((String) value);
         }
 
         if (value instanceof Integer) {
-            return createObjectBuilder().add("tmp", (Integer)value).build().getJsonNumber("tmp");
+            return buildJsonNumber((Integer) value);
         }
 
         if (value instanceof Double) {
-            return createObjectBuilder().add("tmp", (Double)value).build().getJsonNumber("tmp");
+            return buildJsonNumber(BigDecimal.valueOf((Double) value));
         }
 
         if (value instanceof Boolean) {
@@ -51,16 +53,7 @@ public class EnumJsonValueGenerator extends Generator<JsonValue> {
             }
             return JsonValue.FALSE;
         }
-         throw new JsonGenerationException(format("Unsupported Type: %s",value ));
 
-    }
-
-    private Object randomlyGet(Set<Object> possibleValues) {
-        final Generator<Schema> generator = new ValueGenerator(possibleValues);
-        return generator.next();
-    }
-
-    private JsonString constructJsonString(final String string) {
-        return createObjectBuilder().add("tmp", string).build().getJsonString("tmp");
+        throw new JsonGenerationException(format("Unsupported Type: %s",value ));
     }
 }

@@ -8,14 +8,14 @@ import com.mifmif.common.regex.Generex;
 
 public class RegexGenerator extends Generator<String> {
 
-    private final Pattern pattern;
+    private final Generex generex;
 
-    public RegexGenerator(Pattern pattern) {
-        this.pattern = pattern;
+    public RegexGenerator(final Pattern pattern) {
+        generex = new Generex(pattern.toString());
     }
 
     @Override
     public String next() {
-        return new Generex(pattern.toString()).random();
+        return generex.random();
     }
 }

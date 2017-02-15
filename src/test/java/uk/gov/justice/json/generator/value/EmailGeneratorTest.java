@@ -13,7 +13,7 @@ public class EmailGeneratorTest {
     public void shouldGenerateARandomEmail() throws Exception {
         final EmailGenerator emailGenerator = new EmailGenerator();
         final String jsonEmailValue = emailGenerator.next();
-        System.out.println(jsonEmailValue);
+
         assertTrue(EmailValidator.getInstance().isValid(jsonEmailValue));
     }
 

@@ -16,7 +16,7 @@ public class BigDecimalGenerator extends Generator<BigDecimal> {
     private boolean exclusiveMaximum;
     private int scale = 1;
 
-    private BigDecimalGenerator(BigDecimalGenerator.Builder builder) {
+    private BigDecimalGenerator(final Builder builder) {
         this.multipleOf = Optional.empty();
         if (builder.minimum.isPresent()) {
             this.minimum = builder.minimum;
@@ -38,8 +38,8 @@ public class BigDecimalGenerator extends Generator<BigDecimal> {
         this.scale  = builder.scale;
     }
 
-    public static BigDecimalGenerator.Builder builder() {
-        return new BigDecimalGenerator.Builder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     @Override
@@ -80,32 +80,32 @@ public class BigDecimalGenerator extends Generator<BigDecimal> {
             return new BigDecimalGenerator(this);
         }
 
-        public BigDecimalGenerator.Builder exclusiveMaximum(boolean exclusiveMaximum) {
+        public Builder exclusiveMaximum(boolean exclusiveMaximum) {
             this.exclusiveMaximum = exclusiveMaximum;
             return this;
         }
 
-        public BigDecimalGenerator.Builder exclusiveMinimum(boolean exclusiveMinimum) {
+        public Builder exclusiveMinimum(boolean exclusiveMinimum) {
             this.exclusiveMinimum = exclusiveMinimum;
             return this;
         }
 
-        public BigDecimalGenerator.Builder maximum(Optional<BigDecimal> maximum) {
+        public Builder maximum(Optional<BigDecimal> maximum) {
             this.maximum = maximum;
             return this;
         }
 
-        public BigDecimalGenerator.Builder minimum(Optional<BigDecimal> minimum) {
+        public Builder minimum(Optional<BigDecimal> minimum) {
             this.minimum = minimum;
             return this;
         }
 
-        public BigDecimalGenerator.Builder multipleOf(Optional<BigDecimal> multipleOf) {
+        public Builder multipleOf(Optional<BigDecimal> multipleOf) {
             this.multipleOf = multipleOf;
             return this;
         }
 
-        public BigDecimalGenerator.Builder scale(int scale) {
+        public Builder scale(int scale) {
             this.scale = scale;
             return this;
         }

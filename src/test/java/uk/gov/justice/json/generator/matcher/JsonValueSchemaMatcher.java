@@ -36,7 +36,7 @@ public class JsonValueSchemaMatcher {
         };
     }
 
-    private static Boolean validateJsonObject(Schema schema, JsonValue jsonValue) {
+    private static Boolean validateJsonObject(final Schema schema, final JsonValue jsonValue) {
 
         try {
             if (jsonValue.getValueType() == JsonValue.ValueType.OBJECT) {

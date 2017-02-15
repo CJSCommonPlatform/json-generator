@@ -15,7 +15,7 @@ public class IntegerGenerator extends Generator<Integer> {
     private Optional<Integer> maximum;
     private Optional<Integer> multipleOf;
 
-    private IntegerGenerator(IntegerGenerator.Builder builder) {
+    private IntegerGenerator(final Builder builder) {
         this.minimum = java.util.Optional.of(DEFAULT_MIN);
         this.maximum = Optional.of(DEFAULT_MAX);
         this.multipleOf =Optional.empty();
@@ -38,8 +38,8 @@ public class IntegerGenerator extends Generator<Integer> {
         }
     }
 
-    public static IntegerGenerator.Builder builder() {
-        return new IntegerGenerator.Builder();
+    public static Builder builder() {
+        return new Builder();
     }
 
     public Integer next() {
@@ -66,27 +66,27 @@ public class IntegerGenerator extends Generator<Integer> {
             return new IntegerGenerator(this);
         }
 
-        public IntegerGenerator.Builder exclusiveMaximum(boolean exclusiveMaximum) {
+        public Builder exclusiveMaximum(boolean exclusiveMaximum) {
             this.exclusiveMaximum = exclusiveMaximum;
             return this;
         }
 
-        public IntegerGenerator.Builder exclusiveMinimum(boolean exclusiveMinimum) {
+        public Builder exclusiveMinimum(boolean exclusiveMinimum) {
             this.exclusiveMinimum = exclusiveMinimum;
             return this;
         }
 
-        public IntegerGenerator.Builder maximum(Optional<Integer> maximum) {
+        public Builder maximum(Optional<Integer> maximum) {
             this.maximum = maximum;
             return this;
         }
 
-        public IntegerGenerator.Builder minimum(Optional<Integer> minimum) {
+        public Builder minimum(Optional<Integer> minimum) {
             this.minimum = minimum;
             return this;
         }
 
-        public IntegerGenerator.Builder multipleOf(Optional<Integer> multipleOf) {
+        public Builder multipleOf(Optional<Integer> multipleOf) {
             this.multipleOf = multipleOf;
             return this;
         }

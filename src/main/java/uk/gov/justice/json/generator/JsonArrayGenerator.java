@@ -95,7 +95,7 @@ public class JsonArrayGenerator extends Generator<JsonArray> {
     @Override
     public JsonArray next() {
         final int numItems = ThreadLocalRandom.current().nextInt(minItems, maxItems + 1);
-        JsonArrayBuilder builder = createArrayBuilder();
+        final JsonArrayBuilder builder = createArrayBuilder();
         for (int i = 0; i < numItems; i++) {
             builder.add(value(i));
         }

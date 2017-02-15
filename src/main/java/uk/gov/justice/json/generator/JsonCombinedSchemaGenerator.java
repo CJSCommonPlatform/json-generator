@@ -1,42 +1,40 @@
 package uk.gov.justice.json.generator;
 
-import static org.everit.json.schema.CombinedSchema.*;
-import static uk.gov.justice.json.generator.JsonValueGenerators.generatorFor;
+import static java.util.stream.Collectors.toList;
+import static org.everit.json.schema.CombinedSchema.ALL_CRITERION;
+import static org.everit.json.schema.CombinedSchema.ANY_CRITERION;
+import static org.everit.json.schema.CombinedSchema.ONE_CRITERION;
 
 import uk.gov.justice.services.test.utils.core.random.Generator;
+
+import java.util.List;
 
 import javax.json.JsonValue;
 
 import org.everit.json.schema.CombinedSchema;
-import org.everit.json.schema.Schema;
 
 public class JsonCombinedSchemaGenerator extends Generator<JsonValue> {
 
-    private Generator<? extends JsonValue> generator;
+    private List<Generator<? extends JsonValue>> generators;
 
-    public JsonCombinedSchemaGenerator(CombinedSchema combinedSchema) {
+    public JsonCombinedSchemaGenerator(final CombinedSchema combinedSchema) {
 
-        if(combinedSchema.getCriterion() == ONE_CRITERION ) {
+        if (combinedSchema.getCriterion() == ONE_CRITERION) {
             throw new JsonGenerationException("oneOf combined schema type is not supported");
-        }
-
-        if(combinedSchema.getCriterion() == ALL_CRITERION ) {
+        } else if (combinedSchema.getCriterion() == ALL_CRITERION) {
             throw new JsonGenerationException("allOf combined schema type is not supported");
+        } else if (combinedSchema.getCriterion() == ANY_CRITERION) {
+            generators = combinedSchema.getSubschemas().stream()
+                    .map(JsonValueGenerators::generatorFor)
+                    .collect(toList());
+        } else {
+            throw new JsonGenerationException("Unsupported combined schema type");
         }
-
-        if(combinedSchema.getCriterion() == ANY_CRITERION ) {
-            getAnyOf(combinedSchema);
-        }
-    }
-
-    private void getAnyOf(CombinedSchema combinedSchema) {
-        final Generator<Schema> schemaGenerator =
-                new ValueGenerator(combinedSchema.getSubschemas());
-        generator = generatorFor(schemaGenerator.next());
     }
 
     @Override
     public JsonValue next() {
-        return generator.next();
+        final int index = RANDOM.nextInt(generators.size());
+        return generators.get(index).next();
     }
 }

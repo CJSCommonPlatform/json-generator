@@ -20,6 +20,7 @@ public class RegexGeneratorTest {
 
     private final RegexGenerator regexGenerator = new RegexGenerator(Pattern.compile(UUID_PATTERN));
 
+    // TODO: This test needs to assert that the generated strings match the regex. This is NOT a valid test.
     @Test
     public void shouldGenerateARandomStringFromARegularExpression() throws Exception {
 
